@@ -16,16 +16,18 @@ async function getThread(userId: string) {
 }
 
 async function saveThread(threadId: string, messages: any[]) {
+    const messageData = messages.map(message => ({
+        content: message.content,
+        userRole: message.role,
+    }));
+
     await prismadb.thread.update({
         where: { id: threadId },
         data: {
             updatedAt: new Date(),
             messages: {
                 createMany: {
-                    data: messages.map(message => ({
-                        content: message.content,
-                        userRole: message.role,
-                    })),
+                    data: messageData,
                 },
             },
         },
