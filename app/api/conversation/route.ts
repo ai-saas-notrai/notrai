@@ -1,6 +1,6 @@
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
-import { Configuration } from "openai";
+
 import axios from 'axios';
 import OpenAI from "openai";
 
@@ -8,11 +8,11 @@ import { checkSubscription } from "@/lib/subscription";
 import { incrementApiLimit, checkApiLimit } from "@/lib/api-limit";
 import { getThread, saveThread } from "@/lib/thread-manager";
 
-const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+// const configuration = new Configuration({
+//   apiKey: process.env.OPENAI_API_KEY,
+// });
 
-const openai = new OpenAI();
+const openai = new OpenAI({apiKey: process.env.OPENAI_API_KEY});
 
 export async function POST(req: Request) {
   try {
@@ -24,9 +24,9 @@ export async function POST(req: Request) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    if (!configuration.apiKey) {
-      return new NextResponse("OpenAI API Key not configured.", { status: 500 });
-    }
+    // if (!configuration.apiKey) {
+    //   return new NextResponse("OpenAI API Key not configured.", { status: 500 });
+    // }
 
     if (!message) {
       return new NextResponse("Messages are required", { status: 400 });
