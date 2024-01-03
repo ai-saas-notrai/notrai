@@ -1,13 +1,15 @@
-import Replicate from "replicate";
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
+import { Configuration, OpenAIApi } from "openai";
 
 import { incrementApiLimit, checkApiLimit } from "@/lib/api-limit";
 import { checkSubscription } from "@/lib/subscription";
 
-const replicate = new Replicate({
-  auth: process.env.REPLICATE_API_TOKEN!,
+const configuration = new Configuration({
+  apiKey: process.env.OPENAI_API_KEY,
 });
+
+const openai = new OpenAIApi(configuration);
 
 export async function POST(
   req: Request
