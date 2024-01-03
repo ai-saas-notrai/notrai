@@ -2,6 +2,7 @@ import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 import { Configuration, OpenAIApi } from "openai";
 import axios from 'axios';
+import OpenAI from "openai";
 
 import { checkSubscription } from "@/lib/subscription";
 import { incrementApiLimit, checkApiLimit } from "@/lib/api-limit";
@@ -42,12 +43,13 @@ export async function POST(req: Request) {
 
     // Create a new thread and run it in one call
     const createThreadResponse = await axios.post(`https://api.openai.com/v1/threads/runs`, {
+      
       assistant_id: ASSISTANT_ID,
       thread: userId,
-      messages: messages.map((message: { content: string }) => ({
+      messages: {
         role: "user",
-        content: message,
-      })),
+        content: messages,
+      },
     }, {
       headers: {
         'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
