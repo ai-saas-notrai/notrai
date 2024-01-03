@@ -1,6 +1,6 @@
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
-import { Configuration, OpenAIApi } from "openai";
+import { Configuration } from "openai";
 import axios from 'axios';
 import OpenAI from "openai";
 
@@ -12,7 +12,7 @@ const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-const openai = new OpenAIApi(configuration);
+const openai = new OpenAI();
 
 export async function POST(req: Request) {
   try {
@@ -42,29 +42,22 @@ export async function POST(req: Request) {
     const ASSISTANT_ID = "asst_VrmA6nyg3uzqLjetDBYr7kF1"; // Replace with your assistant's ID
 
     // Create a new thread and run it in one call
-    const createThreadResponse = await axios.post(`https://api.openai.com/v1/threads/runs`, {
-      
+    const response = await openai.beta.threads.createAndRun({
       assistant_id: ASSISTANT_ID,
-      thread: userId,
-      messages: {
-        role: "user",
-        content: message,
+      thread: {
+        messages: [
+          { role: "user", content: message },
+        ],
       },
-    }, {
-      headers: {
-        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
-        'Content-Type': 'application/json',
-        'OpenAI-Beta': 'assistants=v1'
-      }
     });
 
     if (!isPro) {
       await incrementApiLimit();
     }
 
-    return NextResponse.json(createThreadResponse.data);
+    return NextResponse.json(response.data.choices[0].message);
   } catch (error) {
-    console.error('[CONVERSATION_ERROR]', error);
+    console.log('[CONVERSATION_ERROR]', error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 };
