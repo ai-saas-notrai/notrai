@@ -3,12 +3,12 @@ import prismadb from "@/lib/prismadb";
 async function getThread(userId: string) {
     let thread = await prismadb.thread.findFirst({
         where: { userId },
-        orderBy: { lastUpdated: 'desc' },
+        orderBy: { createdAt: 'desc' },
     });
 
     if (!thread) {
         thread = await prismadb.thread.create({
-            data: { userId, lastUpdated: new Date() },
+            data: { userId, createdAt: new Date() },
         });
     }
 
