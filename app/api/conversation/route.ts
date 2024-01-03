@@ -38,13 +38,16 @@ export async function POST(req: Request) {
       return new NextResponse("Free trial has expired. Please upgrade to pro.", { status: 403 });
     }
 
-
-    const threadId = await getThread(userId);
     const ASSISTANT_ID = "asst_VrmA6nyg3uzqLjetDBYr7kF1"; // Replace with your assistant's ID
 
-    // Directly call the OpenAI API
-    const runResponse = await axios.post(`https://api.openai.com/v1/threads/${threadId}/runs`, {
+    // Create a new thread and run it in one call
+    const createThreadResponse = await axios.post(`https://api.openai.com/v1/threads`, {
       assistant_id: ASSISTANT_ID,
+      user_id: userId,
+      messages: messages.map(message => ({
+        role: "user",
+        content: message,
+      })),
     }, {
       headers: {
         'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
@@ -57,9 +60,7 @@ export async function POST(req: Request) {
       await incrementApiLimit();
     }
 
-    await saveThread(threadId, messages.concat(runResponse.data[0].content[0].text.value));
-
-    return NextResponse.json(runResponse.data);
+    return NextResponse.json(createThreadResponse.data);
   } catch (error) {
     console.error('[CONVERSATION_ERROR]', error);
     return new NextResponse("Internal Error", { status: 500 });
