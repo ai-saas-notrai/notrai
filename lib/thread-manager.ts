@@ -8,7 +8,7 @@ async function getThread(userId: string) {
 
     if (!thread) {
         thread = await prismadb.thread.create({
-            data: { userId, createdAt: new Date() },
+            data: { userId, updatedAt: new Date() },
         });
     }
 
@@ -19,7 +19,7 @@ async function saveThread(threadId: string, messages: any[]) {
     await prismadb.thread.update({
         where: { id: threadId },
         data: {
-            lastUpdated: new Date(),
+            updatedAt: new Date(),
             messages: {
                 createMany: {
                     data: messages.map(message => ({
