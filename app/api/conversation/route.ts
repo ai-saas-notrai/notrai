@@ -4,13 +4,14 @@ import { Configuration, OpenAIApi } from "openai";
 
 import { checkSubscription } from "@/lib/subscription";
 import { incrementApiLimit, checkApiLimit } from "@/lib/api-limit";
-import { getThread, saveThread } from "@/lib/thread-manager"; // Assuming these are your thread management utilities
+import { getThread, saveThread } from "@/lib/thread-manager";
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
 const openai = new OpenAIApi(configuration);
+const ASSISTANT_ID = "your-assistant-id"; // Replace with your assistant ID
 
 export async function POST(req: Request) {
   try {
@@ -37,30 +38,24 @@ export async function POST(req: Request) {
       return new NextResponse("Free trial has expired. Please upgrade to pro.", { status: 403 });
     }
 
-    // Retrieve the current thread or create a new one
     const threadId = await getThread(userId);
 
-
-    // Trigger assistant and retrieve messages
-    const run = await openai.beta.threads.runs.create({
+    await openai.beta.threads.runs.create({
       thread_id: threadId,
-      assistant_id: "asst_VrmA6nyg3uzqLjetDBYr7kF1", // Replace with your assistant ID
+      assistant_id: ASSISTANT_ID
     });
-
+    
+    // Retrieve messages after creating a run
     const responseMessages = await openai.beta.threads.messages.list({
       thread_id: threadId
     });
 
-    const response = responseMessages.data[0].content[0].text.value;
-
-    // Save the updated thread
-    await saveThread(userId, threadId, [...messages, { role: 'assistant', content: response }]);
-
+ 
     if (!isPro) {
       await incrementApiLimit();
     }
 
-    return NextResponse.json(response);
+    return NextResponse.json(responseMessages.data[0].content[0].text.value);
   } catch (error) {
     console.error('[CONVERSATION_ERROR]', error);
     return new NextResponse("Internal Error", { status: 500 });
