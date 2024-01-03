@@ -57,7 +57,7 @@ export async function POST(req: Request) {
       await incrementApiLimit();
     }
 
-    await saveThread(userId, threadId, messages.concat(runResponse.data[0].content[0].text.value));
+    await saveThread(threadId, messages.concat(runResponse.data[0].content[0].text.value));
 
     return NextResponse.json(runResponse.data);
   } catch (error) {
