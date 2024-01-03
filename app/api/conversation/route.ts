@@ -18,7 +18,7 @@ export async function POST(req: Request) {
   try {
     const { userId } = auth();
     const body = await req.json();
-    const { messages } = body;
+    const { message } = body;
 
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
@@ -28,7 +28,7 @@ export async function POST(req: Request) {
       return new NextResponse("OpenAI API Key not configured.", { status: 500 });
     }
 
-    if (!messages) {
+    if (!message) {
       return new NextResponse("Messages are required", { status: 400 });
     }
 
@@ -48,7 +48,7 @@ export async function POST(req: Request) {
       thread: userId,
       messages: {
         role: "user",
-        content: messages,
+        content: message,
       },
     }, {
       headers: {
