@@ -39,8 +39,6 @@ export async function POST(req: Request) {
     }
 
     const ASSISTANT_ID = "asst_VrmA6nyg3uzqLjetDBYr7kF1"; // Replace with your assistant's ID
-    const messages: { content: string }[] = body.messages;
-
 
     // Create a new thread and run it in one call
     const createThreadResponse = await axios.post(`https://api.openai.com/v1/threads`, {
