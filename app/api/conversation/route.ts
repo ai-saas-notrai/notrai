@@ -42,23 +42,24 @@ export async function POST(req: Request) {
     // Replace with your assistant's ID
     const ASSISTANT_ID = "asst_VrmA6nyg3uzqLjetDBYr7kF1"; 
 
-    // Create a thread
-    const response = await openai.createChatCompletion({
-      model: "gpt-4-1106-preview", // Replace with the model you're using
-      messages: messages,
+    // Create a run on the thread using the assistant
+    const run = await openai.beta.threads.runs.create({
+      thread_id: threadId,
       assistant_id: ASSISTANT_ID,
     });
 
+    // Assuming you need to retrieve messages after creating a run
+    const responseMessages = await openai.beta.threads.messages.list({
+      thread_id: threadId
+    });
 
- 
     if (!isPro) {
       await incrementApiLimit();
     }
 
-    await saveThread(userId, threadId, messages.concat(response.data.choices[0].message));
+    await saveThread(userId, threadId, messages.concat(responseMessages.data[0].content[0].text.value));
 
-
-    return NextResponse.json(response.data.choices[0].message);
+    return NextResponse.json(responseMessages.data[0].content[0].text.value);
   } catch (error) {
     console.error('[CONVERSATION_ERROR]', error);
     return new NextResponse("Internal Error", { status: 500 });
