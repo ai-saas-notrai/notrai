@@ -25,11 +25,7 @@ async function saveThread(threadId: string, messages: any[]) {
         where: { id: threadId },
         data: {
             updatedAt: new Date(),
-            messages: {
-                createMany: {
-                    data: messageData,
-                },
-            },
+            
         },
     });
 }
