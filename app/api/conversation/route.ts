@@ -1,6 +1,7 @@
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 import { Configuration, OpenAIApi } from "openai";
+import axios from 'axios';
 
 import { checkSubscription } from "@/lib/subscription";
 import { incrementApiLimit, checkApiLimit } from "@/lib/api-limit";
@@ -37,29 +38,28 @@ export async function POST(req: Request) {
       return new NextResponse("Free trial has expired. Please upgrade to pro.", { status: 403 });
     }
 
+
     const threadId = await getThread(userId);
+    const ASSISTANT_ID = "asst_VrmA6nyg3uzqLjetDBYr7kF1"; // Replace with your assistant's ID
 
-    // Replace with your assistant's ID
-    const ASSISTANT_ID = "asst_VrmA6nyg3uzqLjetDBYr7kF1"; 
-
-    // Create a run on the thread using the assistant
-    const run = await openai.beta.threads.runs.create({
-      thread_id: threadId,
+    // Directly call the OpenAI API
+    const runResponse = await axios.post(`https://api.openai.com/v1/threads/${threadId}/runs`, {
       assistant_id: ASSISTANT_ID,
-    });
-
-    // Assuming you need to retrieve messages after creating a run
-    const responseMessages = await openai.beta.threads.messages.list({
-      thread_id: threadId
+    }, {
+      headers: {
+        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+        'Content-Type': 'application/json',
+        'OpenAI-Beta': 'assistants=v1'
+      }
     });
 
     if (!isPro) {
       await incrementApiLimit();
     }
 
-    await saveThread(userId, threadId, messages.concat(responseMessages.data[0].content[0].text.value));
+    await saveThread(userId, threadId, messages.concat(runResponse.data[0].content[0].text.value));
 
-    return NextResponse.json(responseMessages.data[0].content[0].text.value);
+    return NextResponse.json(runResponse.data);
   } catch (error) {
     console.error('[CONVERSATION_ERROR]', error);
     return new NextResponse("Internal Error", { status: 500 });
