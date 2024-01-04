@@ -23,10 +23,10 @@ async function createNewThread() {
 }
 
 // Function to add a message to a thread
-async function addMessageToThread(threadId:string, userMessage:string) {
+async function addMessageToThread(threadId:string, content:string) {
   const message = await openai.beta.threads.messages.create(threadId, {
     role: "user",
-    content: userMessage,
+    content: content,
   });
   return message;
 }
@@ -39,18 +39,24 @@ async function runAssistantOnThread(threadId:string) {
   return run;
 }
 
+// Function to retrieve messages from a thread
+async function getThreadMessages(threadId: string) {
+  const messages = await openai.beta.threads.messages.list(threadId);
+  return messages;
+}
+
 // API Route Handler
 export async function POST(req: NextRequest, res: NextResponse) {
   try {
     const { userId } = auth();
     const body = await req.json();
-    const { message } = body;
+    const { content } = body;
 
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    if (!message) {
+    if (!content) {
       return new NextResponse("Message is required", { status: 400 });
     }
 
@@ -65,17 +71,19 @@ export async function POST(req: NextRequest, res: NextResponse) {
     const threadId = await createNewThread();
 
     // Add user's message to the thread
-    await addMessageToThread(threadId, message);
+    await addMessageToThread(threadId, content);
 
     // Run the assistant on the thread
     const runResponse = await runAssistantOnThread(threadId);
+
+    const messagesResponse = await getThreadMessages(threadId);
 
     if (!isPro) {
       await incrementApiLimit();
     }
 
     // Return a response using res
-    return NextResponse.json(runResponse); // Adjust according to your needs
+    return NextResponse.json(messagesResponse); // Adjust according to your needs
   } catch (error) {
     console.error('[CONVERSATION_ERROR]', error);
     return new NextResponse("Internal Error", { status: 500 });
