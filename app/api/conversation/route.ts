@@ -67,23 +67,20 @@ export async function POST(req: NextRequest, res: NextResponse) {
       return new NextResponse("Free trial has expired. Please upgrade to pro.", { status: 403 });
     }
 
-    // Create a new thread
-    const threadId = await createNewThread();
-
-    // Add user's message to the thread
-    await addMessageToThread(threadId, content);
-
-    // Run the assistant on the thread
-    await runAssistantOnThread(threadId);
-
-    const messagesResponse = await getThreadMessages(threadId);
+    // Create a thread and run it in one request
+    const response = await openai.beta.threads.createAndRun({
+      assistant_id: ASSISTANT_ID,
+      thread: {
+        messages: [{ role: "user", content: content }],
+      },
+    });
 
     if (!isPro) {
       await incrementApiLimit();
     }
 
     // Return a response using res
-    return NextResponse.json(messagesResponse); // Adjust according to your needs
+    return NextResponse.json(response); // Adjust according to your needs
   } catch (error) {
     console.error('[CONVERSATION_ERROR]', error);
     return new NextResponse("Internal Error", { status: 500 });
