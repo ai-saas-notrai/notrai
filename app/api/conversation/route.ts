@@ -22,24 +22,16 @@ async function handleMessage(threadId: string, content: string) {
 }
 
 // Function to wait for the run to complete
-async function waitForRunCompletion(threadId: string, runId: string): Promise<string> {
+async function waitForRunCompletion(threadId:string, runId:string) {
   let runStatus;
   do {
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    await new Promise(resolve => setTimeout(resolve, 2000)); // Wait for 2 seconds before checking the status again
     runStatus = await openai.beta.threads.runs.retrieve(threadId, runId);
   } while (runStatus.status !== "completed");
 
-  const messagesResponse = await openai.beta.threads.messages.list(threadId);
-  // Assuming you are interested in the first message's text content
-  const firstMessage = messagesResponse.data[0];
-  if (firstMessage && firstMessage.content && firstMessage.content.length > 0) {
-    const firstContent = firstMessage.content[0];
-    if (firstContent.type === 'text') {
-      return firstContent.text.value;
-    }
-  }
-  return "Unsupported message format"; // Fallback for unsupported formats or empty messages
+  return await openai.beta.threads.messages.list(threadId);
 }
+
 // API Route Handler
 export async function POST(req: NextRequest) {
   try {
@@ -71,7 +63,7 @@ export async function POST(req: NextRequest) {
     }
 
     const response = await waitForRunCompletion(threadId.id, run.id);
-    return NextResponse.json(response);
+    return NextResponse.json(response.content[0].text.value);
 
   } catch (error) {
     console.error('[CONVERSATION_ERROR]', error);
