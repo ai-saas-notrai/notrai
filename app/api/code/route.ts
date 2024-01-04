@@ -29,9 +29,9 @@ export async function POST(
       return new NextResponse("OpenAI API Key not configured.", { status: 500 });
     }
 
-    if (!messages) {
-      return new NextResponse("Messages are required", { status: 400 });
-    }
+    // if (!messages) {
+    //   return new NextResponse("Messages are required", { status: 400 });
+    // }
 
     const freeTrial = await checkApiLimit();
     const isPro = await checkSubscription();
