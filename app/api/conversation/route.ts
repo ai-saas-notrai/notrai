@@ -1,6 +1,6 @@
 import { auth } from "@clerk/nextjs";
-import { NextApiRequest, NextApiResponse } from 'next';
-import { NextResponse } from "next/server";
+
+import { NextResponse,NextRequest } from "next/server";
 import OpenAI from "openai";
 
 import { checkSubscription } from "@/lib/subscription";
@@ -40,10 +40,10 @@ async function runAssistantOnThread(threadId:string) {
 }
 
 // API Route Handler
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
+export async function POST(req: NextRequest, res: NextResponse) {
   try {
     const { userId } = auth();
-    const body = await req.body();
+    const body = await req.json();
     const { message } = body;
 
     if (!userId) {
@@ -75,9 +75,9 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
     }
 
     // Return a response using res
-    return res.json(runResponse); // Adjust according to your needs
+    return NextResponse.json(runResponse); // Adjust according to your needs
   } catch (error) {
     console.error('[CONVERSATION_ERROR]', error);
-    return res.status(500).json({ message: "Internal Server Error" });
+    return new NextResponse("Internal Error", { status: 500 });
   }
 }
