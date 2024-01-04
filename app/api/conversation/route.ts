@@ -10,7 +10,7 @@ const openai = new OpenAI({
 const ASSISTANT_ID = "asst_VrmA6nyg3uzqLjetDBYr7kF1"; // Existing Assistant ID
 
 // Function to add a message to a thread and run the assistant
-async function handleMessage(threadId : string, content : string) {
+async function handleMessage(threadId:string, content:string) {
   await openai.beta.threads.messages.create(threadId, {
     role: "user",
     content: content,
@@ -19,6 +19,17 @@ async function handleMessage(threadId : string, content : string) {
   return await openai.beta.threads.runs.create(threadId, {
     assistant_id: ASSISTANT_ID
   });
+}
+
+// Function to wait for the run to complete
+async function waitForRunCompletion(threadId:string, runId:string) {
+  let runStatus;
+  do {
+    await new Promise(resolve => setTimeout(resolve, 2000)); // Wait for 2 seconds before checking the status again
+    runStatus = await openai.beta.threads.runs.retrieve(threadId, runId);
+  } while (runStatus.status !== "completed");
+
+  return await openai.beta.threads.messages.list(threadId);
 }
 
 // API Route Handler
@@ -50,11 +61,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
       await incrementApiLimit();
     }
 
-    // Wait for the run to complete and retrieve messages
-    setTimeout(async () => {
-      const messages = await openai.beta.threads.messages.list(threadId.id);
-      return NextResponse.json(messages);
-    }, 10000); // Adjust the timeout as needed
+    const messages = await waitForRunCompletion(threadId.id, run.id);
+    return NextResponse.json(messages);
 
   } catch (error) {
     console.error('[CONVERSATION_ERROR]', error);
