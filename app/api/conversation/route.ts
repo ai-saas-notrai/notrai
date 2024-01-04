@@ -17,19 +17,33 @@ async function handleMessage(threadId: string, content: string) {
   });
 
   return await openai.beta.threads.runs.create(threadId, {
-    assistant_id: ASSISTANT_ID
+    assistant_id: ASSISTANT_ID,
   });
 }
 
 // Function to wait for the run to complete
-async function waitForRunCompletion(threadId:string, runId:string) {
-  let runStatus;
-  do {
-    await new Promise(resolve => setTimeout(resolve, 2000)); // Wait for 2 seconds before checking the status again
-    runStatus = await openai.beta.threads.runs.retrieve(threadId, runId);
-  } while (runStatus.status !== "completed");
+async function waitForRunCompletion(threadId: string, runId: string) {
+  let isRunCompleted = false;
 
-  return await openai.beta.threads.messages.list(threadId);
+  // Function to periodically check run status
+  async function checkRunStatus() {
+    const runStatus = await openai.beta.threads.runs.retrieve(threadId, runId);
+    if (runStatus.status === "completed") {
+      isRunCompleted = true;
+    } else if (runStatus.status === "failed") {
+      throw new Error("Run failed"); // Handle this error as needed
+    }
+  }
+
+  // Wait for run to complete or fail
+  while (!isRunCompleted) {
+    await checkRunStatus();
+    await new Promise((resolve) => setTimeout(resolve, 2000)); // Wait for 2 seconds before checking again
+  }
+
+  // Retrieve the assistant's response
+  const response = await openai.beta.threads.messages.list(threadId);
+  return response;
 }
 
 // API Route Handler
@@ -43,8 +57,7 @@ export async function POST(req: NextRequest) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-
-    if (!messages || typeof messages !== 'string') {
+    if (!messages || typeof messages !== "string") {
       return new NextResponse("Message content must be a string");
     }
 
@@ -52,7 +65,10 @@ export async function POST(req: NextRequest) {
     const isPro = await checkSubscription();
 
     if (!freeTrial && !isPro) {
-      return new NextResponse("Free trial has expired. Please upgrade to pro.", { status: 403 });
+      return new NextResponse(
+        "Free trial has expired. Please upgrade to pro.",
+        { status: 403 }
+      );
     }
 
     const threadId = await openai.beta.threads.create();
@@ -63,10 +79,9 @@ export async function POST(req: NextRequest) {
     }
 
     const response = await waitForRunCompletion(threadId.id, run.id);
-    return NextResponse.json(response.content[0].text.value);
-
+    return new NextResponse(JSON.stringify(response.data[0].content[0].text.value), { status: 200 });
   } catch (error) {
-    console.error('[CONVERSATION_ERROR]', error);
+    console.error("[CONVERSATION_ERROR]", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }
