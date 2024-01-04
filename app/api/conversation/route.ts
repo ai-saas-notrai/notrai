@@ -34,8 +34,8 @@ async function waitForRunCompletion(threadId: string, runId: string): Promise<st
   const firstMessage = messagesResponse.data[0];
   if (firstMessage && firstMessage.content && firstMessage.content.length > 0) {
     const firstContent = firstMessage.content[0];
-    if (firstContent.role === 'assistant') {
-      return firstContent.content.text.value;
+    if (firstContent.type === 'text') {
+      return firstContent.text.value;
     }
   }
   return "Unsupported message format"; // Fallback for unsupported formats or empty messages
