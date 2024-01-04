@@ -12,15 +12,6 @@ const openai = new OpenAI({
 const ASSISTANT_ID = "asst_VrmA6nyg3uzqLjetDBYr7kF1"; // Use your existing Assistant ID
 
 // Function to create a new thread and return its ID
-async function createNewThread() {
-  try {
-    const threadResponse = await openai.beta.threads.create();
-    return threadResponse.id; // Extract the thread ID from the response
-  } catch (error) {
-    console.error('Error creating new thread:', error);
-    throw new Error('Failed to create a new thread');
-  }
-}
 
 // Function to add a message to a thread
 async function addMessageToThread(threadId:string, content:string) {
@@ -28,22 +19,16 @@ async function addMessageToThread(threadId:string, content:string) {
     role: "user",
     content: content,
   });
-  return message;
 }
 
 // Function to run the assistant on the thread
 async function runAssistantOnThread(threadId:string) {
   const run = await openai.beta.threads.runs.create(threadId, {
-    assistant_id: ASSISTANT_ID,
+    assistant_id: ASSISTANT_ID
   });
   return run;
 }
 
-// Function to retrieve messages from a thread
-async function getThreadMessages(threadId: string) {
-  const messages = await openai.beta.threads.messages.list(threadId);
-  return messages;
-}
 
 // API Route Handler
 export async function POST(req: NextRequest, res: NextResponse) {
@@ -67,20 +52,19 @@ export async function POST(req: NextRequest, res: NextResponse) {
       return new NextResponse("Free trial has expired. Please upgrade to pro.", { status: 403 });
     }
 
-    // Create a thread and run it in one request
-    const response = await openai.beta.threads.createAndRun({
-      assistant_id: ASSISTANT_ID,
-      thread: {
-        messages: [{ role: "user", content: content }],
-      },
-    });
+    const threadId = await await openai.beta.threads.create();
+    await addMessageToThread(threadId.id, content);
+    await runAssistantOnThread(threadId.id);
+    const messages = await openai.beta.threads.messages.list(
+      threadId.id
+    );
 
     if (!isPro) {
       await incrementApiLimit();
     }
 
     // Return a response using res
-    return NextResponse.json(response); // Adjust according to your needs
+    return NextResponse.json(messages); // Adjust according to your needs
   } catch (error) {
     console.error('[CONVERSATION_ERROR]', error);
     return new NextResponse("Internal Error", { status: 500 });
