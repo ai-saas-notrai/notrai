@@ -81,8 +81,12 @@ export async function POST(req: NextRequest) {
     const response = await waitForRunCompletion(threadId.id, run.id);
 
     console.log("Assistant Response:", response);
-    
-    return NextResponse.json(response.data[0].content[0]);
+
+    // Convert the response object to a JSON string
+    const responseString = JSON.stringify(response.data[0].content[0]);
+
+    // Return a NextResponse with the JSON string
+    return new NextResponse(responseString, { status: 200 });
   } catch (error) {
     console.error("[CONVERSATION_ERROR]", error);
     return new NextResponse("Internal Error", { status: 500 });
