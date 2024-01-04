@@ -1,4 +1,5 @@
 import { auth } from "@clerk/nextjs";
+import { NextApiRequest, NextApiResponse } from 'next';
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
 
@@ -22,7 +23,7 @@ async function createNewThread() {
 }
 
 // Function to add a message to a thread
-async function addMessageToThread(threadId, userMessage) {
+async function addMessageToThread(threadId:string, userMessage:string) {
   const message = await openai.beta.threads.messages.create(threadId, {
     role: "user",
     content: userMessage,
@@ -31,7 +32,7 @@ async function addMessageToThread(threadId, userMessage) {
 }
 
 // Function to run the assistant on the thread
-async function runAssistantOnThread(threadId) {
+async function runAssistantOnThread(threadId:string) {
   const run = await openai.beta.threads.runs.create(threadId, {
     assistant_id: ASSISTANT_ID,
   });
@@ -39,10 +40,10 @@ async function runAssistantOnThread(threadId) {
 }
 
 // API Route Handler
-export async function POST(req) {
+export async function POST(req: NextApiRequest, res: NextApiResponse) {
   try {
     const { userId } = auth();
-    const body = await req.json();
+    const body = await req.body();
     const { message } = body;
 
     if (!userId) {
@@ -73,9 +74,10 @@ export async function POST(req) {
       await incrementApiLimit();
     }
 
-    return NextResponse.json(runResponse);
+    // Return a response using res
+    return res.json(runResponse); // Adjust according to your needs
   } catch (error) {
     console.error('[CONVERSATION_ERROR]', error);
-    return new NextResponse("Internal Server Error", { status: 500 });
+    return res.status(500).json({ message: "Internal Server Error" });
   }
 }
