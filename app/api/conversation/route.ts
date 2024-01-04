@@ -22,14 +22,18 @@ async function handleMessage(threadId: string, content: string) {
 }
 
 // Function to wait for the run to complete
-async function waitForRunCompletion(threadId:string, runId:string) {
+async function waitForRunCompletion(threadId: string, runId: string) {
   let runStatus;
   do {
     await new Promise(resolve => setTimeout(resolve, 2000)); // Wait for 2 seconds before checking the status again
     runStatus = await openai.beta.threads.runs.retrieve(threadId, runId);
   } while (runStatus.status !== "completed");
 
-  return await openai.beta.threads.messages.list(threadId);
+  const messagesResponse = await openai.beta.threads.messages.list(threadId);
+  return messagesResponse.data.map(msg => {
+    const textContent = msg.content.find(content => content.type === 'text');
+    return textContent ? textContent.text.value : "Unsupported message format";
+  });
 }
 
 // API Route Handler
