@@ -22,20 +22,24 @@ async function handleMessage(threadId: string, content: string) {
 }
 
 // Function to wait for the run to complete
-async function waitForRunCompletion(threadId: string, runId: string) {
+async function waitForRunCompletion(threadId: string, runId: string): Promise<string> {
   let runStatus;
   do {
-    await new Promise(resolve => setTimeout(resolve, 2000)); // Wait for 2 seconds before checking the status again
+    await new Promise(resolve => setTimeout(resolve, 2000));
     runStatus = await openai.beta.threads.runs.retrieve(threadId, runId);
   } while (runStatus.status !== "completed");
 
   const messagesResponse = await openai.beta.threads.messages.list(threadId);
-  return messagesResponse.data.map(msg => {
-    const textContent = msg.content.find(content => content.type === 'text');
-    return textContent ? textContent.text.value : "Unsupported message format";
-  });
+  // Assuming you are interested in the first message's text content
+  const firstMessage = messagesResponse.data[0];
+  if (firstMessage && firstMessage.content && firstMessage.content.length > 0) {
+    const firstContent = firstMessage.content[0];
+    if (firstContent.type === 'text') {
+      return firstContent.text.value;
+    }
+  }
+  return "Unsupported message format"; // Fallback for unsupported formats or empty messages
 }
-
 // API Route Handler
 export async function POST(req: NextRequest) {
   try {
