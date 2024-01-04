@@ -9,36 +9,6 @@ const openai = new OpenAI({
 });
 const ASSISTANT_ID = "asst_VrmA6nyg3uzqLjetDBYr7kF1"; // Existing Assistant ID
 
-interface TextContent {
-  type: 'text';
-  text: {
-    value: string;
-    annotations: any[]; // Replace with specific annotation types if needed
-  };
-}
-
-interface ImageFileContent {
-  type: 'image_file';
-  image_file: {
-    file_id: string;
-  };
-}
-
-type MessageContent = TextContent | ImageFileContent;
-
-interface OpenAIMessage {
-  id: string;
-  object: string;
-  created_at: number;
-  thread_id: string;
-  role: string;
-  content: MessageContent[];
-  file_ids: string[];
-  assistant_id: string;
-  run_id: string;
-  metadata: object;
-}
-
 // Function to add a message to a thread and run the assistant
 async function handleMessage(threadId: string, content: string) {
   await openai.beta.threads.messages.create(threadId, {
@@ -60,15 +30,16 @@ async function waitForRunCompletion(threadId: string, runId: string): Promise<st
   } while (runStatus.status !== "completed");
 
   const messagesResponse = await openai.beta.threads.messages.list(threadId);
-  const assistantMessage = messagesResponse.data.find((msg: OpenAIMessage) => msg.role === 'assistant');
-
-  if (assistantMessage) {
-    const textContent = assistantMessage.content.find((content: MessageContent) => content.type === 'text') as TextContent;
-    return textContent ? textContent.text.value : "Text content not found";
+  // Assuming you are interested in the first message's text content
+  const firstMessage = messagesResponse.data[0];
+  if (firstMessage && firstMessage.content && firstMessage.content.length > 0) {
+    const firstContent = firstMessage.content[0];
+    if (firstContent.role === 'assistant') {
+      return firstContent.content.text.value;
+    }
   }
-  return "No assistant message found";
+  return "Unsupported message format"; // Fallback for unsupported formats or empty messages
 }
-
 // API Route Handler
 export async function POST(req: NextRequest) {
   try {
