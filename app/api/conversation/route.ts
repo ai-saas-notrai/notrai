@@ -43,9 +43,6 @@ export async function POST(req: NextRequest) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    if (!messages) {
-      return new NextResponse("Message is required", { status: 400 });
-    }
 
     if (!messages || typeof messages !== 'string') {
       return new NextResponse("Message content must be a string");
