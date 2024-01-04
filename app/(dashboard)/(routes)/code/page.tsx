@@ -118,7 +118,7 @@ const CodePage = () => {
           <div className="flex flex-col-reverse gap-y-4">
           {messages.map((message, index) => (
             <div 
-              key={index} // Using the index as a key
+              key={index} // Using index as a key
               className={cn(
                 "p-8 w-full flex items-start gap-x-8 rounded-lg",
                 message.role === "user" ? "bg-white border border-black/10" : "bg-muted",
@@ -135,10 +135,12 @@ const CodePage = () => {
                   <code className="bg-black/10 rounded-lg p-1" {...props} />
                 )
               }} className="text-sm overflow-hidden leading-7">
-                {message.content || ""}
+                {/* Ensuring message.content is a string */}
+                {Array.isArray(message.content) ? message.content.join("\n") : message.content || ""}
               </ReactMarkdown>
             </div>
           ))}
+
 
           </div>
         </div>
