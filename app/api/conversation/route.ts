@@ -5,12 +5,16 @@ import { checkSubscription } from "@/lib/subscription";
 import { incrementApiLimit, checkApiLimit } from "@/lib/api-limit";
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY, // Ensure your API key is configured correctly
+  apiKey: process.env.OPENAI_API_KEY,
 });
-const ASSISTANT_ID = "asst_VrmA6nyg3uzqLjetDBYr7kF1"; // Existing Assistant ID
+const ASSISTANT_ID = "asst_VrmA6nyg3uzqLjetDBYr7kF1";
 
-// Function to add a message to a thread and run the assistant
-async function handleMessage(threadId:string, content:string) {
+interface OpenAIMessage {
+  role: string;
+  content: { text: { value: string } }[];
+}
+
+async function handleMessage(threadId: string, content: string) {
   await openai.beta.threads.messages.create(threadId, {
     role: "user",
     content: content,
@@ -21,18 +25,17 @@ async function handleMessage(threadId:string, content:string) {
   });
 }
 
-// Function to wait for the run to complete
-async function waitForRunCompletion(threadId:string, runId:string) {
+async function waitForRunCompletion(threadId: string, runId: string): Promise<string[]> {
   let runStatus;
   do {
-    await new Promise(resolve => setTimeout(resolve, 2000)); // Wait for 2 seconds before checking the status again
+    await new Promise(resolve => setTimeout(resolve, 2000));
     runStatus = await openai.beta.threads.runs.retrieve(threadId, runId);
   } while (runStatus.status !== "completed");
 
-  return await openai.beta.threads.messages.list(threadId);
+  const messagesResponse = await openai.beta.threads.messages.list(threadId);
+  return messagesResponse.data.map((msg: OpenAIMessage) => msg.content[0].text.value);
 }
 
-// API Route Handler
 export async function POST(req: NextRequest) {
   try {
     const { userId } = auth();
@@ -43,8 +46,8 @@ export async function POST(req: NextRequest) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    if (!messages) {
-      return new NextResponse("Message is required", { status: 400 });
+    if (!messages || typeof messages !== 'string') {
+      return new NextResponse("Message content must be a string", { status: 400 });
     }
 
     const freeTrial = await checkApiLimit();
@@ -62,7 +65,7 @@ export async function POST(req: NextRequest) {
     }
 
     const response = await waitForRunCompletion(threadId.id, run.id);
-    return NextResponse.json(response);
+    return NextResponse.json({ messages: response });
 
   } catch (error) {
     console.error('[CONVERSATION_ERROR]', error);
