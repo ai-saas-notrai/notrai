@@ -74,7 +74,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     await addMessageToThread(threadId, content);
 
     // Run the assistant on the thread
-    const runResponse = await runAssistantOnThread(threadId);
+    await runAssistantOnThread(threadId);
 
     const messagesResponse = await getThreadMessages(threadId);
 
