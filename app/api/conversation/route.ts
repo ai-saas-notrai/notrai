@@ -1,18 +1,12 @@
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
-
 import OpenAI from "openai";
 
 import { checkSubscription } from "@/lib/subscription";
 import { incrementApiLimit, checkApiLimit } from "@/lib/api-limit";
-import { getThread, saveThread } from "@/lib/thread-manager";
-
-// const configuration = new Configuration({
-//   apiKey: process.env.OPENAI_API_KEY,
-// });
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY // This is also the default, can be omitted
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
 export async function POST(req: Request) {
@@ -26,7 +20,7 @@ export async function POST(req: Request) {
     }
 
     if (!openai.apiKey) {
-        return new NextResponse("OpenAI API Key not configured.", { status: 500 });
+      return new NextResponse("OpenAI API Key not configured.", { status: 500 });
     }
 
     if (!message) {
@@ -40,15 +34,13 @@ export async function POST(req: Request) {
       return new NextResponse("Free trial has expired. Please upgrade to pro.", { status: 403 });
     }
 
-    const ASSISTANT_ID = "asst_VrmA6nyg3uzqLjetDBYr7kF1"; // Replace with your assistant's ID
+    const ASSISTANT_ID = "asst_VrmA6nyg3uzqLjetDBYr7kF1"; // Replace with your actual assistant's ID
 
     // Create a new thread and run it in one call
     const response = await openai.beta.threads.createAndRun({
       assistant_id: ASSISTANT_ID,
       thread: {
-        messages: [
-          { role: "user", content: message },
-        ],
+        messages: [{ role: "user", content: message }],
       },
     });
 
@@ -56,6 +48,7 @@ export async function POST(req: Request) {
       await incrementApiLimit();
     }
 
+    // Adjust the response structure as per your requirement
     return NextResponse.json(response);
   } catch (error) {
     console.log('[CONVERSATION_ERROR]', error);
