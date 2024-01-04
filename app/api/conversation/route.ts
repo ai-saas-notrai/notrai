@@ -79,6 +79,9 @@ export async function POST(req: NextRequest) {
     }
 
     const response = await waitForRunCompletion(threadId.id, run.id);
+
+    console.log("Assistant Response:", response);
+    
     return NextResponse.json(response.data[0].content[0]);
   } catch (error) {
     console.error("[CONVERSATION_ERROR]", error);
