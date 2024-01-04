@@ -33,17 +33,17 @@ async function waitForRunCompletion(threadId:string, runId:string) {
 }
 
 // API Route Handler
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
   try {
     const { userId } = auth();
     const body = await req.json();
-    const { content } = body;
+    const { messages } = body;
 
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    if (!content) {
+    if (!messages) {
       return new NextResponse("Message is required", { status: 400 });
     }
 
@@ -55,14 +55,14 @@ export async function POST(req: NextRequest, res: NextResponse) {
     }
 
     const threadId = await openai.beta.threads.create();
-    const run = await handleMessage(threadId.id, content);
+    const run = await handleMessage(threadId.id, messages);
 
     if (!isPro) {
       await incrementApiLimit();
     }
 
-    const messages = await waitForRunCompletion(threadId.id, run.id);
-    return NextResponse.json(messages);
+    const response = await waitForRunCompletion(threadId.id, run.id);
+    return NextResponse.json(response);
 
   } catch (error) {
     console.error('[CONVERSATION_ERROR]', error);
