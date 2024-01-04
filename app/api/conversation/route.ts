@@ -79,7 +79,7 @@ export async function POST(req: NextRequest) {
     }
 
     const response = await waitForRunCompletion(threadId.id, run.id);
-    return new NextResponse.json(response.data[0].content[0].text.value);
+    return NextResponse.json(response.data[0].content[0].text.value);
   } catch (error) {
     console.error("[CONVERSATION_ERROR]", error);
     return new NextResponse("Internal Error", { status: 500 });
