@@ -27,7 +27,7 @@ import { formSchema } from "./constants";
 const CodePage = () => {
   const router = useRouter();
   const proModal = useProModal();
-  const [messages, setMessages] = useState<OpenAI.Chat.CreateChatCompletionRequestMessage[]>([]);
+  const [messages, setMessages] = useState<OpenAI.Chat.ChatCompletionMessageParam[]>([]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -40,7 +40,7 @@ const CodePage = () => {
   
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const userMessage: OpenAI.Chat.CreateChatCompletionRequestMessage = { role: "user", content: values.prompt };
+      const userMessage: OpenAI.Chat.ChatCompletionMessageParam = { role: "user", content: values.prompt };
       const newMessages = [...messages, userMessage];
       
       const response = await axios.post('/api/code', { messages: newMessages });
