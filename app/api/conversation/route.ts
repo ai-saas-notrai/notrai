@@ -70,15 +70,37 @@ export async function POST(req: NextRequest) {
 
     const response = await waitForRunCompletion(threadId, run.id);
 
-    // Retrieve the latest message from the assistant
-    const lastMessage = response.data[0];
-    if (!lastMessage || lastMessage.role !== "assistant") {
-      return new NextResponse("Last message not from the assistant", { status: 400 });
+    // A bunch of boring safety checks
+    const lastMessage = response.data.at(0);
+    if (lastMessage?.role !== "assistant") {
+      return new Response("Last message not from the assistant", {
+        headers: { "Content-Type": "text/plain" },
+      });
     }
 
+    const assistantMessageContent = lastMessage.content.at(0);
+    if (!assistantMessageContent) {
+      return new Response("No assistant message found", {
+        headers: { "Content-Type": "text/plain" },
+      });
+    }
+
+    if (assistantMessageContent.type !== "text") {
+      return new Response(
+        "Assistant message is not text, only text supported in this demo",
+        {
+          headers: { "Content-Type": "text/plain" },
+        }
+      );
+    }
 
     // Return the assistant's response
-    return NextResponse.json(lastMessage.text.value), { status: 200 };
+    return new Response(assistantMessageContent.text.value, {
+      headers: { "Content-Type": "text/plain" },
+    });
+
+
+
   } catch (error) {
     console.error("[CONVERSATION_ERROR]", error);
     return new NextResponse("Internal Server Error", { status: 500 });
