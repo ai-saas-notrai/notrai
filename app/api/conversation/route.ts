@@ -76,13 +76,9 @@ export async function POST(req: NextRequest) {
       return new NextResponse("Last message not from the assistant", { status: 400 });
     }
 
-    const assistantMessageContent = lastMessage.content[0];
-    if (!assistantMessageContent || typeof assistantMessageContent !== "string") {
-      return new NextResponse("No assistant message found or message format not supported", { status: 400 });
-    }
 
     // Return the assistant's response
-    return new NextResponse(JSON.stringify({ response: assistantMessageContent }), { status: 200 });
+    return new NextResponse(JSON.stringify({ response: lastMessage }), { status: 200 });
   } catch (error) {
     console.error("[CONVERSATION_ERROR]", error);
     return new NextResponse("Internal Server Error", { status: 500 });
