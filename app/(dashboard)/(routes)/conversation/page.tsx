@@ -54,7 +54,7 @@ const ConversationPage = () => {
       setMessages(current => [
         ...current, 
         userMessage, 
-        { role: "assistant", content: response.data.response }
+         response.data.response 
       ]);
 
       form.reset();
