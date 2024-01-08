@@ -82,14 +82,13 @@ export async function POST(req: NextRequest) {
 
     console.log("Assistant Response:", response);
 
-    const message = response.data
+    // Convert the response object to a JSON string
+    const responseString = JSON.stringify( response.data
       .filter((message: any) => message.run_id === run.id && message.role === "assistant")
-      .pop();
-
- 
+      .pop());
 
     // Return a NextResponse with the JSON string
-    return new NextResponse(message.content[0]["text"].value, { status: 200 });
+    return new NextResponse(responseString, { status: 200 });
   } catch (error) {
     console.error("[CONVERSATION_ERROR]", error);
     return new NextResponse("Internal Error", { status: 500 });
