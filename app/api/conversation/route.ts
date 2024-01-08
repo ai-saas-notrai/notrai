@@ -38,7 +38,7 @@ async function waitForRunCompletion(threadId: string, runId: string) {
   // Wait for run to complete or fail
   while (!isRunCompleted) {
     await checkRunStatus();
-    await new Promise((resolve) => setTimeout(resolve, 2000)); // Wait for 2 seconds before checking again
+    await new Promise((resolve) => setTimeout(resolve, 5000)); // Wait for 2 seconds before checking again
   }
 
   // Retrieve the assistant's response
