@@ -82,8 +82,12 @@ export async function POST(req: NextRequest) {
 
     console.log("Assistant Response:", response);
 
+    const message = response.data
+      .filter((message: any) => message.run_id === run.id && message.role === "assistant")
+      .pop();
+
     // Convert the response object to a JSON string
-    const responseString = JSON.stringify(response.data[0].content[0]);
+    const responseString = JSON.stringify(message.content[0]["text"].value);
 
     // Return a NextResponse with the JSON string
     return new NextResponse(responseString, { status: 200 });
