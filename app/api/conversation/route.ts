@@ -35,18 +35,7 @@ async function handleMessage(threadId: string, content: string) {
   });
 }
 
-// Define interfaces for the message structures
-interface OpenAIResponse {
-  data: OpenAIMessage[];
-}
-
-interface OpenAIMessage {
-  role: string;
-  content: string[];
-  run_id: string;
-}
-
-async function waitForRunCompletion(threadId: string, runId: string): Promise<OpenAIResponse> {
+async function waitForRunCompletion(threadId: string, runId: string) {
   while (true) {
     const runStatus = await openai.beta.threads.runs.retrieve(threadId, runId);
     if (runStatus.status === "completed") {
@@ -57,13 +46,8 @@ async function waitForRunCompletion(threadId: string, runId: string): Promise<Op
     await new Promise((resolve) => setTimeout(resolve, 2000));
   }
 
-  return await openai.beta.threads.messages.list(threadId);
-}
-
-// Function to process messages (modify as per your requirements)
-function processMessage(message: OpenAIMessage): string {
-  // Example processing - can be adjusted as needed
-  return message.content.join('\n');
+  const response = await openai.beta.threads.messages.list(threadId);
+  return response;
 }
 
 export async function POST(req: NextRequest) {
@@ -85,14 +69,20 @@ export async function POST(req: NextRequest) {
     if (!isPro) await incrementApiLimit();
 
     const response = await waitForRunCompletion(threadId, run.id);
-    const assistantMessages = response.data.filter(
-      (msg) => msg.role === "assistant" && msg.run_id === run.id
-    );
 
-    const processedMessages = assistantMessages.map(processMessage);
-    const formattedResponse = processedMessages.join("\n\n");
+    // Retrieve the latest message from the assistant
+    const lastMessage = response.data[0];
+    if (!lastMessage || lastMessage.role !== "assistant") {
+      return new NextResponse("Last message not from the assistant", { status: 400 });
+    }
 
-    return new NextResponse(JSON.stringify({ response: formattedResponse }), { status: 200 });
+    const assistantMessageContent = lastMessage.content[0];
+    if (!assistantMessageContent || typeof assistantMessageContent !== "string") {
+      return new NextResponse("No assistant message found or message format not supported", { status: 400 });
+    }
+
+    // Return the assistant's response
+    return new NextResponse(JSON.stringify({ response: assistantMessageContent }), { status: 200 });
   } catch (error) {
     console.error("[CONVERSATION_ERROR]", error);
     return new NextResponse("Internal Server Error", { status: 500 });

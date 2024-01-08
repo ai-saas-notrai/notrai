@@ -7,8 +7,6 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import OpenAI from "openai";
-import ReactMarkdown from "react-markdown";
 
 import { BotAvatar } from "@/components/bot-avatar";
 import { Heading } from "@/components/heading";
@@ -24,28 +22,41 @@ import { useProModal } from "@/hooks/use-pro-modal";
 
 import { formSchema } from "./constants";
 
+// Define a type for chat messages
+interface ChatMessage {
+  role: 'user' | 'assistant';
+  content: string;
+}
+
 const ConversationPage = () => {
   const router = useRouter();
   const proModal = useProModal();
-  const [messages, setMessages] = useState<OpenAI.Chat.CreateChatCompletionRequestMessage[]>([]);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      prompt: ""
-    }
+    defaultValues: { prompt: "" }
   });
 
   const isLoading = form.formState.isSubmitting;
-  
+
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const userMessage: OpenAI.Chat.CreateChatCompletionRequestMessage = { role: "user", content: values.prompt };
-      const newMessages = [...messages, userMessage];
-      
-      const response = await axios.post('/api/conversation', { messages: newMessages });
-      setMessages((current) => [...current, userMessage, response.data]);
-      
+      const userMessage: ChatMessage = {
+        role: "user",
+        content: values.prompt
+      };
+
+      // Send only the new user message to the API
+      const response = await axios.post('/api/conversation', { messages: userMessage.content });
+
+      // Update messages state with both user message and assistant's response
+      setMessages(current => [
+        ...current, 
+        userMessage, 
+        { role: "assistant", content: response.data.response }
+      ]);
+
       form.reset();
     } catch (error: any) {
       if (error?.response?.status === 403) {
@@ -58,7 +69,7 @@ const ConversationPage = () => {
     }
   }
 
-  return ( 
+  return (
     <div>
       <Heading
         title="Conversation"
@@ -70,20 +81,8 @@ const ConversationPage = () => {
       <div className="px-4 lg:px-8">
         <div>
           <Form {...form}>
-            <form 
-              onSubmit={form.handleSubmit(onSubmit)} 
-              className="
-                rounded-lg 
-                border 
-                w-full 
-                p-4 
-                px-3 
-                md:px-6 
-                focus-within:shadow-sm
-                grid
-                grid-cols-12
-                gap-2
-              "
+            <form onSubmit={form.handleSubmit(onSubmit)}
+              className="rounded-lg border w-full p-4 px-3 md:px-6 focus-within:shadow-sm grid grid-cols-12 gap-2"
             >
               <FormField
                 name="prompt"
@@ -92,8 +91,8 @@ const ConversationPage = () => {
                     <FormControl className="m-0 p-0">
                       <Input
                         className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
-                        disabled={isLoading} 
-                        placeholder="How do I calculate the radius of a circle?" 
+                        disabled={isLoading}
+                        placeholder="How do I calculate the radius of a circle?"
                         {...field}
                       />
                     </FormControl>
@@ -117,36 +116,19 @@ const ConversationPage = () => {
           )}
           <div className="flex flex-col-reverse gap-y-4">
             {messages.map((message, index) => (
-              <div 
-                key={index} // Using index as a key
-                className={cn(
-                  "p-8 w-full flex items-start gap-x-8 rounded-lg",
-                  message.role === "user" ? "bg-white border border-black/10" : "bg-muted",
-                )}
-              >
+              <div key={index} className={cn(
+                "p-8 w-full flex items-start gap-x-8 rounded-lg",
+                message.role === "user" ? "bg-white border border-black/10" : "bg-muted",
+              )}>
                 {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
-                <ReactMarkdown components={{
-                  pre: ({ node, ...props }) => (
-                    <div className="overflow-auto w-full my-2 bg-black/10 p-2 rounded-lg">
-                      <pre {...props} />
-                    </div>
-                  ),
-                  code: ({ node, ...props }) => (
-                    <code className="bg-black/10 rounded-lg p-1" {...props} />
-                  )
-                }} className="text-sm overflow-hidden leading-7">
-                  {/* Ensuring message.content is a string */}
-                  {Array.isArray(message.content) ? message.content.join("\n") : message.content || ""}
-                </ReactMarkdown>
+                <p className="text-sm">{message.content}</p>
               </div>
             ))}
           </div>
-
         </div>
       </div>
     </div>
-   );
+  );
 }
- 
-export default ConversationPage;
 
+export default ConversationPage;
