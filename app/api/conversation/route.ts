@@ -78,7 +78,7 @@ export async function POST(req: NextRequest) {
 
 
     // Return the assistant's response
-    return NextResponse.json(lastMessage.choices[0].message), { status: 200 };
+    return NextResponse.json(lastMessage), { status: 200 };
   } catch (error) {
     console.error("[CONVERSATION_ERROR]", error);
     return new NextResponse("Internal Server Error", { status: 500 });
