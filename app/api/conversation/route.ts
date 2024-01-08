@@ -87,10 +87,9 @@ export async function POST(req: NextRequest) {
       .pop();
 
  
-    const responseString = message.content[0]["text"].value;
 
     // Return a NextResponse with the JSON string
-    return new NextResponse(responseString, { status: 200 });
+    return new NextResponse(message.content[0]["text"].value, { status: 200 });
   } catch (error) {
     console.error("[CONVERSATION_ERROR]", error);
     return new NextResponse("Internal Error", { status: 500 });
