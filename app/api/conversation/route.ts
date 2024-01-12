@@ -31,16 +31,18 @@ async function waitForRunCompletion(threadId: string, runId: string) {
   // Function to periodically check run status
   async function checkRunStatus() {
     const runStatus = await openai.beta.threads.runs.retrieve(threadId, runId);
+    console.log(`Retrieved run status: ${runStatus.status}`);
     if (runStatus.status === "completed") {
       isRunCompleted = true;
     } else if (runStatus.status === "failed") {
       throw new Error("Run failed"); // Handle this error as needed
     }
   }
-
+  
   // Wait for run to complete or fail
   while (!isRunCompleted) {
     await checkRunStatus();
+    
     await new Promise((resolve) => setTimeout(resolve, 5000)); // Wait for 2 seconds before checking again
   }
 
@@ -86,18 +88,12 @@ export async function POST(req: NextRequest) {
 
     const response = await waitForRunCompletion(threadId, run.id);
 
-    const assistantMessages = response.data
-      .filter(message => message.role === "assistant")
-      .map(message => {
-        // Assuming each message content is a single string
-        return {
-          role: message.role,
-          content: message.content.join(' ') // Join content array into a single string if necessary
-        };
-      });
+    const assistantMessage = response.data.find(response => response.role === 'assistant');
+    
+    const assistantMessageContent = assistantMessage.content.at(0);
 
     // Return only the assistant's messages
-    return NextResponse.json({ messages: assistantMessages });
+    return NextResponse.json({ ok: true, messages: assistantMessageContent.text.value });
   } catch (error) {
     console.error("[CONVERSATION_ERROR]", error);
     return new NextResponse("Internal Error", { status: 500 });
