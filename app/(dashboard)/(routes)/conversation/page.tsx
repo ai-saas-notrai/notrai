@@ -46,17 +46,23 @@ const ConversationPage = () => {
         role: "user",
         content: values.prompt
       };
-
+  
       // Send only the new user message to the API
       const response = await axios.post('/api/conversation', { messages: userMessage.content });
-
-      // Update messages state with both user message and assistant's response
-      setMessages(current => [
-        ...current, 
-        userMessage, 
-         response.data.response 
-      ]);
-
+  
+      // Check if the response is OK and contains a message
+      if (response.data.ok && response.data.message) {
+        const assistantMessage: ChatMessage = {
+          role: "assistant",
+          content: response.data.message
+        };
+  
+        // Update messages state with both user message and assistant's response
+        setMessages(current => [...current, userMessage, assistantMessage]);
+      } else {
+        toast.error("No response from the assistant.");
+      }
+  
       form.reset();
     } catch (error: any) {
       if (error?.response?.status === 403) {
@@ -67,7 +73,8 @@ const ConversationPage = () => {
     } finally {
       router.refresh();
     }
-  }
+  };
+  
 
   return (
     <div>

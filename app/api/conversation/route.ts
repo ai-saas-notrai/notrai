@@ -26,30 +26,32 @@ async function createRunWithAssistant(threadId: string) {
 
 // Function to wait for the run to complete
 async function waitForRunCompletion(threadId: string, runId: string) {
-  let isRunCompleted = false;
-
-  // Function to periodically check run status
-  async function checkRunStatus() {
+  while (true) {
     const runStatus = await openai.beta.threads.runs.retrieve(threadId, runId);
-    console.log(`Retrieved run status: ${runStatus.status}`);
-    if (runStatus.status === "completed") {
-      isRunCompleted = true;
-    } else if (runStatus.status === "failed") {
-      throw new Error("Run failed"); // Handle this error as needed
+
+    if (runStatus.status === "completed" || runStatus.status === "failed") {
+      break;
     }
+
+    await new Promise(resolve => setTimeout(resolve, 1000));
   }
-  
-  // Wait for run to complete or fail
-  while (!isRunCompleted) {
-    await checkRunStatus();
-    
-    await new Promise((resolve) => setTimeout(resolve, 5000)); // Wait for 2 seconds before checking again
+}
+
+async function getLastAssistantMessage(threadId: string) {
+  const response = await openai.beta.threads.messages.list(threadId);
+
+  // Find the last message from the assistant
+  const lastAssistantMessage = response.data.reverse().find((message) => message.role === 'assistant');
+
+  // Check if a message was found and extract the text
+  if (lastAssistantMessage && lastAssistantMessage.content.length > 0 && lastAssistantMessage.content[0].type === 'text') {
+    return lastAssistantMessage.content[0].text.value; // Assuming the first content item is the relevant text
   }
 
-  // Retrieve the assistant's response
-  const response = await openai.beta.threads.messages.list(threadId);
-  return response;
+  return null; // No assistant message found or the format is unexpected
 }
+
+
 
 // API Route Handler
 export async function POST(req: NextRequest) {
@@ -79,27 +81,28 @@ export async function POST(req: NextRequest) {
     
     const threadResponse = await openai.beta.threads.create();
     const threadId = threadResponse.id;
+
+    // Send message and create run
     await sendMessageToThread(threadId, messages);
     const run = await createRunWithAssistant(threadId);
+
+    // Wait for the run to complete
+    await waitForRunCompletion(threadId, run.id);
 
     if (!isPro) {
       await incrementApiLimit();
     }
-
-    const response = await waitForRunCompletion(threadId, run.id);
-
-    // Safely find the first assistant message
-    const assistantMessage = response.data.find(response => response.role === 'assistant');
     
-    // Check for the existence of assistantMessage and its content
-    if (!assistantMessage || !assistantMessage.content || assistantMessage.content.length === 0) {
-      throw new Error("No assistant message found");
+    // Retrieve the messages
+    const lastAssistantMessage = await getLastAssistantMessage(threadId);
+
+    // Check if a message was retrieved and respond accordingly
+    if (lastAssistantMessage) {
+      return NextResponse.json({ ok: true, message: lastAssistantMessage });
+    } else {
+      return NextResponse.json({ ok: false, error: "No assistant message found" });
     }
 
-    const assistantMessageContent = assistantMessage.content[0];
-
-    // Return only the assistant's messages
-    return NextResponse.json({ ok: true, messages: assistantMessageContent });
   } catch (error) {
     console.error("[CONVERSATION_ERROR]", error);
     return new NextResponse("Internal Error", { status: 500 });
