@@ -80,7 +80,7 @@ export async function POST(req: NextRequest) {
     const threadResponse = await openai.beta.threads.create();
     const threadId = threadResponse.id;
     await sendMessageToThread(threadId, messages);
-    const run = await createRunWithAssistant(threadId)
+    const run = await createRunWithAssistant(threadId);
 
     if (!isPro) {
       await incrementApiLimit();
@@ -88,12 +88,18 @@ export async function POST(req: NextRequest) {
 
     const response = await waitForRunCompletion(threadId, run.id);
 
+    // Safely find the first assistant message
     const assistantMessage = response.data.find(response => response.role === 'assistant');
     
-    const assistantMessageContent = assistantMessage.content.at(0);
+    // Check for the existence of assistantMessage and its content
+    if (!assistantMessage || !assistantMessage.content || assistantMessage.content.length === 0) {
+      throw new Error("No assistant message found");
+    }
+
+    const assistantMessageContent = assistantMessage.content[0];
 
     // Return only the assistant's messages
-    return NextResponse.json({ ok: true, messages: assistantMessageContent.text.value });
+    return NextResponse.json({ ok: true, messages: assistantMessageContent });
   } catch (error) {
     console.error("[CONVERSATION_ERROR]", error);
     return new NextResponse("Internal Error", { status: 500 });
