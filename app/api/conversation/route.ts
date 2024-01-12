@@ -74,7 +74,9 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const threadId = await openai.beta.threads.create();
+    
+    const threadResponse = await openai.beta.threads.create();
+    const threadId = threadResponse.id;
     await sendMessageToThread(threadId, messages);
     const run = await createRunWithAssistant(threadId)
 
