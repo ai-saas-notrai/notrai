@@ -10,16 +10,19 @@ const openai = new OpenAI({
 const ASSISTANT_ID = "asst_VrmA6nyg3uzqLjetDBYr7kF1"; // Existing Assistant ID
 
 // Function to add a message to a thread and run the assistant
-async function handleMessage(threadId: string, content: string) {
+async function sendMessageToThread(threadId: string, content: string) {
   await openai.beta.threads.messages.create(threadId, {
     role: "user",
     content: content,
   });
+}
 
+async function createRunWithAssistant(threadId: string) {
   return await openai.beta.threads.runs.create(threadId, {
     assistant_id: ASSISTANT_ID,
   });
 }
+
 
 // Function to wait for the run to complete
 async function waitForRunCompletion(threadId: string, runId: string) {
@@ -72,7 +75,8 @@ export async function POST(req: NextRequest) {
     }
 
     const threadId = await openai.beta.threads.create();
-    const run = await handleMessage(threadId.id, messages);
+    await sendMessageToThread(threadId, messages);
+    const run = await createRunWithAssistant(threadId)
 
     if (!isPro) {
       await incrementApiLimit();
@@ -80,15 +84,18 @@ export async function POST(req: NextRequest) {
 
     const response = await waitForRunCompletion(threadId.id, run.id);
 
-    console.log("Assistant Response:", response);
+    const assistantMessages = response.data
+      .filter(message => message.role === "assistant")
+      .map(message => {
+        // Assuming each message content is a single string
+        return {
+          role: message.role,
+          content: message.content.join(' ') // Join content array into a single string if necessary
+        };
+      });
 
-    // Convert the response object to a JSON string
-    const responseString = JSON.stringify( response.data
-      .filter((message: any) => message.run_id === run.id && message.role === "assistant")
-      .pop());
-
-    // Return a NextResponse with the JSON string
-    return new NextResponse(responseString, { status: 200 });
+    // Return only the assistant's messages
+    return NextResponse.json({ messages: assistantMessages });
   } catch (error) {
     console.error("[CONVERSATION_ERROR]", error);
     return new NextResponse("Internal Error", { status: 500 });
