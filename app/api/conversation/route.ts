@@ -84,7 +84,7 @@ export async function POST(req: NextRequest) {
       await incrementApiLimit();
     }
 
-    const response = await waitForRunCompletion(threadId.id, run.id);
+    const response = await waitForRunCompletion(threadId, run.id);
 
     const assistantMessages = response.data
       .filter(message => message.role === "assistant")
