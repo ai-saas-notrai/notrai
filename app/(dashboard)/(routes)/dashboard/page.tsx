@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 import { useRouter } from "next/navigation";
+import { updateUser } from '@/lib/user-details'; // Import updateUser function
 
 export default function HomePage() {
   const [selectedState, setSelectedState] = useState('');
@@ -10,7 +11,13 @@ export default function HomePage() {
 
   const handleStateChange = (newState: string) => {
     setSelectedState(newState);
-    // Add additional logic here if needed when state changes
+    // Additional logic can be added here if needed
+  };
+
+  const handleSubmit = async () => {
+    // Replace 'exampleFileID' with the actual file ID to be associated
+    await updateUser(selectedState, 'file-LwHN5CIMlrpYRJ5iDhjg90zI');
+    // Additional actions after updating (e.g., routing, notifications)
   };
 
   const states = [
