@@ -15,10 +15,7 @@ type ResponseData = {
   updatedUserSubscription?: object; // Replace 'object' with a more specific type if available
 };
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<ResponseData>
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) {
   if (req.method === 'POST') {
     try {
       const { userId } = auth();
