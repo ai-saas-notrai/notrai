@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { updateUser } from '@/lib/user-details'; // Import updateUser function
 import { Button } from "@/components/ui/button";
 import { Icon } from '@radix-ui/react-select';
+import toast from 'react-hot-toast';
 
 export default function HomePage() {
   const [selectedState, setSelectedState] = useState('');
@@ -16,10 +17,19 @@ export default function HomePage() {
     // Additional logic can be added here if needed
   };
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleSubmit = async () => {
-    // Replace 'exampleFileID' with the actual file ID to be associated
-    await updateUser(selectedState, 'file-LwHN5CIMlrpYRJ5iDhjg90zI');
-    // Additional actions after updating (e.g., routing, notifications)
+    setIsLoading(true); // Set loading state
+
+    try {
+      await updateUser(selectedState, 'file-LwHN5CIMlrpYRJ5iDhjg90zI');
+      toast.success("State and file ID updated successfully!"); // Success notification
+    } catch (error) {
+      toast.error("Failed to update state and file ID."); // Error notification
+    } finally {
+      setIsLoading(false); // Reset loading state
+    }
   };
 
   const states = [
@@ -52,9 +62,15 @@ export default function HomePage() {
             ))}
           </SelectContent>
         </Select>
-        <Button onClick={handleSubmit} className="col-span-12 lg:col-span-2 w-full" type="submit" size="icon">
-          Update State
-        </Button>
+        <Button 
+      onClick={handleSubmit} 
+      className="col-span-12 lg:col-span-2 w-full" 
+      type="submit" 
+      size="icon"
+      disabled={isLoading} // Disable button when loading
+    >
+      {isLoading ? 'Updating...' : 'Update State'}
+    </Button>
       </div>
     </div>
   );
