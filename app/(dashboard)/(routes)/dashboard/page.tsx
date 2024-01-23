@@ -1,11 +1,8 @@
 "use client";
 
 import { useState } from 'react';
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from 'path-to-select-components';
 import { useRouter } from "next/navigation";
-
-import { Card } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
 
 export default function HomePage() {
   const [selectedState, setSelectedState] = useState('');
@@ -15,7 +12,15 @@ export default function HomePage() {
     setSelectedState(newState);
     // Add additional logic here if needed when state changes
   };
-  
+
+  const states = [
+    "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia",
+    "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland",
+    "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire",
+    "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania",
+    "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington",
+    "West Virginia", "Wisconsin", "Wyoming"
+  ];
 
   return (
     <div>
@@ -28,17 +33,14 @@ export default function HomePage() {
         </p>
       </div>
       <div className="px-4 md:px-20 lg:px-32 space-y-4">
-        {/* Dropdown Selector for State Selection */}
         <Select onValueChange={handleStateChange}>
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="Select State" />
           </SelectTrigger>
           <SelectContent>
-            {/* Replace these with actual states */}
-            <SelectItem value="state1">State 1</SelectItem>
-            <SelectItem value="state2">State 2</SelectItem>
-            <SelectItem value="state3">State 3</SelectItem>
-            {/* Add more states as needed */}
+            {states.map((state) => (
+              <SelectItem key={state} value={state}>{state}</SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>
