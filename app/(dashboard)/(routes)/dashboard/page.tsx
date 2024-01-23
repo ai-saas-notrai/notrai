@@ -1,4 +1,5 @@
 "use client";
+import axios from "axios";
 
 import { useState } from 'react';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
@@ -20,26 +21,22 @@ export default function HomePage() {
 
   const handleSubmit = async () => {
     setIsLoading(true);
-  
+
     try {
-      const response = await fetch('/api/updateUser', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ state: selectedState, fileID: 'file-LwHN5CIMlrpYRJ5iDhjg90zI' }),
+      const response = await axios.post('/api/updateUser', {
+        state: selectedState,
+        fileID: 'file-LwHN5CIMlrpYRJ5iDhjg90zI'
       });
-  
-      if (!response.ok) {
+
+      if (!response) {
         throw new Error('Network response was not ok');
       }
-  
+
       toast.success("State and file ID updated successfully!");
+      router.refresh();
     } catch (error) {
       console.error("Failed to update state and file ID:", error);
       toast.error("Failed to update state and file ID.");
-    } finally {
-      setIsLoading(false);
     }
   };
   
