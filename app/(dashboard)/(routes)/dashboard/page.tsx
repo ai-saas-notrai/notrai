@@ -12,8 +12,8 @@ export default function HomePage() {
   const handleStateChange = async (newState: string) => {
     setSelectedState(newState);
 
-    // Define fileID based on the state
-    const stateFileId = newState === 'California' ? 'file-ppyEywgi9RkKUwQDBeovTiV6' : '';
+    // Common fileID for all states
+    const commonFileId = 'file-ppyEywgi9RkKUwQDBeovTiV6';
 
     // Ensure userId is available
     if (!userId) {
@@ -22,18 +22,17 @@ export default function HomePage() {
     }
 
     try {
-      // Call the updateUser function with the new state and fileID
-      await updateUser(newState, stateFileId);
+      // Call the updateUser function with the new state and common fileID
+      await updateUser(newState, commonFileId);
 
       // Handle the updated user subscription here, if needed
-      // Assuming updateUser function handles the API call and returns the updated user record
     } catch (error) {
       console.error('Failed to update user state:', error);
     }
   };
 
-  // Only one state option for now
-  const states = ['California'];
+  // More state options
+  const states = ['California', 'Texas', 'New York', 'Florida'];
 
   return (
     <div>
