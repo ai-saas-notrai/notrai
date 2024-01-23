@@ -3,9 +3,7 @@
 import { useState } from 'react';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 import { useRouter } from "next/navigation";
-import { updateUser } from '@/lib/user-details'; // Import updateUser function
 import { Button } from "@/components/ui/button";
-import { Icon } from '@radix-ui/react-select';
 import toast from 'react-hot-toast';
 
 export default function HomePage() {
@@ -23,15 +21,27 @@ export default function HomePage() {
     setIsLoading(true);
   
     try {
-      await updateUser(selectedState, 'file-LwHN5CIMlrpYRJ5iDhjg90zI');
+      const response = await fetch('/api/updateUser', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ state: selectedState, fileID: 'file-LwHN5CIMlrpYRJ5iDhjg90zI' }),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+  
       toast.success("State and file ID updated successfully!");
     } catch (error) {
-      console.error("Failed to update state and file ID:", error); // Detailed error logging
+      console.error("Failed to update state and file ID:", error);
       toast.error("Failed to update state and file ID.");
     } finally {
       setIsLoading(false);
     }
   };
+  
   
 
   const states = [
