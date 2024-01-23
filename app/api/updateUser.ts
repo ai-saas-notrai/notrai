@@ -4,7 +4,6 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import prismadb from "@/lib/prismadb";
 import { auth } from "@clerk/nextjs";
 
-
 export default async function handler(
   req: NextApiRequest, 
   res: NextApiResponse
