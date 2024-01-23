@@ -1,15 +1,20 @@
 "use client";
 
-import { ArrowRight } from "lucide-react";
+import { useState } from 'react';
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from 'path-to-select-components';
 import { useRouter } from "next/navigation";
 
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
-import { tools } from "@/constants";
-
 export default function HomePage() {
+  const [selectedState, setSelectedState] = useState('');
   const router = useRouter();
+
+  const handleStateChange = (newState) => {
+    setSelectedState(newState);
+    // Add additional logic here if needed when state changes
+  };
 
   return (
     <div>
@@ -22,19 +27,19 @@ export default function HomePage() {
         </p>
       </div>
       <div className="px-4 md:px-20 lg:px-32 space-y-4">
-        {tools.map((tool) => (
-          <Card onClick={() => router.push(tool.href)} key={tool.href} className="p-4 border-black/5 flex items-center justify-between hover:shadow-md transition cursor-pointer">
-            <div className="flex items-center gap-x-4">
-              <div className={cn("p-2 w-fit rounded-md", tool.bgColor)}>
-                <tool.icon className={cn("w-8 h-8", tool.color)} />
-              </div>
-              <div className="font-semibold">
-                {tool.label}
-              </div>
-            </div>
-            <ArrowRight className="w-5 h-5" />
-          </Card>
-        ))}
+        {/* Dropdown Selector for State Selection */}
+        <Select onValueChange={handleStateChange}>
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Select State" />
+          </SelectTrigger>
+          <SelectContent>
+            {/* Replace these with actual states */}
+            <SelectItem value="state1">State 1</SelectItem>
+            <SelectItem value="state2">State 2</SelectItem>
+            <SelectItem value="state3">State 3</SelectItem>
+            {/* Add more states as needed */}
+          </SelectContent>
+        </Select>
       </div>
     </div>
   );
