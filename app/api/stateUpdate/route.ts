@@ -1,18 +1,32 @@
 import { auth } from "@clerk/nextjs";
 import prismadb from "@/lib/prismadb";
 
-export const updateUserSubscription = async (state: string, fileID: string) => {
+export const updateUserSubscription = async (state:string, fileID:string) => {
   const { userId } = auth();
 
   if (!userId) {
     return;
   }
 
-  await prismadb.userSubscription.update({
+  const userSubscription = await prismadb.userSubscription.findUnique({
     where: { userId: userId },
-    data: { 
-      state: state, 
-      fileID: fileID 
-    },
   });
+
+  if (userSubscription) {
+    await prismadb.userSubscription.update({
+      where: { userId: userId },
+      data: { 
+        state: state, 
+        fileID: fileID 
+      },
+    });
+  } else {
+    await prismadb.userSubscription.create({
+      data: { 
+        userId: userId, 
+        state: state, 
+        fileID: fileID 
+      },
+    });
+  }
 };
