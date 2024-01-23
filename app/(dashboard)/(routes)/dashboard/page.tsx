@@ -11,10 +11,11 @@ export default function HomePage() {
   const [selectedState, setSelectedState] = useState('');
   const router = useRouter();
 
-  const handleStateChange = (newState) => {
+  const handleStateChange = (newState: string) => {
     setSelectedState(newState);
     // Add additional logic here if needed when state changes
   };
+  
 
   return (
     <div>
