@@ -8,12 +8,12 @@ export const updateUserSubscription = async (state:string, fileID:string) => {
     return;
   }
 
-  const userSubscription = await prismadb.userSubscription.findUnique({
+  const userSubscription = await prismadb.user.findUnique({
     where: { userId: userId },
   });
 
   if (userSubscription) {
-    await prismadb.userSubscription.update({
+    await prismadb.user.update({
       where: { userId: userId },
       data: { 
         state: state, 
@@ -21,7 +21,7 @@ export const updateUserSubscription = async (state:string, fileID:string) => {
       },
     });
   } else {
-    await prismadb.userSubscription.create({
+    await prismadb.user.create({
       data: { 
         userId: userId, 
         state: state, 
