@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 import { useRouter } from "next/navigation";
 import { updateUser } from '@/lib/user-details'; // Import updateUser function
+import { Button } from "@/components/ui/button";
+import { Icon } from '@radix-ui/react-select';
 
 export default function HomePage() {
   const [selectedState, setSelectedState] = useState('');
@@ -50,9 +52,9 @@ export default function HomePage() {
             ))}
           </SelectContent>
         </Select>
-        <button onClick={handleSubmit} className="col-span-12 lg:col-span-2 w-full" type="submit">
+        <Button onClick={handleSubmit} className="col-span-12 lg:col-span-2 w-full" type="submit" size="icon">
           Update State
-        </button>
+        </Button>
       </div>
     </div>
   );
