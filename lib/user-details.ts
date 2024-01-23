@@ -34,6 +34,6 @@ export const updateUser = async (state: string, fileID: string) => {
     return { success: true, message: "User updated successfully" };
   } catch (error) {
     console.error("Error updating user:", error);
-    throw error;
+    throw error; // Propagate the error to be caught in handleSubmit
   }
 };

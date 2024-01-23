@@ -20,17 +20,19 @@ export default function HomePage() {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async () => {
-    setIsLoading(true); // Set loading state
-
+    setIsLoading(true);
+  
     try {
       await updateUser(selectedState, 'file-LwHN5CIMlrpYRJ5iDhjg90zI');
-      toast.success("State and file ID updated successfully!"); // Success notification
+      toast.success("State and file ID updated successfully!");
     } catch (error) {
-      toast.error("Failed to update state and file ID."); // Error notification
+      console.error("Failed to update state and file ID:", error); // Detailed error logging
+      toast.error("Failed to update state and file ID.");
     } finally {
-      setIsLoading(false); // Reset loading state
+      setIsLoading(false);
     }
   };
+  
 
   const states = [
     "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia",
