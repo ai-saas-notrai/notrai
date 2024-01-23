@@ -27,7 +27,7 @@ model UserSubscription {
 
 model user {
   id        String   @id @default(cuid())
-  userId    String
-  fileID                 String?
-  state                  String?
+  userId    String   @unique
+  fileID    String?
+  state     String?
 }
