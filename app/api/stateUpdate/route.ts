@@ -41,3 +41,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     res.status(405).json({ message: `Method ${req.method} Not Allowed` });
   }
 }
+
+// Add the following line at the end of the file
+export const config = {
+  api: {
+    bodyParser: true,
+  },
+};
