@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from 'path-to-select-components';
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 import { useRouter } from "next/navigation";
 
 export default function HomePage() {
