@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from 'path-to-select-components';
 import { useRouter } from "next/navigation";
+import prismadb from "@/lib/prismadb"
 
 export default function HomePage() {
   const [selectedState, setSelectedState] = useState('');
@@ -10,7 +11,27 @@ export default function HomePage() {
 
   const handleStateChange = (newState: string) => {
     setSelectedState(newState);
-    // Add additional logic here if needed when state changes
+    
+    async function updateUserState(req, res) {
+      try {
+        const { userId, stateFileId } = req.body;
+    
+        // Update the UserSubscription record with the new stateFileId
+        const updatedUserSubscription = await prismadb.userSubscription.update({
+          where: {
+            userId: userId, // assuming userId is the unique identifier
+          },
+          data: {
+            stateFileId: stateFileId,
+          },
+        });
+    
+        res.status(200).json(updatedUserSubscription);
+      } catch (error) {
+        console.error('Failed to update user state:', error);
+        res.status(500).send('Internal Server Error');
+      }
+    }
   };
 
   const states = [
