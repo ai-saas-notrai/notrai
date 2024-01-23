@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { useAuth } from "@clerk/nextjs";
+import { updateUser } from '@/lib/user-details';
 
 export default function HomePage() {
   const [selectedState, setSelectedState] = useState('');
@@ -10,7 +11,8 @@ export default function HomePage() {
 
   const handleStateChange = async (newState: string) => {
     setSelectedState(newState);
-    
+
+    // Define fileID based on the state
     const stateFileId = newState === 'California' ? 'file-ppyEywgi9RkKUwQDBeovTiV6' : '';
 
     // Ensure userId is available
@@ -20,19 +22,11 @@ export default function HomePage() {
     }
 
     try {
-      const response = await fetch('/api/stateUpdate/route', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ userId, state: newState, fileID: stateFileId }),
-      });
+      // Call the updateUser function with the new state and fileID
+      await updateUser(newState, stateFileId);
 
-      if (!response.ok) {
-        throw new Error('Failed to update user state');
-      }
-      const updatedUserSubscription = await response.json();
       // Handle the updated user subscription here, if needed
+      // Assuming updateUser function handles the API call and returns the updated user record
     } catch (error) {
       console.error('Failed to update user state:', error);
     }
