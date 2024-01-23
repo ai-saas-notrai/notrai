@@ -50,7 +50,7 @@ export default function HomePage() {
             ))}
           </SelectContent>
         </Select>
-        <button onClick={handleSubmit} className="btn-primary">
+        <button onClick={handleSubmit} className="col-span-12 lg:col-span-2 w-full" type="submit">
           Update State
         </button>
       </div>
