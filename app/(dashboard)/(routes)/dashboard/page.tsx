@@ -5,6 +5,7 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import toast from 'react-hot-toast';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default function HomePage() {
   const [selectedState, setSelectedState] = useState('');

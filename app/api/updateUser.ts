@@ -1,22 +1,27 @@
-// File: pages/api/updateUser.js
+// File: pages/api/updateUser.ts
 
-import { auth } from "@clerk/nextjs";
+import { NextApiRequest, NextApiResponse } from 'next';
 import prismadb from "@/lib/prismadb";
+import { auth } from "@clerk/nextjs";
 
-export default async function handler(req, res) {
+
+export default async function handler(
+  req: NextApiRequest, 
+  res: NextApiResponse
+) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', ['POST']);
     return res.status(405).json({ error: `Method ${req.method} Not Allowed` });
   }
 
+  const { userId } = auth();
+  const { state, fileID } = req.body;
+
+  if (!userId) {
+    return res.status(401).json({ error: "Authentication failed: No user ID" });
+  }
+
   try {
-    const { userId } = await auth.getUser(req);
-    const { state, fileID } = req.body;
-
-    if (!userId) {
-      return res.status(401).json({ error: "Authentication failed: No user ID" });
-    }
-
     const userRecord = await prismadb.user.findUnique({
       where: { userId: userId },
     });
@@ -38,3 +43,5 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "Error updating user" });
   }
 }
+
+
