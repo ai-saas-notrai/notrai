@@ -5,8 +5,8 @@ import prismadb from '@/lib/prismadb'; // Adjust the import path as needed
 
 type RequestBody = {
   userId: string;
+  fileID: string;
   state: string;
-  stateFileId: string;
 };
 
 type ResponseData = {
@@ -20,20 +20,20 @@ export default async function handler(
 ) {
   if (req.method === 'POST') {
     try {
-      const { userId, state, stateFileId } = req.body as RequestBody;
+      const { userId, fileID, state } = req.body as RequestBody;
 
-      // Update the UserSubscription record with the new state and stateFileId
+      // Update the UserSubscription record with the new fileID and state
       const updatedUserSubscription = await prismadb.userSubscription.update({
         where: {
           userId: userId,
         },
         data: {
+          fileID: fileID,
           state: state,
-          stateFileId: stateFileId,
         },
       });
 
-      res.status(200).json({ message: 'State updated successfully', updatedUserSubscription });
+      res.status(200).json({ message: 'User state updated successfully', updatedUserSubscription });
     } catch (error) {
       console.error('Failed to update user state:', error);
       res.status(500).send({ message: 'Internal Server Error' });
