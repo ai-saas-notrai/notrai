@@ -1,17 +1,17 @@
 import { updateUserInfo} from "@/lib/updateUser";
 
 
-import { NextResponse, NextRequest } from "next/server";
-export default async function handler(req:NextRequest, res:NextResponse) {
-    if (req.method === 'POST') {
-      try {
-        const { state, fileID } = req.body;
-        await updateUserInfo(state, fileID);
-        res.status(200).json({ message: 'User updated successfully' });
-      } catch (error) {
-        res.status(500).json({ message: 'Error updating user', error });
-      }
-    } else {
-      res.status(405).end(); // Method Not Allowed
+import { NextResponse } from "next/server";
+
+export async function POST(
+    req: Request
+  ) {
+    try {
+    const { state, fileID } = req.body;
+    await updateUserInfo(state, fileID);
+    NextResponse.json({ message: 'User updated successfully' });
+    } catch (error) {
+    return new NextResponse("Internal Error", { status: 500 });
     }
-  }
+    
+  };
