@@ -49,7 +49,7 @@ const ConversationPage = () => {
     };
 
     try {
-      const response = await fetch('/api/read', {
+      const response = await fetch('/api/Notrai', {
         method: "POST",
         body: JSON.stringify(prompt)
       });
