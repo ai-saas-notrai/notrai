@@ -1,4 +1,4 @@
-// File: pages/api/updateUser.ts
+// File: app/api/updateUser.ts
 
 import { NextApiRequest, NextApiResponse } from 'next';
 import prismadb from "@/lib/prismadb";

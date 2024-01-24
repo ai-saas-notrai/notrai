@@ -1,12 +1,10 @@
 "use client";
 import axios from "axios";
-
 import { useState } from 'react';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import toast from 'react-hot-toast';
-import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default function HomePage() {
   const [selectedState, setSelectedState] = useState('');
@@ -21,22 +19,18 @@ export default function HomePage() {
 
   const handleSubmit = async () => {
     setIsLoading(true);
-
     try {
       const response = await axios.post('/api/updateUser', {
         state: selectedState,
         fileID: 'file-LwHN5CIMlrpYRJ5iDhjg90zI'
       });
-
-      if (!response) {
-        throw new Error('Network response was not ok');
-      }
-
       toast.success("State and file ID updated successfully!");
       router.refresh();
     } catch (error) {
       console.error("Failed to update state and file ID:", error);
       toast.error("Failed to update state and file ID.");
+    } finally {
+      setIsLoading(false);
     }
   };
   
