@@ -1,17 +1,30 @@
-import { updateUserInfo} from "@/lib/updateUser";
-
-
+import { updateUserInfo } from "@/lib/updateUser";
 import { NextResponse } from "next/server";
 
-export async function POST(
-    req: Request
-  ) {
-    try {
-    const { state, fileID } = req.body;
+export async function POST(req: Request) {
+  try {
+    // Parsing the request body
+    const body = await req.json();
+    const { state, fileID } = body;
+
+    // Call the updateUserInfo function
     await updateUserInfo(state, fileID);
-    NextResponse.json({ message: 'User updated successfully' });
-    } catch (error) {
-    return new NextResponse("Internal Error", { status: 500 });
-    }
-    
-  };
+
+    // Return a successful response
+    return new Response(JSON.stringify({ message: 'User updated successfully' }), {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+  } catch (error) {
+    console.error(error);
+    // Return an error response
+    return new Response(JSON.stringify({ message: 'Internal Error' }), {
+      status: 500,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+  }
+}
