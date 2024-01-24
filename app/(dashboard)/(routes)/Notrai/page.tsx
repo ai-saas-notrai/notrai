@@ -51,7 +51,10 @@ const ConversationPage = () => {
     try {
       const response = await fetch('/api/Notrai', {
         method: "POST",
-        body: JSON.stringify(prompt)
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ question: prompt }) // Modify this line
       });
       const json = await response.json();
       if (json.data) {
@@ -67,7 +70,8 @@ const ConversationPage = () => {
     } catch (err) {
       toast.error("Something went wrong.");
     }
-  };
+};
+
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     sendQuery(values.prompt);
