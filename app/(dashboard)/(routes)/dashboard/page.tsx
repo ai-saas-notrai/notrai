@@ -25,12 +25,12 @@ export default function HomePage() {
         fileID: 'file-LwHN5CIMlrpYRJ5iDhjg90zI'
       });
       toast.success("State and file ID updated successfully!");
-      router.refresh();
     } catch (error) {
       console.error("Failed to update state and file ID:", error);
       toast.error("Failed to update state and file ID.");
     } finally {
       setIsLoading(false);
+      router.refresh();
     }
   };
   
