@@ -1,141 +1,57 @@
-"use client";
+import { auth } from "@clerk/nextjs";
+import { NextResponse } from "next/server";
+import OpenAI from 'openai';
 
-import * as z from "zod";
-import axios from "axios";
-import { MessageSquare } from "lucide-react";
-import { useForm } from "react-hook-form";
-import { useState } from "react";
-import { toast } from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import { checkSubscription } from "@/lib/subscription";
+import { incrementApiLimit, checkApiLimit } from "@/lib/api-limit";
 
-import { BotAvatar } from "@/components/bot-avatar";
-import { Heading } from "@/components/heading";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
-import { cn } from "@/lib/utils";
-import { Loader } from "@/components/loader";
-import { UserAvatar } from "@/components/user-avatar";
-import { Empty } from "@/components/ui/empty";
-import { useProModal } from "@/hooks/use-pro-modal";
 
-import { formSchema } from "./constants";
 
-// Define a type for chat messages
-interface ChatMessage {
-  role: 'user' | 'assistant';
-  content: string;
-}
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY // This is also the default, can be omitted
+});
 
-const ConversationPage = () => {
-  const router = useRouter();
-  const proModal = useProModal();
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: { prompt: "" }
-  });
 
-  const isLoading = form.formState.isSubmitting;
+export async function POST(
+  req: Request
+) {
+  try {
+    const { userId } = auth();
+    const body = await req.json();
+    const { messages  } = body;
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    try {
-      const userMessage: ChatMessage = {
-        role: "user",
-        content: values.prompt
-      };
-  
-      // Send only the new user message to the API
-      const response = await axios.post('/api/conversation', { messages: userMessage.content });
-  
-      // Check if the response is OK and contains a message
-      if (response.data.ok && response.data.message) {
-        const assistantMessage: ChatMessage = {
-          role: "assistant",
-          content: response.data.message
-        };
-  
-        // Update messages state with both user message and assistant's response
-        setMessages(current => [...current, userMessage, assistantMessage]);
-      } else {
-        toast.error("No response from the assistant.");
-      }
-  
-      form.reset();
-    } catch (error: any) {
-      if (error?.response?.status === 403) {
-        proModal.onOpen();
-      } else {
-        toast.error("Something went wrong.");
-      }
-    } finally {
-      router.refresh();
+    if (!userId) {
+      return new NextResponse("Unauthorized", { status: 401 });
     }
-  };
-  
 
-  return (
-    <div>
-      <Heading
-        title="Conversation"
-        description="Our most advanced conversation model."
-        icon={MessageSquare}
-        iconColor="text-violet-500"
-        bgColor="bg-violet-500/10"
-      />
-      <div className="px-4 lg:px-8">
-        <div>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)}
-              className="rounded-lg border w-full p-4 px-3 md:px-6 focus-within:shadow-sm grid grid-cols-12 gap-2"
-            >
-              <FormField
-                name="prompt"
-                render={({ field }) => (
-                  <FormItem className="col-span-12 lg:col-span-10">
-                    <FormControl className="m-0 p-0">
-                      <Input
-                        className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
-                        disabled={isLoading}
-                        placeholder="How do I calculate the radius of a circle?"
-                        {...field}
-                      />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-              <Button className="col-span-12 lg:col-span-2 w-full" type="submit" disabled={isLoading} size="icon">
-                Generate
-              </Button>
-            </form>
-          </Form>
-        </div>
-        <div className="space-y-4 mt-4">
-          {isLoading && (
-            <div className="p-8 rounded-lg w-full flex items-center justify-center bg-muted">
-              <Loader />
-            </div>
-          )}
-          {messages.length === 0 && !isLoading && (
-            <Empty label="No conversation started." />
-          )}
-          <div className="flex flex-col-reverse gap-y-4">
-            {messages.map((message, index) => (
-              <div key={index} className={cn(
-                "p-8 w-full flex items-start gap-x-8 rounded-lg",
-                message.role === "user" ? "bg-white border border-black/10" : "bg-muted",
-              )}>
-                {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
-                <p className="text-sm">{message.content}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
+    if (!openai.apiKey) {
+      return new NextResponse("OpenAI API Key not configured.", { status: 500 });
+    }
 
-export default ConversationPage;
+    if (!messages) {
+      return new NextResponse("Messages are required", { status: 400 });
+    }
+
+    const freeTrial = await checkApiLimit();
+    const isPro = await checkSubscription();
+
+    if (!freeTrial && !isPro) {
+      return new NextResponse("Free trial has expired. Please upgrade to pro.", { status: 403 });
+    }
+
+    const response = await  await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: messages
+    });
+
+    if (!isPro) {
+      await incrementApiLimit();
+    }
+
+    return NextResponse.json(response.choices[0].message);
+  } catch (error) {
+    console.log('[MUSIC_ERROR]', error);
+    return new NextResponse("Internal Error", { status: 500 });
+  }
+};
