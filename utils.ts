@@ -40,8 +40,9 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
 
     // 8. Extract and concatenate page content from matched documents
     const concatenatedPageContent = queryResponse.matches
-      .map((match) => match.metadata.pageContent)
+      .map((match) => match.metadata?.pageContent ?? "")
       .join(" ");
+
 
     // 9. Execute the chain with input documents and question
     const result = await chain.invoke({
