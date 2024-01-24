@@ -43,6 +43,7 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
       .map((match) => match.metadata?.pageContent ?? "")
       .join(" ");
 
+      console.log({concatenatedPageContent});
 
     // 9. Execute the chain with input documents and question
     const result = await chain.invoke({
@@ -51,6 +52,7 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
     });
 
     // 10. Log the answer
+    
     console.log(`Answer: ${result.text}`);
     return result.text;
   } else {
