@@ -1,57 +1,21 @@
-import { auth } from "@clerk/nextjs";
-import { NextResponse } from "next/server";
-import OpenAI from 'openai';
+import { NextRequest, NextResponse } from 'next/server'
+import { PineconeClient } from '@pinecone-database/pinecone'
+import {
+  queryPineconeVectorStoreAndQueryLLM,
+} from '../../../utils'
+import { indexName } from '../../../config'
 
-import { checkSubscription } from "@/lib/subscription";
-import { incrementApiLimit, checkApiLimit } from "@/lib/api-limit";
+export async function POST(req: NextRequest) {
+  const body = await req.json()
+  const client = new PineconeClient()
+  await client.init({
+    apiKey: process.env.PINECONE_API_KEY || '',
+    environment: process.env.PINECONE_ENVIRONMENT || ''
+  })
 
+  const text = await queryPineconeVectorStoreAndQueryLLM(client, indexName, body)
 
-
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY // This is also the default, can be omitted
-});
-
-
-
-export async function POST(
-  req: Request
-) {
-  try {
-    const { userId } = auth();
-    const body = await req.json();
-    const { messages  } = body;
-
-    if (!userId) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
-
-    if (!openai.apiKey) {
-      return new NextResponse("OpenAI API Key not configured.", { status: 500 });
-    }
-
-    if (!messages) {
-      return new NextResponse("Messages are required", { status: 400 });
-    }
-
-    const freeTrial = await checkApiLimit();
-    const isPro = await checkSubscription();
-
-    if (!freeTrial && !isPro) {
-      return new NextResponse("Free trial has expired. Please upgrade to pro.", { status: 403 });
-    }
-
-    const response = await  await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
-      messages: messages
-    });
-
-    if (!isPro) {
-      await incrementApiLimit();
-    }
-
-    return NextResponse.json(response.choices[0].message);
-  } catch (error) {
-    console.log('[NOTRAI_ERROR]', error);
-    return new NextResponse("Internal Error", { status: 500 });
-  }
-};
+  return NextResponse.json({
+    data: text
+  })
+}
