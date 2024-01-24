@@ -22,7 +22,7 @@ export const tools = [
     icon: ImageIcon,
     color: "text-pink-700",
     bgColor: "bg-pink-700/10",
-    href: '/image',
+    href: '/Notrai',
   },
   {
     label: 'Video Generation',

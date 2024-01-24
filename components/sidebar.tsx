@@ -24,12 +24,12 @@ const routes = [
     href: '/conversation',
     color: "text-violet-500",
   },
-  // {
-  //   label: 'Image Generation',
-  //   icon: ImageIcon,
-  //   color: "text-pink-700",
-  //   href: '/image',
-  // },
+   {
+     label: 'Notrai',
+     icon: MessageSquare,
+     color: "text-pink-700",
+     href: '/Notrai',
+  },
   // {
   //   label: 'Video Generation',
   //   icon: VideoIcon,

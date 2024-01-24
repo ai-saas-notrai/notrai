@@ -40,41 +40,39 @@ const ConversationPage = () => {
 
   const isLoading = form.formState.isSubmitting;
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const sendQuery = async (prompt: string) => {
+    if (!prompt) return;
+
+    const userMessage: ChatMessage = {
+      role: "user",
+      content: prompt
+    };
+
     try {
-      const userMessage: ChatMessage = {
-        role: "user",
-        content: values.prompt
-      };
-  
-      // Send only the new user message to the API
-      const response = await axios.post('/api/conversation', { messages: userMessage.content });
-  
-      // Check if the response is OK and contains a message
-      if (response.data.ok && response.data.message) {
+      const response = await fetch('/api/read', {
+        method: "POST",
+        body: JSON.stringify(prompt)
+      });
+      const json = await response.json();
+      if (json.data) {
         const assistantMessage: ChatMessage = {
           role: "assistant",
-          content: response.data.message
+          content: json.data
         };
-  
-        // Update messages state with both user message and assistant's response
+
         setMessages(current => [...current, userMessage, assistantMessage]);
       } else {
         toast.error("No response from the assistant.");
       }
-  
-      form.reset();
-    } catch (error: any) {
-      if (error?.response?.status === 403) {
-        proModal.onOpen();
-      } else {
-        toast.error("Something went wrong.");
-      }
-    } finally {
-      router.refresh();
+    } catch (err) {
+      toast.error("Something went wrong.");
     }
   };
-  
+
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    sendQuery(values.prompt);
+    form.reset();
+  };
 
   return (
     <div>

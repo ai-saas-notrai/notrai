@@ -51,7 +51,7 @@ export async function POST(
 
     return NextResponse.json(response.choices[0].message);
   } catch (error) {
-    console.log('[IMAGE_ERROR]', error);
+    console.log('[NOTRAI_ERROR]', error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 };
