@@ -2,7 +2,7 @@ import { OpenAIEmbeddings, OpenAI } from '@langchain/openai';
 import { loadQAStuffChain } from 'langchain/chains';
 import { Document } from '@langchain/core/documents';
 import { Pinecone } from '@pinecone-database/pinecone';
-import { PromptTemplate } from 'langchain/prompts';
+import { PromptTemplate } from '@langchain/core/prompts';
 import { fetchUserState } from '@/lib/fetchUserState';
 
 export const queryPineconeVectorStoreAndQueryLLM = async (
