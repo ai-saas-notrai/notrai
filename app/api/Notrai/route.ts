@@ -5,12 +5,6 @@ import { indexName } from '../../../config'
 
 export async function POST(req: NextRequest) {
   const body = await req.json()
-  
-  // Initialize Pinecone
-  const pinecone = new Pinecone({
-    apiKey: process.env.PINECONE_API_KEY || '',
-    environment: process.env.PINECONE_ENVIRONMENT || ''
-  });
 
   // Call the updated query function with the correct parameters
   const apiKey = process.env.PINECONE_API_KEY || '';
