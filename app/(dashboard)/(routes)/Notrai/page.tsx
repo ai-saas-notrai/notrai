@@ -74,8 +74,18 @@ const ConversationPage = () => {
 
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    sendQuery(values.prompt);
-    form.reset();
+    try {
+      sendQuery(values.prompt);
+      form.reset();
+    } catch (error: any) {
+      if (error?.response?.status === 403) {
+        proModal.onOpen();
+      } else {
+        toast.error("Something went wrong.");
+      }
+    } finally {
+      router.refresh();
+    }
   };
 
   return (
