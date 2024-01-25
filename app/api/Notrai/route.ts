@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
     // Call the updated query function with the correct parameters
     const apiKey = process.env.PINECONE_API_KEY || '';
     const environment = process.env.PINECONE_ENVIRONMENT || '';
-    const text = await queryPineconeVectorStoreAndQueryLLM(apiKey, environment, indexName, body.question);
+    const text = await queryPineconeVectorStoreAndQueryLLM(apiKey, indexName, body.question);
 
     if (!isPro) {
       await incrementApiLimit();
