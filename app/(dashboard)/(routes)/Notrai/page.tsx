@@ -76,7 +76,7 @@ const ConversationPage = () => {
         toast.error("Something went wrong.");
       }
     } finally {
-      form.reset();
+      
       router.refresh();
     }
   };
