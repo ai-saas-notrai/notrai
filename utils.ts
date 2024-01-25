@@ -7,12 +7,11 @@ import { fetchUserState } from '@/lib/fetchUserState';
 
 export const queryPineconeVectorStoreAndQueryLLM = async (
   apiKey: string,
-  environment: string,
   indexName: string,
   question: string
 ) => {
   // Initialize Pinecone client
-  const pinecone = new Pinecone({ apiKey, environment });
+  const pinecone = new Pinecone({ apiKey });
 
   // Access the Pinecone index
   const index = pinecone.index(indexName);
