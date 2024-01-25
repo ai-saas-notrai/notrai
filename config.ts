@@ -1,2 +1,2 @@
-export const indexName = 'canopy--document-uploader'
+export const indexName = 'california-notrai'
 export const timeout = 80000
