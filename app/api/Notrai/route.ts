@@ -9,17 +9,14 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
     const { userId } = auth();
-    const { messages } = body;
 
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
-    if (!messages || typeof messages !== "string") {
-      return new NextResponse("Message content must be a string");
-    }
+
 
     const freeTrial = await checkApiLimit();
-    const isPro = await checkSubscription();
+     const isPro = await checkSubscription();
 
     if (!freeTrial && !isPro) {
       return new NextResponse(
@@ -30,7 +27,6 @@ export async function POST(req: NextRequest) {
 
     // Call the updated query function with the correct parameters
     const apiKey = process.env.PINECONE_API_KEY || '';
-    const environment = process.env.PINECONE_ENVIRONMENT || '';
     const text = await queryPineconeVectorStoreAndQueryLLM(apiKey, indexName, body.question);
 
     if (!isPro) {
