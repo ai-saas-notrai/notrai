@@ -11,7 +11,7 @@ export async function POST(req: Request) {
     await updateUserInfo(state, fileID);
 
     // Return a successful response
-    return new Response(JSON.stringify({ message: 'User updated successfully' }), {
+    return new NextResponse(JSON.stringify({ message: 'User updated successfully' }), {
       status: 200,
       headers: {
         'Content-Type': 'application/json'
@@ -20,7 +20,7 @@ export async function POST(req: Request) {
   } catch (error) {
     console.error(error);
     // Return an error response
-    return new Response(JSON.stringify({ message: 'Internal Error' }), {
+    return new NextResponse(JSON.stringify({ message: 'Internal Error' }), {
       status: 500,
       headers: {
         'Content-Type': 'application/json'

@@ -4,13 +4,14 @@ import { indexName } from '../../../config'
 import { incrementApiLimit, checkApiLimit } from "@/lib/api-limit";
 import { checkSubscription } from "@/lib/subscription";
 import { auth } from "@clerk/nextjs";
+import {fetchUserState} from "@lib/fetchUserState"
 
 export async function POST(req: NextRequest) {
   try {
   const body = await req.json()
   const { userId } = auth();
 
-  
+
   if (!userId) {
     return new NextResponse("Unauthorized", { status: 401 });
   }
