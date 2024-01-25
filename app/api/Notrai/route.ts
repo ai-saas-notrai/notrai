@@ -7,15 +7,18 @@ import { auth } from "@clerk/nextjs";
 
 export async function POST(req: NextRequest) {
   try {
-  const body = await req.json()
-  const { userId } = auth();
+    const body = await req.json()
+    const { userId } = auth();
+    const { messages } = body;
 
+    if (!userId) {
+      return new NextResponse("Unauthorized", { status: 401 });
+    }
+    if (!messages || typeof messages !== "string") {
+      return new NextResponse("Message content must be a string");
+    }
 
-  if (!userId) {
-    return new NextResponse("Unauthorized", { status: 401 });
-  }
-
-  const freeTrial = await checkApiLimit();
+    const freeTrial = await checkApiLimit();
     const isPro = await checkSubscription();
 
     if (!freeTrial && !isPro) {
