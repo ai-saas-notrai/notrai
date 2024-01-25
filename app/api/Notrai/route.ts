@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { Pinecone } from '@pinecone-database/pinecone'
 import { queryPineconeVectorStoreAndQueryLLM } from '../../../utils'
 import { indexName } from '../../../config'
 import { incrementApiLimit, checkApiLimit } from "@/lib/api-limit";

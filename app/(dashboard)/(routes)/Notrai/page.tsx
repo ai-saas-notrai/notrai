@@ -1,7 +1,6 @@
 "use client";
 
 import * as z from "zod";
-import axios from "axios";
 import { MessageSquare } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
@@ -40,43 +39,36 @@ const ConversationPage = () => {
 
   const isLoading = form.formState.isSubmitting;
 
-  const sendQuery = async (prompt: string) => {
-    if (!prompt) return;
-
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const userMessage: ChatMessage = {
       role: "user",
-      content: prompt
+      content: values.prompt
     };
-
+  
+    // Add the user message immediately
+    setMessages(current => [...current, userMessage]);
+  
     try {
       const response = await fetch('/api/Notrai', {
         method: "POST",
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ question: prompt }) // Modify this line
+        body: JSON.stringify({ question: values.prompt }) // Use the form value directly
       });
+  
       const json = await response.json();
       if (json.data) {
         const assistantMessage: ChatMessage = {
           role: "assistant",
           content: json.data
         };
-
-        setMessages(current => [...current, userMessage, assistantMessage]);
+  
+        // Update messages state with the assistant's response
+        setMessages(current => [...current, assistantMessage]);
       } else {
         toast.error("No response from the assistant.");
       }
-    } catch (err) {
-      toast.error("Something went wrong.");
-    }
-};
-
-
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    try {
-      sendQuery(values.prompt);
-      form.reset();
     } catch (error: any) {
       if (error?.response?.status === 403) {
         proModal.onOpen();
@@ -84,9 +76,11 @@ const ConversationPage = () => {
         toast.error("Something went wrong.");
       }
     } finally {
+      form.reset();
       router.refresh();
     }
   };
+  
 
   return (
     <div>
