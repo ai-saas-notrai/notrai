@@ -16,13 +16,10 @@ export async function POST(req: NextRequest) {
 
 
     const freeTrial = await checkApiLimit();
-     const isPro = await checkSubscription();
+    const isPro = await checkSubscription();
 
-    if (!freeTrial && !isPro) {
-      return new NextResponse(
-        "Free trial has expired. Please upgrade to pro.",
-        { status: 403 }
-      );
+     if (!freeTrial && !isPro) {
+      return new NextResponse("Free trial has expired. Please upgrade to pro.", { status: 403 });
     }
 
     // Call the updated query function with the correct parameters
@@ -32,6 +29,7 @@ export async function POST(req: NextRequest) {
     if (!isPro) {
       await incrementApiLimit();
     }
+
     if (text) {
       return NextResponse.json({ ok: true, data: text });
     } else {
