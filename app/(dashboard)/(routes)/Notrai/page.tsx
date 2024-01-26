@@ -40,50 +40,51 @@ const ConversationPage = () => {
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-
     try {
-      const userMessage: ChatMessage = {
-        role: "user",
-        content: values.prompt
-      };
-      // Add the user message immediately
-      setMessages(current => [...current, userMessage]);
-      
-      const response = await fetch('/api/Notrai', {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ question: values.prompt }) // Use the form value directly
-      });
-      
-      if (response?.status === 403) {
-        proModal.onOpen();
-      };
-      
-      const json = await response.json();
-      if (json.data) {
-        const assistantMessage: ChatMessage = {
-          role: "assistant",
-          content: json.data
+        const userMessage: ChatMessage = {
+            role: "user",
+            content: values.prompt
         };
-  
-        // Update messages state with the assistant's response
-        setMessages(current => [...current, assistantMessage]);
-      }
-      
-      form.reset();
+        // Add the user message immediately
+        setMessages(current => [...current, userMessage]);
+        
+        const response = await fetch('/api/Notrai', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ question: values.prompt })
+        });
+
+        // Check response status before processing JSON
+        if (response.ok) {
+            const json = await response.json();
+            if (json.data) {
+                const assistantMessage: ChatMessage = {
+                    role: "assistant",
+                    content: json.data
+                };
+    
+                // Update messages state with the assistant's response
+                setMessages(current => [...current, assistantMessage]);
+            } else {
+                toast.error("No response from the assistant.");
+            }
+        } else if (response.status === 403) {
+            proModal.onOpen();
+
+        } else {
+            toast.error("Something went wrong.");
+
+        }
     } catch (error: any) {
-      if (error?.response?.status === 403) {
-        proModal.onOpen();
-      } else {
-        toast.error("Something went wrong.");
-      }
+        toast.error("An error occurred.");
     } finally {
-      
-      router.refresh();
+        form.reset();
+        router.refresh();
     }
-  };
+};
+
   
 
   return (
