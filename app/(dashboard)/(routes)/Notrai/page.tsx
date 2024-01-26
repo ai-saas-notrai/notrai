@@ -1,4 +1,5 @@
 "use client";
+import axios from "axios";
 
 import * as z from "zod";
 import { MessageSquare } from "lucide-react";
@@ -40,44 +41,42 @@ const ConversationPage = () => {
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    
-    try {
-      const userMessage: ChatMessage = {
-        role: "user",
-        content: values.prompt
-      };
-      
-      const response = await fetch('/api/Notrai', {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ question: values.prompt }) 
-      });
-  
-      const json = await response.json();
-      if (json.data) {
-        const assistantMessage: ChatMessage = {
-          role: "assistant",
-          content: json.data
+      try {
+        const userMessage: ChatMessage = {
+            role: "user",
+            content: values.prompt
         };
 
-        setMessages(current => [...current, userMessage, assistantMessage]);     
-      } else {
-        toast.error("No response from the assistant.");
+        // Add axios to send the POST request
+        const response = await axios.post('/api/Notrai', {
+            question: values.prompt
+        });
+
+        // Check if the response contains data
+        if (response.data && response.data.data) {
+            const assistantMessage: ChatMessage = {
+                role: "assistant",
+                content: response.data.data
+            };
+
+            // Update the messages state with both user message and assistant's response
+            setMessages(current => [...current, userMessage, assistantMessage]);
+        } else {
+            toast.error("No response from the assistant.");
+        }
+        form.reset();
+      } catch (error: any) {
+        // Keep the original error handling logic
+        if (error?.response?.status === 403) {
+            proModal.onOpen();
+        } else {
+            toast.error("Something went wrong.");
+        }
+      } finally {
+        router.refresh();
       }
-      
-      form.reset();
-    } catch (error: any) {
-      if (error?.response?.status === 403) {
-        proModal.onOpen();
-      } else {
-        toast.error("Something went wrong.");
-      }
-    } finally {
-      router.refresh();
-    }
   };
+
   
 
   return (
