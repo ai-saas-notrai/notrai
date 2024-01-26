@@ -40,15 +40,15 @@ const ConversationPage = () => {
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    const userMessage: ChatMessage = {
-      role: "user",
-      content: values.prompt
-    };
-  
-    // Add the user message immediately
-    setMessages(current => [...current, userMessage]);
-  
+
     try {
+      const userMessage: ChatMessage = {
+        role: "user",
+        content: values.prompt
+      };
+      // Add the user message immediately
+      setMessages(current => [...current, userMessage]);
+      
       const response = await fetch('/api/Notrai', {
         method: "POST",
         headers: {
@@ -66,9 +66,9 @@ const ConversationPage = () => {
   
         // Update messages state with the assistant's response
         setMessages(current => [...current, assistantMessage]);
-      } else {
-        toast.error("No response from the assistant.");
       }
+      
+      form.reset();
     } catch (error: any) {
       if (error?.response?.status === 403) {
         proModal.onOpen();
@@ -76,7 +76,7 @@ const ConversationPage = () => {
         toast.error("Something went wrong.");
       }
     } finally {
-      form.reset();
+      
       router.refresh();
     }
   };
