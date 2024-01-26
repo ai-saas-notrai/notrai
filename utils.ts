@@ -21,7 +21,7 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
 
   // Query Pinecone index and return top 10 matches
   const queryResponse = await index.query({
-    topK: 10,
+    topK: 25,
     vector: queryEmbedding,
     includeMetadata: true,
     includeValues: true,
