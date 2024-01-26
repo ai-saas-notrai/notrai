@@ -37,12 +37,12 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
     // Custom prompt template
     const userState = await fetchUserState();
     const promptTemplate = new PromptTemplate({
-      template: "You are a helpful Notary expert AI assistant. Use the following pieces of context to answer the question at the end. Your replies should always begin with 'In the state of {userState}' If you don't know the answer, just say you don't know. DO NOT try to make up an answer. If the question is not related to the context, politely respond that you are tuned to only answer questions that are related to the context.\n\n{context}",
+      template: "You are an AI assistant with Notary expertise, responding accurately to context {context}. Begin replies with 'In the state of {userState}' when state-specific info is relevant; if not, omit this. If unsure, say 'I don't have information on that topic.' For off-topic questions, state your focus is on notarial matters related to the provided context.",
       inputVariables: ['context', 'userState']
     });
 
     // Create an OpenAI instance and load the QAStuffChain
-    const llm = new OpenAI({});
+    const llm = new OpenAI({ temperature: 0.3});
     const chain = loadQAStuffChain(llm);
 
     // Extract and concatenate page content from matched documents
