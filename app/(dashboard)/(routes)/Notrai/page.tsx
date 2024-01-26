@@ -40,19 +40,21 @@ const ConversationPage = () => {
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    
+    const userMessage: ChatMessage = {
+      role: "user",
+      content: values.prompt
+    };
+  
+    // Add the user message immediately
+    setMessages(current => [...current, userMessage]);
+  
     try {
-      const userMessage: ChatMessage = {
-        role: "user",
-        content: values.prompt
-      };
-      
       const response = await fetch('/api/Notrai', {
         method: "POST",
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ question: values.prompt }) 
+        body: JSON.stringify({ question: values.prompt }) // Use the form value directly
       });
   
       const json = await response.json();
@@ -61,13 +63,12 @@ const ConversationPage = () => {
           role: "assistant",
           content: json.data
         };
-
-        setMessages(current => [...current, userMessage, assistantMessage]);     
+  
+        // Update messages state with the assistant's response
+        setMessages(current => [...current, assistantMessage]);
       } else {
         toast.error("No response from the assistant.");
       }
-      
-      form.reset();
     } catch (error: any) {
       if (error?.response?.status === 403) {
         proModal.onOpen();
@@ -75,6 +76,7 @@ const ConversationPage = () => {
         toast.error("Something went wrong.");
       }
     } finally {
+      form.reset();
       router.refresh();
     }
   };
@@ -83,8 +85,8 @@ const ConversationPage = () => {
   return (
     <div>
       <Heading
-        title="Notrai"
-        description="Our most advanced Notary conversation model."
+        title="Conversation"
+        description="Our most advanced conversation model."
         icon={MessageSquare}
         iconColor="text-violet-500"
         bgColor="bg-violet-500/10"
@@ -103,7 +105,7 @@ const ConversationPage = () => {
                       <Input
                         className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
                         disabled={isLoading}
-                        placeholder="How can I become a notary in my state?"
+                        placeholder="How do I calculate the radius of a circle?"
                         {...field}
                       />
                     </FormControl>

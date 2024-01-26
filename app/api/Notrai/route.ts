@@ -1,29 +1,28 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { queryPineconeVectorStoreAndQueryLLM } from '../../../utils'
 import { indexName } from '../../../config'
 import { incrementApiLimit, checkApiLimit } from "@/lib/api-limit";
 import { checkSubscription } from "@/lib/subscription";
 import { auth } from "@clerk/nextjs";
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
     const { userId } = auth();
-    const { messages  } = body;
 
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    if (!messages) {
-      return new NextResponse("Messages are required", { status: 400 });
-    }
 
     const freeTrial = await checkApiLimit();
-    const isPro = await checkSubscription();
+     const isPro = await checkSubscription();
 
-     if (!freeTrial && !isPro) {
-      return new NextResponse("Free trial has expired. Please upgrade to pro.", { status: 403 });
+    if (!freeTrial && !isPro) {
+      return new NextResponse(
+        "Free trial has expired. Please upgrade to pro.",
+        { status: 403 }
+      );
     }
 
     // Call the updated query function with the correct parameters
@@ -33,7 +32,6 @@ export async function POST(req: Request) {
     if (!isPro) {
       await incrementApiLimit();
     }
-
     if (text) {
       return NextResponse.json({ ok: true, data: text });
     } else {
