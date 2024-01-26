@@ -45,8 +45,6 @@ const ConversationPage = () => {
             role: "user",
             content: values.prompt
         };
-        // Add the user message immediately
-        setMessages(current => [...current, userMessage]);
         
         const response = await fetch('/api/Notrai', {
             method: "POST",
@@ -66,7 +64,7 @@ const ConversationPage = () => {
                 };
     
                 // Update messages state with the assistant's response
-                setMessages(current => [...current, assistantMessage]);
+                setMessages(current => [...current, userMessage, assistantMessage]);
             } else {
                 toast.error("No response from the assistant.");
             }
