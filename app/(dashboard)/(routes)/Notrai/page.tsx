@@ -56,7 +56,11 @@ const ConversationPage = () => {
         },
         body: JSON.stringify({ question: values.prompt }) // Use the form value directly
       });
-  
+      
+      if (response?.status === 403) {
+        proModal.onOpen();
+      };
+      
       const json = await response.json();
       if (json.data) {
         const assistantMessage: ChatMessage = {
