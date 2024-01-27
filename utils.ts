@@ -44,7 +44,7 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
     });
 
     // Create an OpenAI instance and load the QAStuffChain
-    const llm = new OpenAI({ temperature: 0.7});
+    const llm = new OpenAI({ temperature: 0.2});
     
     const chain = loadQAStuffChain(llm);
 
