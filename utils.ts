@@ -4,12 +4,14 @@ import { Document } from '@langchain/core/documents';
 import { Pinecone } from '@pinecone-database/pinecone';
 import { PromptTemplate } from '@langchain/core/prompts';
 import { fetchUserState } from '@/lib/fetchUserState';
+import { notaryPrompt } from './lib/prompts';
 
 export const queryPineconeVectorStoreAndQueryLLM = async (
   apiKey: string,
   indexName: string,
   question: string
 ) => {
+  
   // Initialize Pinecone client
   const pinecone = new Pinecone({ apiKey });
 
@@ -37,12 +39,13 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
     // Custom prompt template
     const userState = await fetchUserState();
     const promptTemplate = new PromptTemplate({
-      template: "You are an AI assistant specialized in Notary practices. Use the detailed context provided in {context} to give comprehensive, informative responses. When addressing questions, include 'In the state of {userState}' at the beginning of your response if state-specific details are crucial. If the state context is irrelevant to the answer, focus on providing a rich, well-explained response without it. Should you encounter a query outside your expertise, respond with 'I don't have information on that topic, as my expertise is limited to notarial matters.' In cases where questions deviate from the provided context or notarial topics, gently remind the user that your responses are tailored to notarial inquiries based on the specific context given. Aim to deliver responses that are not only correct but also enriched with relevant explanations, examples, and insights to thoroughly address the user's inquiries.",
+      template: notaryPrompt ,
       inputVariables: ['context', 'userState']
     });
 
     // Create an OpenAI instance and load the QAStuffChain
     const llm = new OpenAI({ temperature: 0.3});
+    
     const chain = loadQAStuffChain(llm);
 
     // Extract and concatenate page content from matched documents
