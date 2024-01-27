@@ -1,11 +1,10 @@
-import { OpenAIEmbeddings } from '@langchain/openai';
+import { OpenAIEmbeddings, OpenAI } from '@langchain/openai';
 import { loadQAStuffChain } from 'langchain/chains';
 import { Document } from '@langchain/core/documents';
 import { Pinecone } from '@pinecone-database/pinecone';
 import { PromptTemplate } from '@langchain/core/prompts';
 import { fetchUserState } from '@/lib/fetchUserState';
 import { notaryPrompt } from './lib/prompts';
-import OpenAI from 'openai';
 
 export const queryPineconeVectorStoreAndQueryLLM = async (
   apiKey: string,
@@ -45,10 +44,10 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
     });
 
     // Create an OpenAI instance and load the QAStuffChain
-    //const llm = new OpenAI({ temperature: 0.3});
+    const llm = new OpenAI({ temperature: 0.7});
     
-    //const chain = loadQAStuffChain(llm);
-    
+    const chain = loadQAStuffChain(llm);
+
     // Extract and concatenate page content from matched documents
     const concatenatedPageContent = queryResponse.matches
       .map((match) => match.metadata?.pageContent ?? "")
@@ -58,15 +57,14 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
     const formattedQuestion = await promptTemplate.format({ context: concatenatedPageContent, userState:userState });
 
     // Execute the chain with input documents and question
-    //const result = await chain.invoke({
-     // input_documents: [new Document({ pageContent: formattedQuestion })],
-    //  question: question,
-   // });
+    const result = await chain.invoke({
+      input_documents: [new Document({ pageContent: formattedQuestion })],
+      question: question,
+    });
 
-   
     // Log the answer
-    console.log(`Answer: ${formattedQuestion}`);
-    return formattedQuestion;
+    console.log(`Answer: ${result.text}`);
+    return result.text;
   } else {
     // Log that there are no matches, so GPT-3 will not be queried
     console.log('Since there are no matches, GPT-3 will not be queried.');
