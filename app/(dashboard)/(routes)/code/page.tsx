@@ -11,6 +11,8 @@ import Question from "@/components/quiz/Question";
 import HighScores from "@/components/quiz/HighScores";
 import AllDone from "@/components/quiz/AllDone";
 import TimeUp from "@/components/quiz/TimeUp";
+import { Heading } from "@/components/heading";
+import { MessageSquare } from "lucide-react";
 
 // Correct this import to point to your questions data
 import questions from '@/components/quiz/questions'; // Assuming this is an array of question objects
@@ -91,18 +93,21 @@ const QuizPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
-        <div className="bg-skin-main text-white py-4 px-6 fixed w-full top-0 z-50">
-          <div className="flex justify-between items-center container mx-auto">
-            <h1 className="text-xl font-semibold">Notary Preparation Quiz</h1>
-            <div className="flex items-center">
-              <Button className="text-left text-white font-light mr-3 cursor-pointer hover:text-gray-200 transition-all" onClick={() => setState("highscore")}>High Scores</Button>
-            </div>
-          </div>
+    
+
+    <div> 
+        <Heading
+        title="Notary Preparation Exam"
+        description="Our most advanced Notary information model."
+        icon={MessageSquare}
+        iconColor="text-violet-500"
+        bgColor="bg-violet-500/10"
+          />
+        <div>
         </div>
         
         {/* Place the time element in the top right corner */}
-        <div className="fixed top-0 right-0 p-4 text-white">
+        <div className="fixed top-0 right-20 p-4 text-black">
           <span>Time: {Math.floor(time / 1000)}s</span>
         </div>
       <main className="flex-grow pt-24 p-4">
