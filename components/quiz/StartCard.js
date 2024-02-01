@@ -15,7 +15,7 @@ const StartCard = ({handleState, handleTimerStart}) => {
           Keep in ind that incorrect answers will penalize your score/time bey
           ten seconds!
         </p>
-        <Button className="col-span-12 lg:col-span-2 w-full" type="submit" disabled={isLoading} size="icon" onClick={() => {handleState("quiz"); handleTimerStart();}}>
+        <Button className="col-span-12 lg:col-span-2 w-full" type="submit" size="icon" onClick={() => {handleState("quiz"); handleTimerStart();}}>
           Start Quiz
         </Button>
       </div>

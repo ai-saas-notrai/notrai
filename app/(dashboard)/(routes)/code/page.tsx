@@ -15,6 +15,7 @@ import TimeUp from "@/components/quiz/TimeUp";
 // Correct this import to point to your questions data
 import questions from '@/components/quiz/questions'; // Assuming this is an array of question objects
 
+
 const QuizPage: React.FC = () => {
   const [state, setState] = useState<string>("start");
   const [questionNo, setQuestionNo] = useState<number>(0);
@@ -91,16 +92,19 @@ const QuizPage: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <div className="bg-skin-main text-white py-4 px-6 fixed w-full top-0 z-50">
+        <div className="bg-skin-main text-white py-4 px-6 fixed w-full top-0 z-50">
           <div className="flex justify-between items-center container mx-auto">
             <h1 className="text-xl font-semibold">Notary Preparation Quiz</h1>
             <div className="flex items-center">
               <Button className="text-left text-white font-light mr-3 cursor-pointer hover:text-gray-200 transition-all" onClick={() => setState("highscore")}>High Scores</Button>
-              <span style={{ color: 'white' }}>Time: {Math.floor(time / 1000)}s</span> {/* Add style */}
             </div>
           </div>
+        </div>
         
-      </div>
+        {/* Place the time element in the top right corner */}
+        <div className="fixed top-0 right-0 p-4 text-white">
+          <span>Time: {Math.floor(time / 1000)}s</span>
+        </div>
       <main className="flex-grow pt-24 p-4">
       <div className="flex flex-col min-h-screen">
         <div className=" justify-center">
