@@ -6,7 +6,6 @@ import { PromptTemplate } from '@langchain/core/prompts';
 import { fetchUserState } from '@/lib/fetchUserState';
 import { notaryPrompt } from './lib/prompts';
 import { BufferWindowMemory } from "langchain/memory";
-import { memo } from 'react';
 
 export const queryPineconeVectorStoreAndQueryLLM = async (
   apiKey: string,
@@ -51,7 +50,7 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
     // Initialize BufferWindowMemory to hold a buffer of recent interactions
     const memory = new BufferWindowMemory({ k: 5 }); // Adjust 'k' as needed
 
-    const memory_var = memory.loadMemoryVariables({})
+    const memory_var = memory.loadMemoryVariables({}) || 'none';
     const chain = loadQAStuffChain(llm);
 
     // Extract and concatenate page content from matched documents
