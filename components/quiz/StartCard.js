@@ -5,6 +5,7 @@ const StartCard = ({ handleState, handleTimerStart }) => {
   return (
     <div className="flex flex-col justify-center items-center h-screen bg-gray-50">
       <div className="mx-auto px-8 py-16 md:px-12 md:py-20 bg-white shadow-lg rounded-xl border border-gray-200" style={{ borderRadius: '30px' }}> {/* Increased top and bottom padding */}
+        <p></p>
         <h1 className="px-8 text-2xl md:text-3xl font-bold text-gray-900 text-center mb-6">
           Coding Quiz Challenge
         </h1>
@@ -22,6 +23,7 @@ const StartCard = ({ handleState, handleTimerStart }) => {
         >
           Start Quiz
         </Button>
+        <p></p>
       </div>
     </div>
   );
