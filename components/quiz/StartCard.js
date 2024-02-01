@@ -1,29 +1,23 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 
-const StartCard = ({ handleState, handleTimerStart }) => {
+const StartCard = ({handleState, handleTimerStart}) => {
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen bg-gray-50">
-      <div className="mx-auto bg-white shadow-lg rounded-2xl border border-gray-200" style={{ borderRadius: '30px' }}>
-        <div className="px-14 py-24 md:px-20 md:py-32"> {/* Padding applied to the content container */}
-          <h1 className="px-14 text-3xl md:text-4xl font-bold text-gray-900 text-center mb-8">
-            Coding Quiz Challenge
-          </h1>
-          <p className="px-14 text-center text-lg text-gray-700 font-medium mb-6">
-            Try to answer the following code-related questions within the time limit.
-          </p>
-          <p className="px-14 text-center text-lg text-gray-700 font-medium mb-8">
-            Keep in mind that incorrect answers will penalize your score/time by ten seconds!
-          </p>
-          <Button 
-            className="px-14 col-span-12 lg:col-span-2 w-full py-3 text-lg" 
-            type="submit" 
-            size="large" 
-            onClick={() => { handleState("quiz"); handleTimerStart(); }}
-          >
-            Start Quiz
-          </Button>
-        </div>
+    <div className="flex flex-col justify-center h-[90vh]">
+      <div className="lg:w-6/12 w-10/12 mx-auto px-10 py-16 outline outline-slate-300 outline-2 rounded-3xl shadow-xl">
+        <h1 className="font-black font-Inter mb-6 drop-shadow-sm">
+          Coding Quiz Challenge
+        </h1>
+        <p className=" font-medium drop-shadow-sm mb-5">
+          Try to answer to following code-related questions within time limit.
+        </p>
+        <p className=" font-medium drop-shadow-sm mb-4">
+          Keep in ind that incorrect answers will penalize your score/time bey
+          ten seconds!
+        </p>
+        <Button className="col-span-12 lg:col-span-2 w-full" type="submit" size="icon" onClick={() => {handleState("quiz"); handleTimerStart();}}>
+          Start Quiz
+        </Button>
       </div>
     </div>
   );
