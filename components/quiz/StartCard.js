@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "@/components/ui/button";
 
 const StartCard = ({handleState, handleTimerStart}) => {
   return (
@@ -14,9 +15,9 @@ const StartCard = ({handleState, handleTimerStart}) => {
           Keep in ind that incorrect answers will penalize your score/time bey
           ten seconds!
         </p>
-        <button className="bg-skin-main text-white px-3 py-3 rounded-lg hover:bg-green-900 transition-all shadow-md" onClick={() => {handleState("quiz"); handleTimerStart();}}>
+        <Button className="col-span-12 lg:col-span-2 w-full" type="submit" disabled={isLoading} size="icon" onClick={() => {handleState("quiz"); handleTimerStart();}}>
           Start Quiz
-        </button>
+        </Button>
       </div>
     </div>
   );
