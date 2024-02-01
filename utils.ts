@@ -50,7 +50,8 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
     // Initialize BufferWindowMemory to hold a buffer of recent interactions
     const memory = new BufferWindowMemory({ k: 5 }); // Adjust 'k' as needed
 
-    const memory_var = memory.loadMemoryVariables({}) || 'none';
+    const memory_var = memory.loadMemoryVariables({})
+
     const chain = loadQAStuffChain(llm);
 
     // Extract and concatenate page content from matched documents
@@ -59,7 +60,7 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
       .join(" ");
 
     // Format the query using the custom prompt template
-    const formattedQuestion = await promptTemplate.format({ context: concatenatedPageContent, memory:memory_var, userState:userState });
+    const formattedQuestion = await promptTemplate.format({ context: concatenatedPageContent, memory:memory_var||'none', userState:userState });
 
     // Execute the chain with input documents and question
     const result = await chain.invoke({
