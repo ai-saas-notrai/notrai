@@ -21,8 +21,8 @@ const HighScores = ({handleState, highScore, hadleClearHighScore }) => {
         <>
         {sortedList.map((entry, index) => {
         return (
-        <p className=" font-medium drop-shadow-sm mb-5 indent-3">
-          {index+1}. {entry.name} - {entry.score}
+          <p key={index} className="font-medium drop-shadow-sm mb-5 indent-3">
+          {index + 1}. {entry.name} - {entry.score}
         </p>
         )
         })}

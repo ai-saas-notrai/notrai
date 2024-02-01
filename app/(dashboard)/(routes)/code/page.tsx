@@ -115,7 +115,6 @@ const QuizPage: React.FC = () => {
               options={questions[questionNo].options}
               answer={questions[questionNo].answer}
               handleQuestion={handleQuestion}
-              handleState={handleState}
               handleScore={handleScore}
               handleWrongAnswer={handleWrongAnswer}
             />

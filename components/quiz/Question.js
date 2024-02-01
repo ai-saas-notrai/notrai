@@ -39,7 +39,7 @@ const Question = ({
               {options.map((option, index) => {
                 return (
                   <p
-                    className=" font-medium drop-shadow-sm my-2 bg-skin-main text-white p-3 rounded-xl pl-5 hover:bg-teal-700 transition-all cursor-pointer"
+                    key={index} className=" font-medium drop-shadow-sm my-2 bg-skin-main text-white p-3 rounded-xl pl-5 hover:bg-teal-700 transition-all cursor-pointer"
                     onClick={async () => {
                       await handleAnswer(option);
                       handleQuestion();
