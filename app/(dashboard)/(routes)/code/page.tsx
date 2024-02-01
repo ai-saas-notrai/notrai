@@ -1,153 +1,149 @@
-"use client";
-
-import * as z from "zod";
-import axios from "axios";
-import { Code } from "lucide-react";
-import { useForm } from "react-hook-form";
-import { useState } from "react";
+// If you're not using TypeScript, remove types and interfaces.
+import React, { useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
-import ReactMarkdown from "react-markdown";
-import { useRouter } from "next/navigation";
-import OpenAI from "openai";
 
-import { BotAvatar } from "@/components/bot-avatar";
-import { Heading } from "@/components/heading";
+// Corrected import paths according to typical project structure
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
-import { cn } from "@/lib/utils";
-import { Loader } from "@/components/loader";
-import { UserAvatar } from "@/components/user-avatar";
-import { Empty } from "@/components/ui/empty";
-import { useProModal } from "@/hooks/use-pro-modal";
+import StartCard from "@/components/quiz/StartCard";
+import Question from "@/components/quiz/Question";
+import HighScores from "@/components/quiz/HighScores";
+import AllDone from "@/components/quiz/AllDone";
+import TimeUp from "@/components/quiz/TimeUp";
 
-import { formSchema } from "./constants";
+// Correct this import to point to your questions data
+import questions from '@/components/quiz/questions'; // Assuming this is an array of question objects
 
-const CodePage = () => {
-  const router = useRouter();
-  const proModal = useProModal();
-  const [messages, setMessages] = useState<OpenAI.Chat.ChatCompletionMessageParam[]>([]);
+const QuizPage: React.FC = () => {
+  const [state, setState] = useState<string>("start");
+  const [questionNo, setQuestionNo] = useState<number>(0);
+  const [score, setScore] = useState<number>(0);
+  const [time, setTime] = useState<number>(50000);
+  const [timerOn, setTimerOn] = useState<boolean>(false);
+  const [highScore, setHighScore] = useState<number[]>([]);
+  const [deduct, setDeduct] = useState(false);
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      prompt: ""
+  useEffect(() => {
+    let interval: ReturnType<typeof setInterval>;
+    if (timerOn && time > 0) {
+      interval = setInterval(() => {
+        setTime((prevTime) => prevTime - 1000);
+      }, 1000);
     }
-  });
+    return () => clearInterval(interval);
+  }, [timerOn, time]);
 
-  const isLoading = form.formState.isSubmitting;
-  
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    try {
-      const userMessage: OpenAI.Chat.ChatCompletionMessageParam = { role: "user", content: values.prompt };
-      const newMessages = [...messages, userMessage];
-      
-      const response = await axios.post('/api/code', { messages: newMessages });
-      setMessages((current) => [...current, userMessage, response.data]);
-      
-      form.reset();
-    } catch (error: any) {
-      if (error?.response?.status === 403) {
-        proModal.onOpen();
-      } else {
-        toast.error("Something went wrong.");
-      }
-    } finally {
-      router.refresh();
+  useEffect(() => {
+    if (time <= 0 && timerOn) {
+      toast.error("Time's up!");
+      setState("timeup");
+      setTimerOn(false);
     }
-  }
+  }, [time, timerOn]);
 
-  return ( 
-    <div>
-      <Heading
-        title="Code Generation"
-        description="Generate code using descriptive text."
-        icon={Code}
-        iconColor="text-green-700"
-        bgColor="bg-green-700/10"
-      />
-      <div className="px-4 lg:px-8">
-        <div>
-          <Form {...form}>
-            <form 
-              onSubmit={form.handleSubmit(onSubmit)} 
-              className="
-                rounded-lg 
-                border 
-                w-full 
-                p-4 
-                px-3 
-                md:px-6 
-                focus-within:shadow-sm
-                grid
-                grid-cols-12
-                gap-2
-              "
-            >
-              <FormField
-                name="prompt"
-                render={({ field }) => (
-                  <FormItem className="col-span-12 lg:col-span-10">
-                    <FormControl className="m-0 p-0">
-                      <Input
-                        className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
-                        disabled={isLoading} 
-                        placeholder="Simple toggle button using react hooks." 
-                        {...field}
-                      />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-              <Button className="col-span-12 lg:col-span-2 w-full" type="submit" disabled={isLoading} size="icon">
-                Generate
-              </Button>
-            </form>
-          </Form>
-        </div>
-        <div className="space-y-4 mt-4">
-          {isLoading && (
-            <div className="p-8 rounded-lg w-full flex items-center justify-center bg-muted">
-              <Loader />
-            </div>
-          )}
-          {messages.length === 0 && !isLoading && (
-            <Empty label="No conversation started." />
-          )}
-          <div className="flex flex-col-reverse gap-y-4">
-            {messages.map((message, index) => (
-              <div 
-                key={index} // Using index as a key
-                className={cn(
-                  "p-8 w-full flex items-start gap-x-8 rounded-lg",
-                  message.role === "user" ? "bg-white border border-black/10" : "bg-muted",
-                )}
-              >
-                {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
-                <ReactMarkdown components={{
-                  pre: ({ node, ...props }) => (
-                    <div className="overflow-auto w-full my-2 bg-black/10 p-2 rounded-lg">
-                      <pre {...props} />
-                    </div>
-                  ),
-                  code: ({ node, ...props }) => (
-                    <code className="bg-black/10 rounded-lg p-1" {...props} />
-                  )
-                }} className="text-sm overflow-hidden leading-7">
-                  {/* Ensuring message.content is a string */}
-                  {Array.isArray(message.content) ? message.content.join("\n") : message.content || ""}
-                </ReactMarkdown>
-              </div>
-            ))}
+  const handleQuestion = (isCorrect: boolean) => {
+    if (isCorrect) setScore(score + 10);
+    if (questionNo + 1 < questions.length) {
+      setQuestionNo(questionNo + 1);
+    } else {
+      setState("done");
+      setTimerOn(false);
+    }
+  };
 
+  const handleReset = () => {
+    setState("start");
+    setQuestionNo(0);
+    setScore(0);
+    setTime(50000);
+    setTimerOn(false);
+  };
 
+  //Functions to Start the timer
+  const handleTimerStart = () => {
+    setTimerOn(true);
+  };
+
+  const handleWrongAnswer = () => {
+    setDeduct(true);
+  };
+
+  //Hanlde The High Scores
+
+  const handleHighScore = (newScore:number) => {
+    setHighScore((prevScores) => {
+      return [...prevScores, newScore];
+    });
+  };
+
+  //Clear High Scores
+  const hadleClearHighScore = () => {
+    setHighScore([]);
+  };
+
+  const handleState = (newState:string) => {
+    setState(newState);
+  };
+  const handleScore = (UserScore:number) => {
+    setScore(UserScore);
+  };
+
+  return (
+    <div className="min-h-screen flex flex-col">
+      <div className="bg-blue-500 text-white py-4 px-6 fixed w-full top-0 z-50">
+        <div className="flex justify-between items-center container mx-auto">
+          <h1 className="text-xl font-semibold">Quiz App</h1>
+          <div className="flex items-center">
+            <Button onClick={() => setState("highscore")}>High Scores</Button>
+            <span>Time: {Math.floor(time / 1000)}s</span>
           </div>
         </div>
       </div>
-    </div>
-   );
-}
- 
-export default CodePage;
+      <main className="flex-grow pt-24 p-4">
+      <div className="flex flex-col min-h-screen">
+        <div className=" justify-center">
+          {state === "start" && (
+            <StartCard
+              handleState={handleState}
+              handleTimerStart={handleTimerStart}
+            />
+          )}
+          {state === "quiz" && (
+            <Question
+              questionText={questions[questionNo].questionText}
+              options={questions[questionNo].options}
+              answer={questions[questionNo].answer}
+              handleQuestion={handleQuestion}
+              handleState={handleState}
+              handleScore={handleScore}
+              handleWrongAnswer={handleWrongAnswer}
+            />
+          )}
+          {state === "highscore" && (
+            <HighScores
+              handleState={handleState}
+              highScore={highScore}
+              hadleClearHighScore={hadleClearHighScore}
+            />
+          )}
+          {state === "done" && (
+            <AllDone
+              score={score}
+              handleHighScore={handleHighScore}
+              handleState={handleState}
+              handleReset={handleReset}
+            />
+          )}
+          {state === "timeup" && (
+           <TimeUp 
+             handleState ={handleState}
+           />
 
+          )}
+        </div>
+        </div>
+      </main>
+    </div>
+  );
+};
+
+export default QuizPage;
