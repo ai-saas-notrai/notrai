@@ -9,17 +9,16 @@ const Question = ({
   handleWrongAnswer,
 }) => {
   const [isCorrect, setIsCorrect] = useState(null);
-  const [score, setScore] = useState(0);
 
-  const handleAnswer = (userAnswer) => {
-    if (answer === userAnswer) {
+  const handleAnswer = (option) => {
+    if (answer === option) {
       setIsCorrect(true);
-      setScore((prevScore) => prevScore + 10);
-      handleScore(score + 10);
+      handleScore(prevScore => prevScore + 10); // Assuming handleScore correctly updates the score state elsewhere
     } else {
       setIsCorrect(false);
-      handleWrongAnswer();
+      handleWrongAnswer(); // Presumably handles logic for an incorrect answer
     }
+    handleQuestion(); // Call handleQuestion to proceed after an answer is selected
   };
 
   return (
@@ -28,24 +27,17 @@ const Question = ({
         <h1 className="text-2xl md:text-3xl font-bold text-gray-900 text-center mb-6">
           {questionText}
         </h1>
-        {options && (
-          <>
-            {options.map((option, index) => (
-              <button
-                key={index}
-                className="w-full text-left font-medium bg-blue-600 text-white p-3 rounded-lg my-2 hover:bg-blue-700 transition-all cursor-pointer"
-                onClick={() => {
-                  handleAnswer(option);
-                  handleQuestion();
-                }}
-              >
-                {option}
-              </button>
-            ))}
-          </>
-        )}
+        {options.map((option, index) => (
+          <div
+            key={index}
+            className="my-2 p-3 border border-gray-300 shadow rounded-md flex justify-between items-center cursor-pointer hover:bg-gray-100"
+            onClick={() => handleAnswer(option)}
+          >
+            <span className="font-medium text-sm text-gray-700">{option}</span>
+          </div>
+        ))}
         {isCorrect !== null && (
-          <p className={`font-medium ml-3 mt-4 ${isCorrect ? 'text-green-500' : 'text-red-500'}`}>
+          <p className={`mt-4 font-medium ${isCorrect ? 'text-green-500' : 'text-red-500'}`}>
             {isCorrect ? "Correct!" : "Incorrect!"}
           </p>
         )}
