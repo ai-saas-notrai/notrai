@@ -55,9 +55,10 @@ const Question = ({
           <hr />
           <br />
           {isCorrect === null && (
-            <p className=" font-medium drop-shadow-sm ml-3">
-              Let's Start Evaluating!
-            </p>
+            <p className="font-medium drop-shadow-sm ml-3">
+            Let&apos;s Start Evaluating!
+          </p>
+          
           )}
           {isCorrect !== null && (
             <>
