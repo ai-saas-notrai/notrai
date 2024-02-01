@@ -1,21 +1,25 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 
-const StartCard = ({handleState, handleTimerStart}) => {
+const StartCard = ({ handleState, handleTimerStart }) => {
   return (
-    <div className="flex flex-col justify-center h-[90vh]">
-      <div className="lg:w-6/12 w-10/12 mx-auto px-10 py-16 outline outline-slate-300 outline-2 rounded-3xl shadow-xl">
-        <h1 className="font-black font-Inter mb-6 drop-shadow-sm">
+    <div className="flex justify-center items-center min-h-screen bg-gray-50">
+      <div className="w-full max-w-lg p-10 bg-white shadow-lg rounded-2xl border border-gray-200">
+        <h1 className="text-3xl font-bold text-gray-900 text-center mb-6">
           Coding Quiz Challenge
         </h1>
-        <p className=" font-medium drop-shadow-sm mb-5">
-          Try to answer to following code-related questions within time limit.
+        <p className="text-center text-lg text-gray-700 font-medium mb-4">
+          Try to answer the following code-related questions within the time limit.
         </p>
-        <p className=" font-medium drop-shadow-sm mb-4">
-          Keep in ind that incorrect answers will penalize your score/time bey
-          ten seconds!
+        <p className="text-center text-lg text-gray-700 font-medium mb-8">
+          Keep in mind that incorrect answers will penalize your score/time by ten seconds!
         </p>
-        <Button className="col-span-12 lg:col-span-2 w-full" type="submit" size="icon" onClick={() => {handleState("quiz"); handleTimerStart();}}>
+        <Button 
+          className="col-span-12 lg:col-span-2 w-full py-3 text-lg" 
+          type="submit" 
+          size="large" 
+          onClick={() => { handleState("quiz"); handleTimerStart(); }}
+        >
           Start Quiz
         </Button>
       </div>
