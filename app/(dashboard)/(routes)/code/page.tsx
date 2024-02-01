@@ -1,3 +1,5 @@
+"use client";
+
 // If you're not using TypeScript, remove types and interfaces.
 import React, { useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
