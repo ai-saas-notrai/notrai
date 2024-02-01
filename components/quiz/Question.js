@@ -8,68 +8,47 @@ const Question = ({
   handleScore,
   handleWrongAnswer,
 }) => {
-  const [isCorrect, setIsCorrect] = useState(null); // Corrected typo
-  const [score, setScore] = useState(0); // Corrected naming
+  const [isCorrect, setIsCorrect] = useState(null);
+  const [score, setScore] = useState(0);
 
-  const handleAnswer = (userAnswer) => { // Removed async as it might be unnecessary
+  const handleAnswer = (userAnswer) => {
     if (answer === userAnswer) {
       setIsCorrect(true);
-      setScore((prevScore) => prevScore + 10); // Correct usage of state setter
-      handleScore(score + 10); // Assuming this should update the score immediately
+      setScore((prevScore) => prevScore + 10);
+      handleScore(score + 10);
     } else {
       setIsCorrect(false);
       handleWrongAnswer();
     }
   };
 
-  try{
-
-    handleScore(score);
-  }catch{(err) => {console.log(err)}}
-
   return (
-    <div>
-      <div className="flex flex-col justify-center h-[90vh]">
-        <div className="lg:w-6/12 w-10/12 mx-auto px-10 py-16 outline outline-slate-300 outline-2 rounded-3xl shadow-xl">
-          <h1 className="font-black font-Inter mb-6 drop-shadow-sm text-4xl">
-            {questionText}
-          </h1>
-          {options && (
-            <>
-              {options.map((option, index) => {
-                return (
-                  <p
-                    key={index} className=" font-medium drop-shadow-sm my-2 bg-skin-main text-white p-3 rounded-xl pl-5 hover:bg-teal-700 transition-all cursor-pointer"
-                    onClick={async () => {
-                      await handleAnswer(option);
-                      handleQuestion();
-                    }}
-                  >
-                    {option}
-                  </p>
-                );
-              })}
-            </>
-          )}
-          <br />
-          <hr />
-          <br />
-          {isCorrect === null && (
-            <p className="font-medium drop-shadow-sm ml-3">
-            Let&apos;s Start Evaluating!
+    <div className="flex flex-col justify-center items-center h-screen bg-gray-50">
+      <div className="mx-auto px-8 py-16 md:px-12 md:py-20 bg-white shadow-lg rounded-xl border border-gray-200" style={{ borderRadius: '30px' }}>
+        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 text-center mb-6">
+          {questionText}
+        </h1>
+        {options && (
+          <>
+            {options.map((option, index) => (
+              <button
+                key={index}
+                className="w-full text-left font-medium bg-blue-600 text-white p-3 rounded-lg my-2 hover:bg-blue-700 transition-all cursor-pointer"
+                onClick={() => {
+                  handleAnswer(option);
+                  handleQuestion();
+                }}
+              >
+                {option}
+              </button>
+            ))}
+          </>
+        )}
+        {isCorrect !== null && (
+          <p className={`font-medium ml-3 mt-4 ${isCorrect ? 'text-green-500' : 'text-red-500'}`}>
+            {isCorrect ? "Correct!" : "Incorrect!"}
           </p>
-          
-          )}
-          {isCorrect !== null && (
-            <>
-              {isCorrect ? (
-                <p className=" font-medium drop-shadow-sm ml-3">Correct!</p>
-              ) : (
-                <p className=" font-medium drop-shadow-sm ml-3">Incorrect!</p>
-              )}
-            </>
-          )}
-        </div>
+        )}
       </div>
     </div>
   );
