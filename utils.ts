@@ -41,7 +41,7 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
     const userState = await fetchUserState();
     const promptTemplate = new PromptTemplate({
       template: notaryPrompt ,
-      inputVariables: ['context', 'userState']
+      inputVariables: ['context', 'userState', 'memory']
     });
 
     // Create an OpenAI instance and load the QAStuffChain
