@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 const StartCard = ({ handleState, handleTimerStart }) => {
   return (
     <div className="flex flex-col justify-center items-center min-h-screen bg-gray-50">
-      <div className="mx-auto px-12 py-20 md:px-16 md:py-24 bg-white shadow-lg rounded-2xl border border-gray-200" style={{ borderRadius: '30px' }}> {/* Further increased padding */}
+      <div className="mx-auto px-20 py-40 md:px-16 md:py-24 bg-white shadow-lg rounded-2xl border border-gray-200" style={{ borderRadius: '30px' }}> {/* Further increased padding */}
         <h1 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-8">
           Coding Quiz Challenge
         </h1>
