@@ -3,21 +3,21 @@ import { Button } from "@/components/ui/button";
 
 const StartCard = ({ handleState, handleTimerStart }) => {
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-50">
-      <div className="w-full max-w-lg p-10 bg-white shadow-lg rounded-2xl border border-gray-200">
-        <h1 className="text-3xl font-bold text-gray-900 text-center mb-6">
+    <div className="flex flex-col justify-center items-center h-screen bg-gray-50">
+      <div className="mx-auto px-8 py-16 md:px-12 md:py-20 bg-white shadow-lg rounded-xl border border-gray-200" style={{ borderRadius: '30px' }}> {/* Increased top and bottom padding */}
+        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 text-center mb-6">
           Coding Quiz Challenge
         </h1>
-        <p className="text-center text-lg text-gray-700 font-medium mb-4">
+        <p className="text-center text-md text-gray-700 font-medium mb-5">
           Try to answer the following code-related questions within the time limit.
         </p>
-        <p className="text-center text-lg text-gray-700 font-medium mb-8">
+        <p className="text-center text-md text-gray-700 font-medium mb-4">
           Keep in mind that incorrect answers will penalize your score/time by ten seconds!
         </p>
         <Button 
-          className="col-span-12 lg:col-span-2 w-full py-3 text-lg" 
+          className="col-span-12 lg:col-span-2 w-full" 
           type="submit" 
-          size="large" 
+          size="icon" 
           onClick={() => { handleState("quiz"); handleTimerStart(); }}
         >
           Start Quiz
