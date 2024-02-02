@@ -61,7 +61,8 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
 
     // Format the query using the custom prompt template
     const formattedQuestion = await promptTemplate.format({ context: concatenatedPageContent, memory:memory_var||'none', userState:userState });
-
+    console.log(`Formatted Question Payload: ${formattedQuestion}...`);
+    
     // Execute the chain with input documents and question
     const result = await chain.invoke({
       input_documents: [new Document({ pageContent: formattedQuestion })],
