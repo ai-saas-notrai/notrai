@@ -13,12 +13,12 @@ const Question = ({
   const handleAnswer = (option) => {
     if (answer === option) {
       setIsCorrect(true);
-      handleScore(prevScore => prevScore + 10); // Assuming handleScore correctly updates the score state elsewhere
+      handleScore(prevScore => prevScore + 10);
     } else {
       setIsCorrect(false);
-      handleWrongAnswer(); // Presumably handles logic for an incorrect answer
+      handleWrongAnswer();
     }
-    handleQuestion(); // Call handleQuestion to proceed after an answer is selected
+    handleQuestion();
   };
 
   return (
@@ -30,12 +30,21 @@ const Question = ({
         {options.map((option, index) => (
           <div
             key={index}
-            className="my-2 p-3 border border-gray-300 shadow rounded-md flex justify-between items-center cursor-pointer hover:bg-gray-100" style={{ paddingTop: "5px", paddingBottom: "5px" }}
+            // Increased margin for more space between options
+            className="my-6 p-3 border border-gray-300 shadow rounded-md flex justify-between items-center cursor-pointer hover:bg-gray-100"
             onClick={() => handleAnswer(option)}
           >
             <span className="font-medium text-sm text-gray-700">{option}</span>
           </div>
         ))}
+        <br />
+        <hr />
+        <br />
+        {isCorrect === null && (
+          <p className="font-medium drop-shadow-sm ml-3">
+            Let's Start! Choose the best answer from the multiple choices.
+          </p>
+        )}
         {isCorrect !== null && (
           <p className={`mt-4 font-medium ${isCorrect ? 'text-green-500' : 'text-red-500'}`}>
             {isCorrect ? "Correct!" : "Incorrect!"}
