@@ -110,7 +110,7 @@ const QuizPage: React.FC = () => {
         <div className="fixed top-0 right-20 p-4 text-black">
           <span>Time: {Math.floor(time / 1000)}s</span>
         </div>
-      <main className="flex-grow pt-24 p-4">
+      <main className="flex-grow pt-5 p-4">
       <div className="flex flex-col min-h-screen">
         <div className=" justify-center">
           {state === "start" && (

@@ -6,8 +6,8 @@ const HighScores = ({ handleState, highScore, handleClearHighScore, handleReset 
 
   return (
     <div className="flex flex-col justify-center items-center h-screen bg-gray-50">
-      <div className="mx-auto px-8 py-16 md:px-12 md:py-20 bg-white shadow-lg rounded-xl border border-gray-200" style={{ borderRadius: '30px', paddingTop: "20px", paddingBottom: "20px" }}>
-        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 text-center mb-6">
+      <div className="mx-auto px-8 py-16 md:px-12 md:py-20 bg-white shadow-lg rounded-xl border border-gray-200" style={{ borderRadius: '30px', paddingTop: "20px", paddingBottom: "20px", paddingRight: "50px", paddingLeft: "50px" }}>
+        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 text-center mb-6" style={{paddingBottom: "20px"}}>
           Highscores
         </h1>
         {sortedList.map((entry, index) => (
