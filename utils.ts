@@ -49,6 +49,9 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
       inputVariables: ['context', 'userState', 'memory']
     });
 
+    console.log(JSON.stringify(queryResponse.matches, null, 2));
+
+
     const llm = new OpenAI({ temperature: 0.2 });
     const chain = loadQAStuffChain(llm);
 
