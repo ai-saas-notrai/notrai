@@ -30,9 +30,10 @@ const AllDone = ({ score, handleHighScore, handleState, handleReset }) => {
           size="icon"
           id="submit"
           onClick={() => {
+            
             handleHighScore({ name: name, score: score });
             handleState("highscore");
-            
+            handleReset();
             
           }}
           disabled={!name} // Disable button if name is not entered
