@@ -1,43 +1,40 @@
 import React from 'react'
 
+const HighScores = ({ handleState, highScore, handleClearHighScore }) => {
+  let sortedList = highScore?.sort((a, b) => b.score - a.score) || [];
 
-const HighScores = ({handleState, highScore, hadleClearHighScore }) => {
-
-  let sortedList = []
-    if(highScore){
-      sortedList = highScore.sort((a , b ) => {
-        return b.score - a.score;
-      })
-    }
-
-    return (
-        <div>
-       <div className="flex flex-col justify-center h-[90vh]">
-      <div className="lg:w-6/12 w-10/12 mx-auto px-10 py-16 outline outline-slate-300 outline-2 rounded-3xl shadow-xl">
-        <h1 className="font-black font-Inter mb-6 drop-shadow-sm">
+  return (
+    <div className="flex flex-col justify-center items-center h-screen bg-gray-50">
+      <div className="mx-auto px-8 py-16 md:px-12 md:py-20 bg-white shadow-lg rounded-xl border border-gray-200" style={{ borderRadius: '30px', paddingTop: "20px", paddingBottom: "20px" }}>
+        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 text-center mb-6">
           Highscores
         </h1>
-        {highScore && (
-        <>
-        {sortedList.map((entry, index) => {
-        return (
-          <p key={index} className="font-medium drop-shadow-sm mb-5 indent-3">
-          {index + 1}. {entry.name} - {entry.score}
-        </p>
-        )
-        })}
-        </>
-        )}
-        <button className="bg-skin-main text-white px-3 py-3 rounded-lg hover:bg-green-900 transition-all shadow-md mr-5 mb-3" onClick={() => {handleState("start")}}>
-          Go back
-        </button>
-        <button className="bg-skin-main text-white px-3 py-3 rounded-lg hover:bg-green-900 transition-all shadow-md" onClick={() => {hadleClearHighScore();}}>
-          Clear Highscores
-        </button>
+        {sortedList.map((entry, index) => (
+          <p key={index} className="text-md text-gray-700 font-medium mb-4 text-center">
+            {index + 1}. {entry.name} - {entry.score}
+          </p>
+        ))}
+        <div className="flex flex-col space-y-4 mt-6">
+        <Button 
+          className="col-span-12 lg:col-span-2 w-full" 
+          type="submit" 
+          size="icon"
+            onClick={() => handleState("start")}
+          >
+            Go Back
+          </Button>
+          <Button 
+          className="col-span-12 lg:col-span-2 w-full" 
+          type="submit" 
+          size="icon"
+            onClick={handleClearHighScore}
+          >
+            Clear Highscores
+          </Button>
+        </div>
       </div>
     </div>
-        </div>
-    )
+  );
 }
 
-export default HighScores
+export default HighScores;
