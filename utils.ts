@@ -40,8 +40,6 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
     inputVariables: ['context', 'userState', 'memory']
   });
 
-  console.log(JSON.stringify(queryResponse.matches, null, 2));
-
   const llm = new OpenAI({ temperature: 0.2 });
 
   // Initialize or load existing chat history
@@ -49,12 +47,15 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
     chatHistory: new ChatMessageHistory([]),
   });
 
-  // Retrieve existing messages, if any
+  // Retrieve and log existing messages
   let pastMessages = await memory.chatHistory.getMessages();
+  console.log('Initial chat history:', pastMessages);
+
   pastMessages.push(new HumanMessage(question));
 
-  // Update memory with the new question
+  // Update and log memory with the new question
   memory.chatHistory.addMessage(new HumanMessage(question));
+  console.log('Updated chat history with question:', await memory.chatHistory.getMessages());
 
   const chain = loadQAStuffChain(llm);
 
@@ -69,7 +70,7 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
   const formattedQuestion = await promptTemplate.format({
     context: concatenatedPageContent,
     userState: userState,
-    memory: pastMessages, // Here, consider how you convert messages to a format suitable for your memory model
+    memory: pastMessages,
   });
 
   // Execute the chain with input documents and question
@@ -78,8 +79,9 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
     question: question,
   });
 
-  // Update chat history with the assistant's response
+  // Update and log chat history with the assistant's response
   memory.chatHistory.addMessage(new AIMessage(result.text));
+  console.log('Final chat history:', await memory.chatHistory.getMessages());
 
   console.log(`Answer: ${result.text}`);
   return result.text;
