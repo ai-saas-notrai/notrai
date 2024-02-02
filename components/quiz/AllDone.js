@@ -33,7 +33,6 @@ const AllDone = ({ score, handleHighScore, handleState, handleReset }) => {
             
             handleHighScore({ name: name, score: score });
             handleState("highscore");
-            handleReset();
             
           }}
           disabled={!name} // Disable button if name is not entered

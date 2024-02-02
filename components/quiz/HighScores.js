@@ -21,9 +21,10 @@ const HighScores = ({ handleState, highScore, handleClearHighScore }) => {
           type="submit" 
           size="icon"
 
-            onClick={() => {
-              handleState("start")
-            }}
+          onClick={() => {
+            handleState("start");
+            handleReset();
+          }}
             
           >
             Go Back
