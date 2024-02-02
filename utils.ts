@@ -82,8 +82,17 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
     question: question,
   });
 
-  // Update and log chat history with the assistant's response
-  memory.chatHistory.addMessage(new AIMessage(result.text));
+  // Retrieve the current chat history to check for duplicates
+  let currentMessages = await memory.chatHistory.getMessages();
+
+  // Check if the last message is an AI message with the same content to prevent duplicates
+  if (!(currentMessages.length && currentMessages[currentMessages.length - 1].content === result.text && currentMessages[currentMessages.length - 1] instanceof AIMessage)) {
+      memory.chatHistory.addMessage(new AIMessage(result.text));
+      console.log('AI response added to chat history.');
+  } else {
+      console.log('Duplicate AI response detected and not added.');
+  }
+
   console.log('Final chat history:', await memory.chatHistory.getMessages());
 
   console.log(`Answer: ${result.text}`);
