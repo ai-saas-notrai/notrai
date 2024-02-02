@@ -134,6 +134,7 @@ const QuizPage: React.FC = () => {
               handleState={handleState}
               highScore={highScore}
               handleClearHighScore={hadleClearHighScore}
+              handleReset={handleReset}
             />
           )}
           {state === "done" && (
@@ -141,7 +142,6 @@ const QuizPage: React.FC = () => {
               score={score}
               handleHighScore={handleHighScore}
               handleState={handleState}
-              handleReset={handleReset}
             />
           )}
           {state === "timeup" && (

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 
-const AllDone = ({ score, handleHighScore, handleState, handleReset }) => {
+const AllDone = ({ score, handleHighScore, handleState }) => {
   const [name, setName] = useState("");
 
   return (
