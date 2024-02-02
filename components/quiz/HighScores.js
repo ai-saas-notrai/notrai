@@ -1,4 +1,5 @@
 import React from 'react'
+import { Button } from "@/components/ui/button";
 
 const HighScores = ({ handleState, highScore, handleClearHighScore }) => {
   let sortedList = highScore?.sort((a, b) => b.score - a.score) || [];
@@ -24,9 +25,9 @@ const HighScores = ({ handleState, highScore, handleClearHighScore }) => {
             Go Back
           </Button>
           <Button 
-          className="col-span-12 lg:col-span-2 w-full" 
-          type="submit" 
-          size="icon"
+            className="col-span-12 lg:col-span-2 w-full" 
+            type="submit" 
+            size="icon"
             onClick={handleClearHighScore}
           >
             Clear Highscores
