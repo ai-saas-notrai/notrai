@@ -22,8 +22,9 @@ const HighScores = ({ handleState, highScore, handleClearHighScore }) => {
           size="icon"
 
           onClick={() => {
-            handleState("start");
             handleReset();
+            handleState("start");
+            
           }}
             
           >
