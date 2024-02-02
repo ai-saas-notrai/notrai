@@ -5,8 +5,9 @@ import { Pinecone } from '@pinecone-database/pinecone';
 import { PromptTemplate } from '@langchain/core/prompts';
 import { fetchUserState } from '@/lib/fetchUserState';
 import { notaryPrompt } from './lib/prompts';
-import { BufferMemory } from "langchain/memory";
+import { BufferMemory, BufferWindowMemory } from "langchain/memory";
 import { auth } from "@clerk/nextjs";
+import { HumanMessage, AIMessage } from "langchain/schema";
 
 export const queryPineconeVectorStoreAndQueryLLM = async (
   apiKey: string,
@@ -35,7 +36,9 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
 
   // Initialize BufferMemory with unique identifier (e.g., userId)
   const memory = new BufferMemory({
-    memoryKey: `memory-${userId}`, // Ensure unique memory per user
+    memoryKey: `memory-${userId}`,
+    returnMessages: true,
+    
   });
 
   // Load previous memory content for the user
@@ -81,9 +84,10 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
     // Update memory with the current interaction
     // Update memory with the current interaction
     console.log('Saving to memory:', { human: question, assistant: result.text });
+
     await memory.saveContext(
-      { human: question },
-      { assistant: result.text }
+      { inputKey: question },
+      { outputKey: result.text }
     );
 
 
