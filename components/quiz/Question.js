@@ -42,7 +42,7 @@ const Question = ({
         <br />
         {isCorrect === null && (
           <p className="font-medium drop-shadow-sm ml-3">
-            Let's Start! Choose the best answer from the multiple choices.
+            Choose the best answer from the multiple choices.
           </p>
         )}
         {isCorrect !== null && (
