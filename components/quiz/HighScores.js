@@ -23,8 +23,6 @@ const HighScores = ({ handleState, highScore, handleClearHighScore }) => {
 
             onClick={() => {
               handleState("start")
-              handleReset();
-              
             }}
             
           >
