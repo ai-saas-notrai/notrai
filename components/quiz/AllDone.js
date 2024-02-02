@@ -21,8 +21,10 @@ const AllDone = ({ score, handleHighScore, handleState, handleReset }) => {
             onChange={(e) => setName(e.target.value)}
             value={name}
             required
+            id="submit"
           />
         </div>
+        {name ? (
         <Button 
           className="col-span-12 lg:col-span-2 w-full" 
           type="submit" 
@@ -36,6 +38,20 @@ const AllDone = ({ score, handleHighScore, handleState, handleReset }) => {
         >
           Submit
         </Button>
+        ) : (
+              <Button
+              className="sm:ml-3 mt-3 sm:mt-0 bg-gray-500 text-black px-3 py-2 rounded-lg transition-all shadow-md" 
+              type="submit" 
+              id="submit"
+              size="icon"
+              onClick={(e) => {
+              }}
+            >
+              Submit
+            </Button>
+            )}
+            
+          
       </div>
     </div>
   );
