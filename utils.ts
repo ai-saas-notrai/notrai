@@ -51,18 +51,20 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
     const memory = new BufferWindowMemory({ k: 5 }); // Adjust 'k' as needed
 
     const memory_var = memory.loadMemoryVariables({})
-
+    console.log(`Memory: ${memory_var}...`);
     const chain = loadQAStuffChain(llm);
 
     // Extract and concatenate page content from matched documents
     const concatenatedPageContent = queryResponse.matches
       .map((match) => match.metadata?.pageContent ?? "")
       .join(" ");
+    
+    console.log(`Concated Results: ${concatenatedPageContent}...`);
 
     // Format the query using the custom prompt template
     const formattedQuestion = await promptTemplate.format({ context: concatenatedPageContent, memory:memory_var||'none', userState:userState });
-    console.log(`Formatted Question Payload: ${formattedQuestion}...`);
     
+
     // Execute the chain with input documents and question
     const result = await chain.invoke({
       input_documents: [new Document({ pageContent: formattedQuestion })],
