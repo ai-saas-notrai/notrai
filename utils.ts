@@ -5,7 +5,7 @@ import { Pinecone } from '@pinecone-database/pinecone';
 import { PromptTemplate } from '@langchain/core/prompts';
 import { fetchUserState } from '@/lib/fetchUserState';
 import { notaryPrompt } from './lib/prompts';
-import { BufferMemory, BufferWindowMemory } from "langchain/memory";
+import { BufferMemory, ChatMessageHistory } from "langchain/memory";
 import { auth } from "@clerk/nextjs";
 import { HumanMessage, AIMessage } from "langchain/schema";
 
@@ -23,7 +23,7 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
   // Create query embedding
   const queryEmbedding = await new OpenAIEmbeddings().embedQuery(question);
 
-  // Query Pinecone index and return top 10 matches
+  // Query Pinecone index and return top matches
   const queryResponse = await index.query({
     topK: 25,
     vector: queryEmbedding,
@@ -34,66 +34,53 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
   console.log(`Found ${queryResponse.matches.length} matches...`);
   console.log(`Asking question: ${question}...`);
 
-  // Initialize BufferMemory with unique identifier (e.g., userId)
-  const memory = new BufferMemory({
-    memoryKey: `memory-${userId}`,
-    returnMessages: true,
-    
+  const userState = await fetchUserState();
+  const promptTemplate = new PromptTemplate({
+    template: notaryPrompt,
+    inputVariables: ['context', 'userState', 'memory']
   });
 
-  // Load previous memory content for the user
+  console.log(JSON.stringify(queryResponse.matches, null, 2));
+
+  const llm = new OpenAI({ temperature: 0.2 });
+
+  // Initialize or load existing chat history
+  let memory = new BufferMemory({
+    chatHistory: new ChatMessageHistory([]),
+  });
+
+  // Retrieve existing messages, if any
+  let pastMessages = await memory.chatHistory.getMessages();
+  pastMessages.push(new HumanMessage(question));
+
+  // Update memory with the new question
+  memory.chatHistory.addMessage(new HumanMessage(question));
+
+  const chain = loadQAStuffChain(llm);
+
+  // Extract and concatenate page content from matched documents
+  const concatenatedPageContent = queryResponse.matches
+    .map((match) => match.metadata?.pageContent ?? "")
+    .join(" ");
   
-  const memoryContent = await memory.loadMemoryVariables({});
-  console.log('Loaded memory content:', memoryContent);
+  console.log(`Concatenated Results: ${concatenatedPageContent}...`);
 
-  if (queryResponse.matches.length) {
-    // Custom prompt template
-    const userState = await fetchUserState();
-    const promptTemplate = new PromptTemplate({
-      template: notaryPrompt,
-      inputVariables: ['context', 'userState', 'memory']
-    });
+  // Format the query using the custom prompt template, including memory content
+  const formattedQuestion = await promptTemplate.format({
+    context: concatenatedPageContent,
+    userState: userState,
+    memory: pastMessages, // Here, consider how you convert messages to a format suitable for your memory model
+  });
 
-    console.log(JSON.stringify(queryResponse.matches, null, 2));
+  // Execute the chain with input documents and question
+  const result = await chain.invoke({
+    input_documents: [new Document({ pageContent: formattedQuestion })],
+    question: question,
+  });
 
+  // Update chat history with the assistant's response
+  memory.chatHistory.addMessage(new AIMessage(result.text));
 
-    const llm = new OpenAI({ temperature: 0.2 });
-    const chain = loadQAStuffChain(llm);
-
-    // Extract and concatenate page content from matched documents
-    const concatenatedPageContent = queryResponse.matches
-      .map((match) => match.metadata?.pageContent ?? "")
-      .join(" ");
-    
-    console.log(`Concated Results: ${concatenatedPageContent}...`);
-
-    // Format the query using the custom prompt template, including memory content
-    const formattedQuestion = await promptTemplate.format({
-      context: concatenatedPageContent,
-      userState: userState,
-      memory: memoryContent || 'none', // Use 'none' or an appropriate default if no memory
-    });
-    console.log(`Memory: ${JSON.stringify(memoryContent, null, 2)}...`);
-
-    // Execute the chain with input documents and question
-    const result = await chain.invoke({
-      input_documents: [new Document({ pageContent: formattedQuestion })],
-      question: question,
-    });
-
-    // Update memory with the current interaction
-    // Update memory with the current interaction
-    console.log('Saving to memory:', { human: question, assistant: result.text });
-
-    await memory.saveContext(
-      { inputKey: question },
-      { outputKey: result.text }
-    );
-
-
-    console.log(`Answer: ${result.text}`);
-    return result.text;
-  } else {
-    console.log('Since there are no matches, GPT-3 will not be queried.');
-  }
+  console.log(`Answer: ${result.text}`);
+  return result.text;
 };
