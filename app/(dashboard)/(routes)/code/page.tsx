@@ -133,7 +133,7 @@ const QuizPage: React.FC = () => {
             <HighScores
               handleState={handleState}
               highScore={highScore}
-              hadleClearHighScore={hadleClearHighScore}
+              handleClearHighScore={hadleClearHighScore}
             />
           )}
           {state === "done" && (
