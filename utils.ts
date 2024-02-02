@@ -47,16 +47,19 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
     chatHistory: new ChatMessageHistory([]),
   });
 
-  // Retrieve and log existing messages
+  // Retrieve existing messages
   let pastMessages = await memory.chatHistory.getMessages();
   console.log('Initial chat history:', pastMessages);
 
-  pastMessages.push(new HumanMessage(question));
+  // Check if the last message is different from the current question to prevent duplicates
+  if (!(pastMessages.length && pastMessages[pastMessages.length - 1].content === question)) {
+    memory.chatHistory.addMessage(new HumanMessage(question));
+    console.log('Question added to chat history:', question);
+  } else {
+    console.log('Question is a duplicate and was not added:', question);
+  }
 
-  // Update and log memory with the new question
-  memory.chatHistory.addMessage(new HumanMessage(question));
-  console.log('Updated chat history with question:', await memory.chatHistory.getMessages());
-
+  // Create the chain
   const chain = loadQAStuffChain(llm);
 
   // Extract and concatenate page content from matched documents
@@ -72,7 +75,7 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
     userState: userState,
     memory: pastMessages,
   });
-
+  console.log(`Model Formatted Question: ${formattedQuestion}...`);
   // Execute the chain with input documents and question
   const result = await chain.invoke({
     input_documents: [new Document({ pageContent: formattedQuestion })],
