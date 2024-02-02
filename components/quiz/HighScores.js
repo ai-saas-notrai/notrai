@@ -20,7 +20,13 @@ const HighScores = ({ handleState, highScore, handleClearHighScore }) => {
           className="col-span-12 lg:col-span-2 w-full" 
           type="submit" 
           size="icon"
-            onClick={() => handleState("start")}
+
+            onClick={() => {
+              handleState("start")
+              handleReset();
+              
+            }}
+            
           >
             Go Back
           </Button>

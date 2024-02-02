@@ -24,34 +24,21 @@ const AllDone = ({ score, handleHighScore, handleState, handleReset }) => {
             id="submit"
           />
         </div>
-        {name ? (
         <Button 
           className="col-span-12 lg:col-span-2 w-full" 
           type="submit" 
           size="icon"
+          id="submit"
           onClick={() => {
             handleHighScore({ name: name, score: score });
             handleState("highscore");
-            handleReset();
+            
           }}
           disabled={!name} // Disable button if name is not entered
         >
           Submit
         </Button>
-        ) : (
-              <Button
-              className="sm:ml-3 mt-3 sm:mt-0 bg-gray-500 text-black px-3 py-2 rounded-lg transition-all shadow-md" 
-              type="submit" 
-              id="submit"
-              size="icon"
-              onClick={(e) => {
-              }}
-            >
-              Submit
-            </Button>
-            )}
-            
-          
+        
       </div>
     </div>
   );
