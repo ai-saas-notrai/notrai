@@ -65,6 +65,7 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
       userState: userState,
       memory: memoryContent || 'none', // Use 'none' or an appropriate default if no memory
     });
+    console.log(`Memory: ${memoryContent}...`);
 
     // Execute the chain with input documents and question
     const result = await chain.invoke({
