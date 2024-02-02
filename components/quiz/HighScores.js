@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button } from "@/components/ui/button";
 
-const HighScores = ({ handleState, highScore, handleClearHighScore }) => {
+const HighScores = ({ handleState, highScore, handleClearHighScore, handleReset }) => {
   let sortedList = highScore?.sort((a, b) => b.score - a.score) || [];
 
   return (
