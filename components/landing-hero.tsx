@@ -16,10 +16,11 @@ export const LandingHero = () => {
         <div className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
           <TypewriterComponent
             options={{
-              strings: [
-        "official exam preparation classes.",
-        "accessing a vast notary knowledge.",
-        "practicing exam questions."
+                    strings: [
+        "official CA exam prep.",
+        "AI-guided learning & Q&A.",
+        "real exam practice.",
+        "comprehensive notary insights."
       ],
               autoStart: true,
               loop: true,
