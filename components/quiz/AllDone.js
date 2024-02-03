@@ -35,7 +35,7 @@ const AllDone = ({ score, handleHighScore, handleState }) => {
           id="submit"
           onClick={() => {
             
-            handleHighScore({ name: name, score: scorePercentage });
+            handleHighScore({ name: name, score: scorePercentage.toFixed(2) });
             handleState("highscore");
             
           }}
