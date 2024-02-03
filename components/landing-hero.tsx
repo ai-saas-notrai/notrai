@@ -18,7 +18,7 @@ export const LandingHero = () => {
             options={{
                     strings: [
         "official CA exam prep.",
-        "AI-guided learning & Q&A.",
+        "guided learning & Q&A.",
         "real exam practice.",
         "comprehensive notary insights."
       ],
