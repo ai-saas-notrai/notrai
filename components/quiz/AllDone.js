@@ -3,6 +3,10 @@ import { Button } from "@/components/ui/button";
 
 const AllDone = ({ score, handleHighScore, handleState }) => {
   const [name, setName] = useState("");
+  const totalQuestions = 45; // Total questions limited in the quiz
+  const maxScore = totalQuestions * 10; // Maximum possible score
+  const scorePercentage = (score / maxScore) * 100;
+  
 
   return (
     <div className="flex flex-col justify-center items-center h-screen bg-gray-50">
@@ -11,7 +15,7 @@ const AllDone = ({ score, handleHighScore, handleState }) => {
           All Done!
         </h1>
         <p className="text-center text-md text-gray-700 font-medium mb-5">
-          Your Final Score is: {score}
+          Your Final Score is: {scorePercentage.toFixed(2)}%
         </p>
         <div className="text-center font-medium mb-4">
           Enter Initials<span className="text-red-500">*</span>:
@@ -31,7 +35,7 @@ const AllDone = ({ score, handleHighScore, handleState }) => {
           id="submit"
           onClick={() => {
             
-            handleHighScore({ name: name, score: score });
+            handleHighScore({ name: name, score: scorePercentage });
             handleState("highscore");
             
           }}

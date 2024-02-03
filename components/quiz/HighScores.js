@@ -12,7 +12,7 @@ const HighScores = ({ handleState, highScore, handleClearHighScore, handleReset 
         </h1>
         {sortedList.map((entry, index) => (
           <p key={index} className="text-md text-gray-700 font-medium mb-4 text-center">
-            {index + 1}. {entry.name} - {entry.score}
+            {index + 1}. {entry.name} - {entry.score}%
           </p>
         ))}
         <div className="flex flex-col space-y-4 mt-6">
