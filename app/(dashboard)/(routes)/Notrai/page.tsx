@@ -116,7 +116,7 @@ const ConversationPage = () => {
                 )}
               />
               <Button className="col-span-12 lg:col-span-2 w-full" type="submit" disabled={isLoading} size="icon">
-                Generate
+                Submit
               </Button>
             </form>
           </Form>

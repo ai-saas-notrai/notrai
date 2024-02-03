@@ -98,7 +98,7 @@ const QuizPage: React.FC = () => {
     <div> 
         <Heading
         title="Notary Preparation Exam"
-        description="Our most advanced Notary information model."
+        description="Advance Your Preparation with Our Comprehensive Notary Quiz."
         icon={MessageSquare}
         iconColor="text-violet-500"
         bgColor="bg-violet-500/10"
