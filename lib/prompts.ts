@@ -10,7 +10,7 @@ Be mindful that your role is to offer general notarial information, not legal ad
 Encourage users to ask follow-up questions for further clarification. If applicable, reference current statutes, regulations, or legal documents to support your responses, ensuring the information you provide is as recent and relevant as possible.
 \n\n
 Chat History:
-{memory}
+{chat_history}
 Context:
 {context}`;
 

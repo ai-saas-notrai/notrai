@@ -1,5 +1,5 @@
 import { OpenAIEmbeddings, OpenAI } from '@langchain/openai';
-import { loadQAStuffChain } from 'langchain/chains';
+import { loadQAStuffChain, ConversationalRetrievalQAChain } from 'langchain/chains';
 import { Document } from '@langchain/core/documents';
 import { Pinecone } from '@pinecone-database/pinecone';
 import { PromptTemplate } from '@langchain/core/prompts';
@@ -37,7 +37,7 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
   const userState = await fetchUserState();
   const promptTemplate = new PromptTemplate({
     template: notaryPrompt,
-    inputVariables: ['context', 'userState', 'memory']
+    inputVariables: ['context', 'userState', 'chat_history']
   });
 
   const llm = new OpenAI({ temperature: 0.2 });
@@ -45,6 +45,7 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
   // Initialize or load existing chat history
   let memory = new BufferMemory({
     chatHistory: new ChatMessageHistory([]),
+    memoryKey: 'chat_history'
   });
 
   // Retrieve existing messages
@@ -60,7 +61,7 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
   }
 
   // Create the chain
-  const chain = loadQAStuffChain(llm);
+  const chain =  loadQAStuffChain(llm);
 
   // Extract and concatenate page content from matched documents
   const concatenatedPageContent = queryResponse.matches
@@ -73,7 +74,7 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
   const formattedQuestion = await promptTemplate.format({
     context: concatenatedPageContent,
     userState: userState,
-    memory: pastMessages,
+    chat_history: pastMessages,
   });
   console.log(`Model Formatted Question: ${formattedQuestion}...`);
   // Execute the chain with input documents and question
