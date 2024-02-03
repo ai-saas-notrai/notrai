@@ -1,10 +1,7 @@
 "use client";
 
-// If you're not using TypeScript, remove types and interfaces.
 import React, { useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
-
-// Corrected import paths according to typical project structure
 import { Button } from "@/components/ui/button";
 import StartCard from "@/components/quiz/StartCard";
 import Question from "@/components/quiz/Question";
@@ -13,10 +10,29 @@ import AllDone from "@/components/quiz/AllDone";
 import TimeUp from "@/components/quiz/TimeUp";
 import { Heading } from "@/components/heading";
 import { MessageSquare } from "lucide-react";
+import questionsData from '@/components/quiz/questions'; // Assuming this is an array of question objects
 
-// Correct this import to point to your questions data
-import questions from '@/components/quiz/questions'; // Assuming this is an array of question objects
+// Added shuffle function directly inside the component to ensure it's clear where modifications have been made
+function shuffle<T>(array: T[]): T[] {
+  let currentIndex = array.length, randomIndex;
 
+  // While there remain elements to shuffle...
+  while (currentIndex !== 0) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+
+  return array;
+}
+
+// Immediately shuffle and limit the questions upon loading the component
+const limitedQuestions = shuffle([...questionsData]).slice(0, 45);
 
 const QuizPage: React.FC = () => {
   const [state, setState] = useState<string>("start");
@@ -47,7 +63,7 @@ const QuizPage: React.FC = () => {
 
   const handleQuestion = (isCorrect: boolean) => {
     if (isCorrect) setScore(score + 10);
-    if (questionNo + 1 < questions.length) {
+    if (questionNo + 1 < limitedQuestions.length) {
       setQuestionNo(questionNo + 1);
     } else {
       setState("done");
@@ -63,7 +79,6 @@ const QuizPage: React.FC = () => {
     setTimerOn(false);
   };
 
-  //Functions to Start the timer
   const handleTimerStart = () => {
     setTimerOn(true);
   };
@@ -72,85 +87,72 @@ const QuizPage: React.FC = () => {
     setDeduct(true);
   };
 
-  //Hanlde The High Scores
-
-  const handleHighScore = (newScore:number) => {
+  const handleHighScore = (newScore: number) => {
     setHighScore((prevScores) => {
       return [...prevScores, newScore];
     });
   };
 
-  //Clear High Scores
-  const hadleClearHighScore = () => {
+  const handleClearHighScore = () => {
     setHighScore([]);
   };
 
-  const handleState = (newState:string) => {
+  const handleState = (newState: string) => {
     setState(newState);
   };
-  const handleScore = (UserScore:number) => {
+  
+  const handleScore = (UserScore: number) => {
     setScore(UserScore);
   };
 
   return (
-    
-
     <div> 
-        <Heading
+      <Heading
         title="Notary Preparation Exam"
         description="Advance Your Preparation with Our Comprehensive Notary Quiz."
         icon={MessageSquare}
         iconColor="text-violet-500"
         bgColor="bg-violet-500/10"
-          />
-        <div>
-        </div>
-        
-        {/* Place the time element in the top right corner */}
-        <div className="fixed top-0 right-20 p-4 text-black">
-          <span>Time: {Math.floor(time / 1000)}s</span>
-        </div>
+      />
+      <div className="fixed top-0 right-20 p-4 text-black">
+        <span>Time: {Math.floor(time / 1000)}s</span>
+      </div>
       <main className="flex-grow pt-5 p-4">
-      <div className="flex flex-col min-h-screen">
-        <div className=" justify-center">
-          {state === "start" && (
-            <StartCard
-              handleState={handleState}
-              handleTimerStart={handleTimerStart}
-            />
-          )}
-          {state === "quiz" && (
-            <Question
-              questionText={questions[questionNo].questionText}
-              options={questions[questionNo].options}
-              answer={questions[questionNo].answer}
-              handleQuestion={handleQuestion}
-              handleScore={handleScore}
-              handleWrongAnswer={handleWrongAnswer}
-            />
-          )}
-          {state === "highscore" && (
-            <HighScores
-              handleState={handleState}
-              highScore={highScore}
-              handleClearHighScore={hadleClearHighScore}
-              handleReset={handleReset}
-            />
-          )}
-          {state === "done" && (
-            <AllDone
-              score={score}
-              handleHighScore={handleHighScore}
-              handleState={handleState}
-            />
-          )}
-          {state === "timeup" && (
-           <TimeUp 
-             handleState ={handleState}
-           />
-
-          )}
-        </div>
+        <div className="flex flex-col min-h-screen">
+          <div className="justify-center">
+            {state === "start" && (
+              <StartCard
+                handleState={handleState}
+                handleTimerStart={handleTimerStart}
+              />
+            )}
+            {state === "quiz" && (
+              <Question
+                questionText={limitedQuestions[questionNo].questionText}
+                options={limitedQuestions[questionNo].options}
+                answer={limitedQuestions[questionNo].answer}
+                handleQuestion={handleQuestion}
+                handleScore={handleScore}
+                handleWrongAnswer={handleWrongAnswer}
+              />
+            )}
+            {state === "highscore" && (
+              <HighScores
+                handleState={handleState}
+                highScore={highScore}
+                handleClearHighScore={handleClearHighScore}
+                handleReset={handleReset}
+              />
+            )}
+            {state === "done" && (
+              <AllDone
+                score={score}
+                handleHighScore={handleHighScore}
+                handleState={handleState}
+              />
+            )}
+            {state === "timeup" && <TimeUp handleState={handleState} />}
+          </div>
         </div>
       </main>
     </div>
