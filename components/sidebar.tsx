@@ -18,12 +18,12 @@ const routes = [
     href: '/dashboard',
     color: "text-sky-500"
   },
-  {
-    label: 'Conversation',
-    icon: MessageSquare,
-    href: '/conversation',
-    color: "text-violet-500",
-  },
+//  {
+    //label: 'Conversation',
+    //icon: MessageSquare,
+    //href: '/conversation',
+    //color: "text-violet-500",
+  //},
    {
      label: 'Notrai',
      icon: MessageSquare,
@@ -43,7 +43,7 @@ const routes = [
   //   href: '/music',
   // },
   {
-    label: 'Code Generation',
+    label: 'Exam Practice',
     icon: Code,
     color: "text-green-700",
     href: '/code',
