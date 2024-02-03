@@ -1,4 +1,4 @@
-import { Code, ImageIcon, MessageSquare, Music, VideoIcon } from "lucide-react";
+import { FileClock, ImageIcon, MessageSquare, Music, VideoIcon } from "lucide-react";
 
 export const MAX_FREE_COUNTS = 5;
 
