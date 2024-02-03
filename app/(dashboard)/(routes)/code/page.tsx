@@ -114,7 +114,7 @@ const QuizPage: React.FC = () => {
         iconColor="text-violet-500"
         bgColor="bg-violet-500/10"
       />
-      <div className="fixed top-0 right-20 p-4 text-black">
+      <div className="fixed bottom-0 center-20 p-4 text-black">
       <span>Time: {Math.floor(time / 60000)}m {Math.floor((time % 60000) / 1000)}s</span>
 
       </div>
