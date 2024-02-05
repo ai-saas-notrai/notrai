@@ -45,7 +45,8 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
   // Initialize or load existing chat history
   let memory = new BufferMemory({
     chatHistory: new ChatMessageHistory([]),
-    memoryKey: 'chat_history'
+    memoryKey: 'chat_history',
+    returnMessages:true
   });
 
   // Retrieve existing messages
@@ -54,7 +55,7 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
 
   // Check if the last message is different from the current question to prevent duplicates
   if (!(pastMessages.length && pastMessages[pastMessages.length - 1].content === question)) {
-    memory.chatHistory.addMessage(new HumanMessage(question));
+    memory.chatHistory.addUserMessage(question);
     console.log('Question added to chat history:', question);
   } else {
     console.log('Question is a duplicate and was not added:', question);
@@ -88,7 +89,7 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
 
   // Check if the last message is an AI message with the same content to prevent duplicates
   if (!(currentMessages.length && currentMessages[currentMessages.length - 1].content === result.text && currentMessages[currentMessages.length - 1] instanceof AIMessage)) {
-      memory.chatHistory.addMessage(new AIMessage(result.text));
+      memory.chatHistory.addAIChatMessage(result.text);
       console.log('AI response added to chat history.');
   } else {
       console.log('Duplicate AI response detected and not added.');
