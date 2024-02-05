@@ -5,15 +5,16 @@ import { Pinecone } from '@pinecone-database/pinecone';
 import { PromptTemplate } from '@langchain/core/prompts';
 import { fetchUserState } from '@/lib/fetchUserState';
 import { notaryPrompt } from './lib/prompts';
-import { BufferMemory, ChatMessageHistory } from "langchain/memory";
+import { BufferMemory, ChatMessageHistory, BufferWindowMemory } from "langchain/memory";
 import { auth } from "@clerk/nextjs";
 import { HumanMessage, AIMessage } from "langchain/schema";
 
 // Initialize or load existing chat history
-let memory = new BufferMemory({
+let memory = new BufferWindowMemory({
   chatHistory: new ChatMessageHistory([]),
   memoryKey: 'chat_history',
-  returnMessages:true
+  returnMessages:true,
+  k:5
 });
 
 export const queryPineconeVectorStoreAndQueryLLM = async (
