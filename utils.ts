@@ -92,7 +92,7 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
 
   // Check if the last message is an AI message with the same content to prevent duplicates
   if (!(currentMessages.length && currentMessages[currentMessages.length - 1].content === result.text && currentMessages[currentMessages.length - 1] instanceof AIMessage)) {
-      //memory.chatHistory.addAIChatMessage(result.text);
+      memory.chatHistory.addAIChatMessage(result.text);
       console.log('AI response added to chat history.');
   } else {
       console.log('Duplicate AI response detected and not added.');
