@@ -9,7 +9,7 @@ import HighScores from "@/components/quiz/HighScores";
 import AllDone from "@/components/quiz/AllDone";
 import TimeUp from "@/components/quiz/TimeUp";
 import { Heading } from "@/components/heading";
-import { MessageSquare } from "lucide-react";
+import { FileClock } from "lucide-react";
 import questionsData from '@/components/quiz/questions'; // Assuming this is an array of question objects
 
 // Added shuffle function directly inside the component to ensure it's clear where modifications have been made
@@ -110,7 +110,7 @@ const QuizPage: React.FC = () => {
       <Heading
         title="Notary Preparation Exam"
         description="Advance Your Preparation with Our Comprehensive Notary Quiz."
-        icon={MessageSquare}
+        icon={FileClock}
         iconColor="text-violet-500"
         bgColor="bg-violet-500/10"
       />

@@ -90,7 +90,7 @@ const ConversationPage = () => {
     <div>
       <Heading
         title="Notarai"
-        description="Our most advanced Notary information model."
+        description="Our most advanced Notary information assistant."
         icon={MessageSquare}
         iconColor="text-violet-500"
         bgColor="bg-violet-500/10"

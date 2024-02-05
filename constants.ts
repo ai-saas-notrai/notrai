@@ -1,10 +1,10 @@
-import { Code, ImageIcon, MessageSquare, Music, VideoIcon } from "lucide-react";
+import { FileClock, ImageIcon, MessageSquare, Music, VideoIcon } from "lucide-react";
 
 export const MAX_FREE_COUNTS = 5;
 
 export const tools = [
   {
-    label: 'Conversation',
+    label: 'Notrai',
     icon: MessageSquare,
     href: '/conversation',
     color: "text-violet-500",
@@ -32,8 +32,8 @@ export const tools = [
     href: '/video',
   },
   {
-    label: 'Code Generation',
-    icon: Code,
+    label: 'Exam Prep',
+    icon: FileClock,
     color: "text-green-700",
     bgColor: "bg-green-700/10",
     href: '/code',
