@@ -48,7 +48,7 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
     inputVariables: ['context', 'userState', 'chat_history']
   });
 
-  const llm = new OpenAI({ temperature: 0.2 });
+  const llm = new OpenAI({ temperature: 0.5 });
 
   
 
