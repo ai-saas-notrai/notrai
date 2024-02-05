@@ -1,4 +1,4 @@
-import { FileClock, ImageIcon, MessageSquare, Music, VideoIcon } from "lucide-react";
+import { FileClock, BookOpenCheck , MessageSquare, Music, VideoIcon } from "lucide-react";
 
 export const MAX_FREE_COUNTS = 5;
 
@@ -37,5 +37,12 @@ export const tools = [
     color: "text-green-700",
     bgColor: "bg-green-700/10",
     href: '/quiz',
+  },
+  {
+    label: 'Notary Exam',
+    icon: BookOpenCheck ,
+    color: "text-green-700",
+    bgColor: "bg-green-700/10",
+    href: '/exam',
   },
 ];

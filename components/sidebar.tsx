@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Montserrat } from 'next/font/google'
-import { FileClock, ImageIcon, LayoutDashboard, MessageSquare, Music, Settings, VideoIcon } from "lucide-react";
+import { FileClock, BookOpenCheck , LayoutDashboard, MessageSquare, Music, Settings, VideoIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
@@ -47,6 +47,12 @@ const routes = [
     icon: FileClock,
     color: "text-green-700",
     href: '/quiz',
+  },
+  {
+    label: 'Exam Practice',
+    icon: BookOpenCheck ,
+    color: "text-green-700",
+    href: '/exam',
   },
   {
     label: 'Settings',
