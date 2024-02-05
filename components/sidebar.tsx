@@ -46,7 +46,7 @@ const routes = [
     label: 'Exam Practice',
     icon: FileClock,
     color: "text-green-700",
-    href: '/code',
+    href: '/quiz',
   },
   {
     label: 'Settings',

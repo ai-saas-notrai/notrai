@@ -1,5 +1,5 @@
 import { OpenAIEmbeddings, OpenAI } from '@langchain/openai';
-import { loadQAStuffChain, ConversationalRetrievalQAChain } from 'langchain/chains';
+import { loadQAStuffChain } from 'langchain/chains';
 import { Document } from '@langchain/core/documents';
 import { Pinecone } from '@pinecone-database/pinecone';
 import { PromptTemplate } from '@langchain/core/prompts';
