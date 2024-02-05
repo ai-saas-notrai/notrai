@@ -1,8 +1,8 @@
 const questions = [
   {
     "lessonId": "lesson1",
-    "title": "Introduction to Notary Basics",
-    "content": "This lesson covers the basics of what it means to be a notary, including the responsibilities and the importance of notarization in various legal processes.",
+    "title": "LESSON 1: NOTARY PUBLIC DEFINED",
+    "content": "A notary public is appointed by the California Secretary of State to act as an impartial witness...\n\n**QUALIFICATIONS:**\n\nQualifications to become a notary public are as follows:\n\n- Legal residency in the State of California;\n- Being 18 years of age or older;\n...",
     "questions": [
       {
         "questionText": "What is the primary role of a notary?",

@@ -12,6 +12,8 @@ import TimeUp from "@/components/exam/TimeUp";
 import { Heading } from "@/components/heading";
 import { FileClock } from "lucide-react";
 import questionsData from '@/components/exam/questions'; // Updated structure with lessons
+import ReactMarkdown from 'react-markdown';
+
 
 const QuizPage: React.FC = () => {
   const [state, setState] = useState<string>("start");
@@ -119,12 +121,13 @@ const QuizPage: React.FC = () => {
               />
             )}
             {state === "quiz" && isViewingLesson && (
-              <div>
-                <h2>{questionsData[currentLessonIndex].title}</h2>
-                <p>{questionsData[currentLessonIndex].content}</p>
-                <Button onClick={() => setIsViewingLesson(false)}>Start Questions</Button>
-              </div>
-            )}
+                <div>
+                  <h2>{questionsData[currentLessonIndex].title}</h2>
+                  <ReactMarkdown>{questionsData[currentLessonIndex].content}</ReactMarkdown>
+                  <Button onClick={() => setIsViewingLesson(false)}>Start Questions</Button>
+                </div>
+              )}
+
             {state === "quiz" && !isViewingLesson && (
               <Question
                 questionText={questionsData[currentLessonIndex].questions[questionNo].questionText}
