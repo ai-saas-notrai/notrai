@@ -9,6 +9,13 @@ import { BufferMemory, ChatMessageHistory } from "langchain/memory";
 import { auth } from "@clerk/nextjs";
 import { HumanMessage, AIMessage } from "langchain/schema";
 
+// Initialize or load existing chat history
+let memory = new BufferMemory({
+  chatHistory: new ChatMessageHistory([]),
+  memoryKey: 'chat_history',
+  returnMessages:true
+});
+
 export const queryPineconeVectorStoreAndQueryLLM = async (
   apiKey: string,
   indexName: string,
@@ -42,12 +49,7 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
 
   const llm = new OpenAI({ temperature: 0.2 });
 
-  // Initialize or load existing chat history
-  let memory = new BufferMemory({
-    chatHistory: new ChatMessageHistory([]),
-    memoryKey: 'chat_history',
-    returnMessages:true
-  });
+  
 
   // Retrieve existing messages
   let pastMessages = await memory.chatHistory.getMessages();
