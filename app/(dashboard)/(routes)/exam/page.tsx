@@ -120,13 +120,18 @@ const QuizPage: React.FC = () => {
                 handleTimerStart={handleTimerStart}
               />
             )}
-            {state === "quiz" && isViewingLesson && (
-                <div>
-                  <h2>{questionsData[currentLessonIndex].title}</h2>
+           {state === "quiz" && isViewingLesson && (
+              <div className="p-4 max-w-4xl mx-auto">
+                <h2 className="text-2xl font-bold mb-4">{questionsData[currentLessonIndex].title}</h2>
+                <div className="mb-6 prose">
                   <ReactMarkdown>{questionsData[currentLessonIndex].content}</ReactMarkdown>
-                  <Button onClick={() => setIsViewingLesson(false)}>Start Questions</Button>
                 </div>
-              )}
+                <Button onClick={() => setIsViewingLesson(false)} className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                  Start Questions
+                </Button>
+              </div>
+            )}
+
 
             {state === "quiz" && !isViewingLesson && (
               <Question
