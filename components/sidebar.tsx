@@ -49,7 +49,7 @@ const routes = [
     href: '/quiz',
   },
   {
-    label: 'Exam Practice',
+    label: 'Notary Exam',
     icon: BookOpenCheck ,
     color: "text-green-700",
     href: '/exam',

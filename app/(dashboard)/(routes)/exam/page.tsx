@@ -1,3 +1,4 @@
+// QuizPage.jsx or QuizPage.tsx
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -10,19 +11,18 @@ import AllDone from "@/components/exam/AllDone";
 import TimeUp from "@/components/exam/TimeUp";
 import { Heading } from "@/components/heading";
 import { FileClock } from "lucide-react";
-import questionsData from '@/components/exam/questions'; // Assuming this is an array of question objects
+import questionsData from '@/components/exam/questions'; // Updated structure with lessons
 
-
-
-// Immediately shuffle and limit the questions upon loading the component
 const QuizPage: React.FC = () => {
   const [state, setState] = useState<string>("start");
+  const [currentLessonIndex, setCurrentLessonIndex] = useState<number>(0);
+  const [isViewingLesson, setIsViewingLesson] = useState<boolean>(true);
   const [questionNo, setQuestionNo] = useState<number>(0);
   const [score, setScore] = useState<number>(0);
-  const [time, setTime] = useState<number>(3600000);
+  const [time, setTime] = useState<number>(3600000); // Example: 1 hour for the quiz
   const [timerOn, setTimerOn] = useState<boolean>(false);
   const [highScore, setHighScore] = useState<number[]>([]);
-  const [deduct, setDeduct] = useState(false);
+  const [deduct, setDeduct] = useState<boolean>(false);
 
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
@@ -44,20 +44,32 @@ const QuizPage: React.FC = () => {
 
   const handleQuestion = (isCorrect: boolean) => {
     if (isCorrect) setScore(score + 10);
-    if (questionNo + 1 < questionsData.length) {
+    const currentLesson = questionsData[currentLessonIndex];
+    if (questionNo + 1 < currentLesson.questions.length) {
       setQuestionNo(questionNo + 1);
     } else {
-      setState("done");
+      setIsViewingLesson(true); // After the last question, show the lesson completion screen or move to the next lesson
+      handleNextLesson();
+    }
+  };
+
+  const handleNextLesson = () => {
+    if (currentLessonIndex + 1 < questionsData.length) {
+      setCurrentLessonIndex(currentLessonIndex + 1);
+      setQuestionNo(0); // Reset question number for the new lesson
+    } else {
+      setState("done"); // If there are no more lessons
       setTimerOn(false);
     }
   };
-  
 
   const handleReset = () => {
     setState("start");
+    setCurrentLessonIndex(0);
+    setIsViewingLesson(true);
     setQuestionNo(0);
     setScore(0);
-    setTime(50000);
+    setTime(3600000); // Reset the timer as well
     setTimerOn(false);
   };
 
@@ -66,13 +78,11 @@ const QuizPage: React.FC = () => {
   };
 
   const handleWrongAnswer = () => {
-    setDeduct(true);
+    setDeduct(true); // Implement deduction logic if required
   };
 
   const handleHighScore = (newScore: number) => {
-    setHighScore((prevScores) => {
-      return [...prevScores, newScore];
-    });
+    setHighScore((prevScores) => [...prevScores, newScore]);
   };
 
   const handleClearHighScore = () => {
@@ -82,23 +92,22 @@ const QuizPage: React.FC = () => {
   const handleState = (newState: string) => {
     setState(newState);
   };
-  
+
   const handleScore = (UserScore: number) => {
     setScore(UserScore);
   };
 
   return (
-    <div> 
+    <div>
       <Heading
-        title="Notary Preparation Exam"
-        description="Advance Your Preparation with Our Comprehensive Notary exam."
+        title="Notary Exam"
+        description="The following is an official 6h Notary Exam."
         icon={FileClock}
         iconColor="text-violet-500"
         bgColor="bg-violet-500/10"
       />
       <div className="top-0 right-20 p-4 text-black">
-      <span>Time: {Math.floor(time / 60000)}m {Math.floor((time % 60000) / 1000)}s</span>
-
+        <span>Time: {Math.floor(time / 60000)}m {Math.floor((time % 60000) / 1000)}s</span>
       </div>
       <main className="flex-grow pt-5 p-4">
         <div className="flex flex-col min-h-screen">
@@ -109,11 +118,18 @@ const QuizPage: React.FC = () => {
                 handleTimerStart={handleTimerStart}
               />
             )}
-            {state === "quiz" && (
+            {state === "quiz" && isViewingLesson && (
+              <div>
+                <h2>{questionsData[currentLessonIndex].title}</h2>
+                <p>{questionsData[currentLessonIndex].content}</p>
+                <Button onClick={() => setIsViewingLesson(false)}>Start Questions</Button>
+              </div>
+            )}
+            {state === "quiz" && !isViewingLesson && (
               <Question
-                questionText={questionsData[questionNo].questionText}
-                options={questionsData[questionNo].options}
-                answer={questionsData[questionNo].answer}
+                questionText={questionsData[currentLessonIndex].questions[questionNo].questionText}
+                options={questionsData[currentLessonIndex].questions[questionNo].options}
+                answer={questionsData[currentLessonIndex].questions[questionNo].answer}
                 handleQuestion={handleQuestion}
                 handleScore={handleScore}
                 handleWrongAnswer={handleWrongAnswer}
