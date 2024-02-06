@@ -127,7 +127,11 @@ const QuizPage: React.FC = () => {
                 <div className="rounded-lg border w-full p-4 px-3 md:px-6 focus-within:shadow-sm mb-6 prose">
                   <ReactMarkdown>{questionsData[currentLessonIndex].content}</ReactMarkdown>
                 </div>
-                <Button onClick={() => setIsViewingLesson(false)} className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                <Button 
+                className="col-span-12 lg:col-span-2 w-full" 
+                type="submit" 
+                size="icon" 
+                onClick={() => setIsViewingLesson(false)} >
                   Start Questions
                 </Button>
               </div>

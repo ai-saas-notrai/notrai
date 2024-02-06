@@ -89,8 +89,8 @@ const ConversationPage = () => {
   return (
     <div>
       <Heading
-        title="Notarai"
-        description="Our most advanced Notary information assistant."
+        title="Notrai"
+        description="Your notary business co-pilot."
         icon={MessageSquare}
         iconColor="text-violet-500"
         bgColor="bg-violet-500/10"

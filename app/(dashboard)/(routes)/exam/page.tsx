@@ -108,7 +108,7 @@ const QuizPage: React.FC = () => {
   return (
     <div> 
       <Heading
-        title="Notary Preparation Exam"
+        title="Exam Practice"
         description="Advance Your Preparation with Our Comprehensive Notary Quiz."
         icon={FileClock}
         iconColor="text-violet-500"
