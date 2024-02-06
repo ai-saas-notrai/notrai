@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 
+
 const StartCard = ({ handleState, handleTimerStart }) => {
   return (
     <div className="flex flex-col justify-center items-center h-screen bg-gray-50">
@@ -15,6 +16,7 @@ const StartCard = ({ handleState, handleTimerStart }) => {
           <p className="text-center text-md text-gray-700 font-medium mb-4">
             Do not close this window. Time will reset. You must complete the entrire exam for the full diration. 
           </p>
+
         <Button 
           className="col-span-12 lg:col-span-2 w-full" 
           type="submit" 
