@@ -123,7 +123,7 @@ const QuizPage: React.FC = () => {
            {state === "quiz" && isViewingLesson && (
               <div className="p-4 max-w-4xl mx-auto">
                 <h2 className="text-2xl font-bold mb-4">{questionsData[currentLessonIndex].title}</h2>
-                <div className="rounded-lg border w-full p-4 px-3 md:px-6 focus-within:shadow-sm grid grid-cols-12 gap-2">
+                <div className="rounded-lg border w-full p-4 px-3 md:px-6 focus-within:shadow-sm mb-6 prose">
                   <ReactMarkdown>{questionsData[currentLessonIndex].content}</ReactMarkdown>
                 </div>
                 <Button onClick={() => setIsViewingLesson(false)} className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
