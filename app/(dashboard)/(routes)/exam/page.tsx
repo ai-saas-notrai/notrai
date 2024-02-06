@@ -13,11 +13,6 @@ import { Heading } from "@/components/heading";
 import { FileClock } from "lucide-react";
 import questionsData from '@/components/exam/questions'; // Updated structure with lessons
 import ReactMarkdown from 'react-markdown';
-import { useRouter } from "next/router";
-import {  incrementQuestionLimit, checkQuestionLimit } from "@/lib/question-limit";
-import { useAuth } from "@clerk/nextjs"; // Or your authentication method
-import { checkSubscription } from "@/lib/subscription";
-import { useProModal } from "@/hooks/use-pro-modal";
 
 
 const QuizPage: React.FC = () => {
@@ -30,8 +25,7 @@ const QuizPage: React.FC = () => {
   const [timerOn, setTimerOn] = useState<boolean>(false);
   const [highScore, setHighScore] = useState<number[]>([]);
   const [deduct, setDeduct] = useState<boolean>(false);
-  const [isPro, setIsPro] = useState<boolean>(false); // State to track if the user is a Pro
-  
+
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
     if (timerOn && time > 0) {
@@ -50,11 +44,7 @@ const QuizPage: React.FC = () => {
     }
   }, [time, timerOn]);
 
-  const handleQuestion = async (isCorrect: boolean) => {
-    if (!isPro) {
-      await incrementQuestionLimit(); // Ensure this is awaited and accepts userId if necessary
-    }
-
+  const handleQuestion = (isCorrect: boolean) => {
     if (isCorrect) setScore(score + 10);
     const currentLesson = questionsData[currentLessonIndex];
     if (questionNo + 1 < currentLesson.questions.length) {
@@ -65,11 +55,7 @@ const QuizPage: React.FC = () => {
     }
   };
 
-  const handleNextLesson = async () => {
-    if (!isPro) {
-      await incrementQuestionLimit(); // Ensure this is awaited and accepts userId if necessary
-    }
-
+  const handleNextLesson = () => {
     if (currentLessonIndex + 1 < questionsData.length) {
       setCurrentLessonIndex(currentLessonIndex + 1);
       setQuestionNo(0); // Reset question number for the new lesson
@@ -140,10 +126,7 @@ const QuizPage: React.FC = () => {
                 <div className="mb-6 prose">
                   <ReactMarkdown>{questionsData[currentLessonIndex].content}</ReactMarkdown>
                 </div>
-                <Button
-                className="col-span-12 lg:col-span-2 w-full" 
-                type="submit" 
-                size="icon"  onClick={() => setIsViewingLesson(false)} >
+                <Button onClick={() => setIsViewingLesson(false)} className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                   Start Questions
                 </Button>
               </div>
