@@ -59,11 +59,8 @@ export default function HomePage() {
         Your AI-Powered Copilot for a Smarter Path to Compliance and Expertise. Elevate Your Notary Career with Next-Level Assistance and Insights.
         </p>
 
-        <div className="rounded-lg border w-full p-4 px-3 md:px-6 focus-within:shadow-sm">
-      <div className="card-header">
-        <h2 className="card-title">How to Become a Notary Public in California</h2>Step-by-Step Instructions
-      </div>
-      <div className="card-body">
+
+      <div className="rounded-lg border w-full p-4 px-3 md:px-6 focus-within:shadow-sm">
         <h1>How to Become a California Notary Public</h1>
         <p>Step-by-step instructions on how to become a notary public in California.</p>
         <p><strong>1. Notary Education: </strong>To become a California notary, you must first take a California notary course. New notaries in California must take a six-hour notary training course. Renewing notaries are required to take a three-hour notary course.</p>
@@ -90,7 +87,7 @@ export default function HomePage() {
           <li>Payment for filing and recording fees (varies by county)</li>
         </ul>
         <p>For additional information, see the <a href="https://www.sos.ca.gov/notary/handbook" style={{ textDecoration: "underline" }}>California Notary Public Handbook</a>, the <a href="https://www.sos.ca.gov/notary/forms" style={{ textDecoration: "underline" }}>California Notary Public Application</a>, and <a href="http://notary.cpshr.us/" style={{ textDecoration: "underline" }}>California Notary Testing Information</a>.</p>
-      </div>
+
     </div>
       </div>
       <div className="px-4 md:px-20 lg:px-32 space-y-4">
