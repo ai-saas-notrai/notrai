@@ -1,7 +1,7 @@
 import { FileClock, BookOpenCheck , MessageSquare, Music, VideoIcon } from "lucide-react";
 
 export const MAX_FREE_COUNTS = 5;
-
+export const MAX_FREE_QUESTIONS = 10;
 export const tools = [
   {
     label: 'Notrai',

@@ -1,7 +1,7 @@
 import { auth } from "@clerk/nextjs";
 
 import prismadb from "@/lib/prismadb";
-import { MAX_FREE_COUNTS } from "@/constants";
+import { MAX_FREE_QUESTIONS } from "@/constants";
 
 export const incrementQuestionLimit = async () => {
   const { userId } = auth();
@@ -37,7 +37,7 @@ export const checkQuestionLimit = async () => {
     where: { userId: userId },
   });
 
-  if (!userQuestionLimit || userQuestionLimit.count < MAX_FREE_COUNTS) {
+  if (!userQuestionLimit || userQuestionLimit.count < MAX_FREE_QUESTIONS) {
     return true;
   } else {
     return false;
