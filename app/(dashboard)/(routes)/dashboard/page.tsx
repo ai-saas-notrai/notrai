@@ -81,7 +81,7 @@ export default function HomePage() {
         </ul>
         <p>If you took the exam at least six weeks prior to the expiration date on your current notary public commission, your new notary public commission will not be sent to you more than 30 days before the expiration date.</p>
         <p><strong>6. Order Your Notary Supplies:</strong>Order your notary supplies from an authorized supplier</p>
-        <p><strong>7. File Your California Notary Bond and Oath: </strong>You must file your notary bond and oath within 30 days of the start date of your notary commission. Bring the following items to your county clerk's office:</p>
+        <p><strong>7. File Your California Notary Bond and Oath: </strong>You must file your notary bond and oath within 30 days of the start date of your notary commission. Bring the following items to your county clerk&apos;s office:</p>
         <ul>
           <li>Original Bond</li>
           <li>Two Oath of Office Forms (these are included in your commission packet you received from the state)</li>
