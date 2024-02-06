@@ -5,7 +5,7 @@ import { useProModal } from "@/hooks/use-pro-modal";
 
 const StartCard = ({ handleState, handleTimerStart }) => {
   const proModal = useProModal(); // Assuming this is correctly set up to manage the modal
-  const [isPro, setIsPro] = useState<boolean>(false); // State to track if the user is a Pro
+  const [isPro, setIsPro] = useState(false); // State to track if the user is a Pro
 
   useEffect(() => {
     const checkUserSubscription = async () => {
