@@ -3,14 +3,14 @@
 import React, { useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
 import { Button } from "@/components/ui/button";
-import StartCard from "@/components/quiz/StartCard";
-import Question from "@/components/quiz/Question";
-import HighScores from "@/components/quiz/HighScores";
-import AllDone from "@/components/quiz/AllDone";
-import TimeUp from "@/components/quiz/TimeUp";
+import StartCard from "@/components/exam/StartCard";
+import Question from "@/components/exam/Question";
+import HighScores from "@/components/exam/HighScores";
+import AllDone from "@/components/exam/AllDone";
+import TimeUp from "@/components/exam/TimeUp";
 import { Heading } from "@/components/heading";
 import { FileClock } from "lucide-react";
-import questionsData from '@/components/quiz/questions'; // Assuming this is an array of question objects
+import questionsData from '@/components/exam/questions'; // Assuming this is an array of question objects
 
 // Added shuffle function directly inside the component to ensure it's clear where modifications have been made
 function shuffle<T>(array: T[]): T[] {

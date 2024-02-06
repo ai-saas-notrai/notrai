@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-
 const Question = ({
   questionText,
   options,

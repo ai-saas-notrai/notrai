@@ -4,14 +4,14 @@
 import React, { useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
 import { Button } from "@/components/ui/button";
-import StartCard from "@/components/exam/StartCard";
-import Question from "@/components/exam/Question";
-import HighScores from "@/components/exam/HighScores";
-import AllDone from "@/components/exam/AllDone";
-import TimeUp from "@/components/exam/TimeUp";
+import StartCard from "@/components/training/StartCard";
+import Question from "@/components/training/Question";
+import HighScores from "@/components/training/HighScores";
+import AllDone from "@/components/training/AllDone";
+import TimeUp from "@/components/training/TimeUp";
 import { Heading } from "@/components/heading";
 import { FileClock } from "lucide-react";
-import questionsData from '@/components/exam/questions'; // Updated structure with lessons
+import questionsData from '@/components/training/questions'; // Updated structure with lessons
 import ReactMarkdown from 'react-markdown';
 
 const QuizPage: React.FC = () => {
