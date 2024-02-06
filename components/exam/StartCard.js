@@ -9,7 +9,7 @@ const StartCard = ({ handleState, handleTimerStart }) => {
         <h1 className="text-2xl md:text-3xl font-bold text-gray-900 text-center mb-6">
             Notary Exam Preparation
           </h1>
-          <p className="text-center text-md text-gray-700 font-medium mb-5">
+          <p style={{ marginBottom: '16px' }} className="text-center text-md text-gray-700 font-medium mb-5">
             Attempt to answer the following questions within the given time. Your preparation will be tested with scenarios and questions based on real notary practices and the official handbook.
           </p>
           <p className="text-center text-md text-gray-700 font-medium mb-4">
