@@ -23,12 +23,22 @@ const StartCard = ({ handleState, handleTimerStart }) => {
 
   const startQuestionsOrPromptUpgrade = () => {
     if (!isPro) {
-      proModal.onOpen(); // Open the modal for non-Pro users
+      handleState("quiz") 
+      handleTimerStart(); // Open the modal for non-Pro users
     } else {
       handleState("quiz") 
       handleTimerStart(); // Pro users can start the quiz
     }
   };
+
+  // const startQuestionsOrPromptUpgrade = () => {
+  //   if (!isPro) {
+  //     proModal.onOpen(); // Open the modal for non-Pro users
+  //   } else {
+  //     handleState("quiz") 
+  //     handleTimerStart(); // Pro users can start the quiz
+  //   }
+  // };
 
   return (
     <div className="flex flex-col justify-center items-center h-screen bg-gray-50">
