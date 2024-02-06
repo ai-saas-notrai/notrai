@@ -10,7 +10,7 @@ import HighScores from "@/components/training/HighScores";
 import AllDone from "@/components/training/AllDone";
 import TimeUp from "@/components/training/TimeUp";
 import { Heading } from "@/components/heading";
-import { FileClock } from "lucide-react";
+import { BookOpenCheck } from "lucide-react";
 import questionsData from '@/components/training/questions'; // Updated structure with lessons
 import ReactMarkdown from 'react-markdown';
 
@@ -102,11 +102,12 @@ const QuizPage: React.FC = () => {
   return (
     <div>
       <Heading
-        title="Notary Exam"
-        description="The following is an official 6h Notary Exam."
-        icon={FileClock}
-        iconColor="text-violet-500"
-        bgColor="bg-violet-500/10"
+        title="Training Course"
+        description="
+        As mandated by California law, all aspiring notaries are required to undertake a comprehensive training course—3 hours for renewing notaries and 6 hours for new applicants."
+        icon={BookOpenCheck}
+        iconColor="text-green-700"
+        bgColor="text-green-700/10"
       />
       <div className="top-0 right-20 p-4 text-black">
         <span>Time: {Math.floor(time / 60000)}m {Math.floor((time % 60000) / 1000)}s</span>

@@ -45,14 +45,15 @@ const StartCard = ({ handleState, handleTimerStart }) => {
       <div className="mx-auto px-8 py-16 md:px-12 md:py-20 bg-white shadow-lg rounded-xl border border-gray-200" style={{ borderRadius: '30px', paddingTop: "20px", paddingBottom: "20px" }}>
 
         <h1 className="text-2xl md:text-3xl font-bold text-gray-900 text-center mb-6">
-            Notary Exam 
+            Training Course Instructions
           </h1>
           <p className="text-center text-md text-gray-700 font-medium mb-5">
-            The following is an official 6hr Ca Notary Exam. Your preparation will be tested with scenarios and questions based on real notary practices and the official handbook.
+            Welcome to the official 6-hour California Notary Exam training course. This program is designed to thoroughly test your knowledge through scenarios and questions that reflect genuine notary practices, as outlined in the official handbook.
           </p>
-          <p className="text-center text-md text-gray-700 font-medium mb-4">
-            Do not close this window. Time will reset. You must complete the entrire exam for the full diration. 
+          <p style={{ marginBottom: '16px' }} className="text-center text-md text-gray-700 font-medium mb-4">
+            To successfully complete this course, please ensure you navigate through all the material provided. While you have the flexibility to move back and forth between sections, it is crucial to remain logged in throughout the session. Please do not close your browser window or refresh the page, as doing so will reset the progress timer. Your continuous engagement and completion of the course material within the allotted duration are essential for passing the exam.
           </p>
+
 
         <Button 
           className="col-span-12 lg:col-span-2 w-full" 
