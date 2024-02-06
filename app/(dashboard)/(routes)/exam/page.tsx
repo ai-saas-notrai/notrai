@@ -13,6 +13,8 @@ import { Heading } from "@/components/heading";
 import { FileClock } from "lucide-react";
 import questionsData from '@/components/exam/questions'; // Updated structure with lessons
 import ReactMarkdown from 'react-markdown';
+import { useProModal } from "@/hooks/use-pro-modal";
+import { checkSubscription } from "@/lib/subscription";
 
 
 const QuizPage: React.FC = () => {
@@ -25,6 +27,22 @@ const QuizPage: React.FC = () => {
   const [timerOn, setTimerOn] = useState<boolean>(false);
   const [highScore, setHighScore] = useState<number[]>([]);
   const [deduct, setDeduct] = useState<boolean>(false);
+  const proModal = useProModal(); // Assuming this is correctly set up to manage the modal
+  const [isPro, setIsPro] = useState<boolean>(false); // State to track if the user is a Pro
+
+  useEffect(() => {
+    const checkUserSubscription = async () => {
+      try {
+        const status = await checkSubscription(); // Assuming this function returns a boolean
+        setIsPro(status);
+      } catch (error) {
+        console.error('Error checking subscription status:', error);
+        // Handle error appropriately
+      }
+    };
+
+    checkUserSubscription();
+  }, []); 
 
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
@@ -99,6 +117,14 @@ const QuizPage: React.FC = () => {
     setScore(UserScore);
   };
 
+  const startQuestionsOrPromptUpgrade = () => {
+    if (!isPro) {
+      proModal.onOpen(); // Open the modal for non-Pro users
+    } else {
+      setIsViewingLesson(false); // Pro users can start the quiz
+    }
+  };
+
   return (
     <div>
       <Heading
@@ -126,7 +152,7 @@ const QuizPage: React.FC = () => {
                 <div className="mb-6 prose">
                   <ReactMarkdown>{questionsData[currentLessonIndex].content}</ReactMarkdown>
                 </div>
-                <Button onClick={() => setIsViewingLesson(false)} className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                <Button onClick={startQuestionsOrPromptUpgrade} className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                   Start Questions
                 </Button>
               </div>
