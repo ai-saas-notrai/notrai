@@ -1,30 +1,47 @@
-// QuizPage.jsx or QuizPage.tsx
 "use client";
 
 import React, { useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
 import { Button } from "@/components/ui/button";
-import StartCard from "@/components/exam/StartCard";
-import Question from "@/components/exam/Question";
-import HighScores from "@/components/exam/HighScores";
-import AllDone from "@/components/exam/AllDone";
-import TimeUp from "@/components/exam/TimeUp";
+import StartCard from "@/components/quiz/StartCard";
+import Question from "@/components/quiz/Question";
+import HighScores from "@/components/quiz/HighScores";
+import AllDone from "@/components/quiz/AllDone";
+import TimeUp from "@/components/quiz/TimeUp";
 import { Heading } from "@/components/heading";
 import { FileClock } from "lucide-react";
-import questionsData from '@/components/exam/questions'; // Updated structure with lessons
-import ReactMarkdown from 'react-markdown';
+import questionsData from '@/components/quiz/questions'; // Assuming this is an array of question objects
+
+// Added shuffle function directly inside the component to ensure it's clear where modifications have been made
+function shuffle<T>(array: T[]): T[] {
+  let currentIndex = array.length, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (currentIndex !== 0) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+
+  return array;
+}
+
+// Immediately shuffle and limit the questions upon loading the component
+const limitedQuestions = shuffle([...questionsData]).slice(0, 45);
 
 const QuizPage: React.FC = () => {
   const [state, setState] = useState<string>("start");
-  const [currentLessonIndex, setCurrentLessonIndex] = useState<number>(0);
-  const [isViewingLesson, setIsViewingLesson] = useState<boolean>(true);
   const [questionNo, setQuestionNo] = useState<number>(0);
   const [score, setScore] = useState<number>(0);
-  const [time, setTime] = useState<number>(3600000); // Example: 1 hour for the quiz
+  const [time, setTime] = useState<number>(3600000);
   const [timerOn, setTimerOn] = useState<boolean>(false);
   const [highScore, setHighScore] = useState<number[]>([]);
-  const [deduct, setDeduct] = useState<boolean>(false);
-
+  const [deduct, setDeduct] = useState(false);
 
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
@@ -46,32 +63,19 @@ const QuizPage: React.FC = () => {
 
   const handleQuestion = (isCorrect: boolean) => {
     if (isCorrect) setScore(score + 10);
-    const currentLesson = questionsData[currentLessonIndex];
-    if (questionNo + 1 < currentLesson.questions.length) {
+    if (questionNo + 1 < limitedQuestions.length) {
       setQuestionNo(questionNo + 1);
     } else {
-      setIsViewingLesson(true); // After the last question, show the lesson completion screen or move to the next lesson
-      handleNextLesson();
-    }
-  };
-
-  const handleNextLesson = () => {
-    if (currentLessonIndex + 1 < questionsData.length) {
-      setCurrentLessonIndex(currentLessonIndex + 1);
-      setQuestionNo(0); // Reset question number for the new lesson
-    } else {
-      setState("done"); // If there are no more lessons
+      setState("done");
       setTimerOn(false);
     }
   };
 
   const handleReset = () => {
     setState("start");
-    setCurrentLessonIndex(0);
-    setIsViewingLesson(true);
     setQuestionNo(0);
     setScore(0);
-    setTime(3600000); // Reset the timer as well
+    setTime(50000);
     setTimerOn(false);
   };
 
@@ -80,11 +84,13 @@ const QuizPage: React.FC = () => {
   };
 
   const handleWrongAnswer = () => {
-    setDeduct(true); // Implement deduction logic if required
+    setDeduct(true);
   };
 
   const handleHighScore = (newScore: number) => {
-    setHighScore((prevScores) => [...prevScores, newScore]);
+    setHighScore((prevScores) => {
+      return [...prevScores, newScore];
+    });
   };
 
   const handleClearHighScore = () => {
@@ -94,22 +100,23 @@ const QuizPage: React.FC = () => {
   const handleState = (newState: string) => {
     setState(newState);
   };
-
+  
   const handleScore = (UserScore: number) => {
     setScore(UserScore);
   };
 
   return (
-    <div>
+    <div> 
       <Heading
-        title="Notary Exam"
-        description="The following is an official 6h Notary Exam."
+        title="Notary Preparation Exam"
+        description="Advance Your Preparation with Our Comprehensive Notary Quiz."
         icon={FileClock}
         iconColor="text-violet-500"
         bgColor="bg-violet-500/10"
       />
       <div className="top-0 right-20 p-4 text-black">
-        <span>Time: {Math.floor(time / 60000)}m {Math.floor((time % 60000) / 1000)}s</span>
+      <span>Time: {Math.floor(time / 60000)}m {Math.floor((time % 60000) / 1000)}s</span>
+
       </div>
       <main className="flex-grow pt-5 p-4">
         <div className="flex flex-col min-h-screen">
@@ -120,24 +127,11 @@ const QuizPage: React.FC = () => {
                 handleTimerStart={handleTimerStart}
               />
             )}
-           {state === "quiz" && isViewingLesson && (
-              <div className="p-4 max-w-4xl mx-auto">
-                <h2 className="text-2xl font-bold mb-4">{questionsData[currentLessonIndex].title}</h2>
-                <div className="rounded-lg border w-full p-4 px-3 md:px-6 focus-within:shadow-sm mb-6 prose">
-                  <ReactMarkdown>{questionsData[currentLessonIndex].content}</ReactMarkdown>
-                </div>
-                <Button onClick={() => setIsViewingLesson(false)} className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                  Start Questions
-                </Button>
-              </div>
-            )}
-
-
-            {state === "quiz" && !isViewingLesson && (
+            {state === "quiz" && (
               <Question
-                questionText={questionsData[currentLessonIndex].questions[questionNo].questionText}
-                options={questionsData[currentLessonIndex].questions[questionNo].options}
-                answer={questionsData[currentLessonIndex].questions[questionNo].answer}
+                questionText={limitedQuestions[questionNo].questionText}
+                options={limitedQuestions[questionNo].options}
+                answer={limitedQuestions[questionNo].answer}
                 handleQuestion={handleQuestion}
                 handleScore={handleScore}
                 handleWrongAnswer={handleWrongAnswer}

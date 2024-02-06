@@ -36,13 +36,13 @@ export const tools = [
     icon: FileClock,
     color: "text-green-700",
     bgColor: "bg-green-700/10",
-    href: '/quiz',
+    href: '/exam',
   },
   {
-    label: 'Notary Exam',
+    label: 'Training Course',
     icon: BookOpenCheck ,
     color: "text-green-700",
     bgColor: "bg-green-700/10",
-    href: '/exam',
+    href: '/training',
   },
 ];

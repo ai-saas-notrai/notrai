@@ -46,13 +46,13 @@ const routes = [
     label: 'Exam Practice',
     icon: FileClock,
     color: "text-green-700",
-    href: '/quiz',
+    href: '/exam',
   },
   {
-    label: 'Notary Exam',
+    label: 'Training Course',
     icon: BookOpenCheck ,
     color: "text-green-700",
-    href: '/exam',
+    href: '/training',
   },
   {
     label: 'Settings',
