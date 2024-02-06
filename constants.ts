@@ -7,8 +7,8 @@ export const tools = [
     label: 'Notrai',
     icon: MessageSquare,
     href: '/conversation',
-    color: "text-violet-500",
-    bgColor: "bg-violet-500/10",
+    color: "text-pink-700",
+    bgColor: "text-pink-700/10",
   },
   // {
   //   label: 'Music Generation',
@@ -34,8 +34,8 @@ export const tools = [
   {
     label: 'Exam Prep',
     icon: FileClock,
-    color: "text-green-700",
-    bgColor: "bg-green-700/10",
+    color: "text-violet-500",
+    bgColor: "text-violet-500/10",
     href: '/exam',
   },
   {

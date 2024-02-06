@@ -61,7 +61,7 @@ const StartCard = ({ handleState, handleTimerStart }) => {
           size="icon" 
           onClick={startQuestionsOrPromptUpgrade}
         >
-          Start Exam
+          Start Training
         </Button>
 
       </div>
