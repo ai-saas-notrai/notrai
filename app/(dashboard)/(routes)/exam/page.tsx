@@ -31,37 +31,7 @@ const QuizPage: React.FC = () => {
   const [highScore, setHighScore] = useState<number[]>([]);
   const [deduct, setDeduct] = useState<boolean>(false);
   const [isPro, setIsPro] = useState<boolean>(false); // State to track if the user is a Pro
-
-  const { userId } = useAuth();
-  const router = useRouter();
-  const proModal = useProModal()
-
-  useEffect(() => {
-    const verifyAccess = async () => {
-      if (!userId) {
-        router.push("/login");
-        return;
-      }
-      
-      try {
-        const proStatus = await checkSubscription(); // Assuming checkSubscription accepts userId
-        setIsPro(proStatus);
-        if (!proStatus) {
-          const hasQuestionLimit = await checkQuestionLimit(); // Assuming it accepts userId
-          if (!hasQuestionLimit) {
-            proModal.onOpen();
-            return;
-          }
-        }
-      } catch (error) {
-        console.error('Error during access verification:', error);
-      }
-    };
-
-    verifyAccess();
-  }, [userId, router]);
-
-
+  
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
     if (timerOn && time > 0) {
