@@ -1,9 +1,5 @@
 import React, { useState } from "react";
-import { checkSubscription } from "@/lib/subscription";
-import { incrementQuestionLimit, checkQuestionLimit } from "@/lib/api-limit";
-import { auth } from "@clerk/nextjs";
 
-import { Loader } from "@/components/loader"; // Import your Loader component
 
 const Question = ({
   questionText,
@@ -15,53 +11,10 @@ const Question = ({
 }) => {
   const [isCorrect, setIsCorrect] = useState(null);
 
-  const [loading, setLoading] = useState(true);
-  const { userId } = auth(); // Assuming user ID is stored in a context
-  const router = useRouter();
-
-  useEffect(() => {
-    const verifyUserAndSubscription = async () => {
-      if (!userId) {
-        // Handle unauthorized access
-        router.replace("/login"); // Redirect to login page or show an error
-        return;
-      }
-
-      try {
-        const isPro = await checkSubscription();
-        const freeTrial = await checkQuestionLimit();
-
-        if (!freeTrial && !isPro) {
-          // Redirect or inform the user to upgrade
-          proModal.onOpen();
-          return;
-        }
-
-        if (!isPro) {
-          await incrementQuestionLimit();
-        }
-
-        setLoading(false); // User is authorized and can proceed
-      } catch (error) {
-        console.error('Error verifying user or subscription:', error);
-        // Handle errors, potentially redirecting or showing a message
-      }
-    };
-
-    verifyUserAndSubscription();
-  }, [userId, router]);
-
-  if (loading) {
-    return <Loader />; 
-  }
-  
-  
-
   const handleAnswer = (option) => {
     if (answer === option) {
       setIsCorrect(true);
       handleScore(prevScore => prevScore + 10);
-      
     } else {
       setIsCorrect(false);
       handleWrongAnswer();

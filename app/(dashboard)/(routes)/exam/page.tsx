@@ -13,6 +13,11 @@ import { Heading } from "@/components/heading";
 import { FileClock } from "lucide-react";
 import questionsData from '@/components/exam/questions'; // Updated structure with lessons
 import ReactMarkdown from 'react-markdown';
+import { useRouter } from "next/router";
+import {  incrementQuestionLimit, checkQuestionLimit } from "@/lib/question-limit";
+import { useAuth } from "@clerk/nextjs"; // Or your authentication method
+import { checkSubscription } from "@/lib/subscription";
+import { useProModal } from "@/hooks/use-pro-modal";
 
 
 const QuizPage: React.FC = () => {
@@ -25,6 +30,37 @@ const QuizPage: React.FC = () => {
   const [timerOn, setTimerOn] = useState<boolean>(false);
   const [highScore, setHighScore] = useState<number[]>([]);
   const [deduct, setDeduct] = useState<boolean>(false);
+  const [isPro, setIsPro] = useState<boolean>(false); // State to track if the user is a Pro
+
+  const { userId } = useAuth();
+  const router = useRouter();
+  const proModal = useProModal()
+
+  useEffect(() => {
+    const verifyAccess = async () => {
+      if (!userId) {
+        router.push("/login");
+        return;
+      }
+      
+      try {
+        const proStatus = await checkSubscription(); // Assuming checkSubscription accepts userId
+        setIsPro(proStatus);
+        if (!proStatus) {
+          const hasQuestionLimit = await checkQuestionLimit(); // Assuming it accepts userId
+          if (!hasQuestionLimit) {
+            proModal.onOpen();
+            return;
+          }
+        }
+      } catch (error) {
+        console.error('Error during access verification:', error);
+      }
+    };
+
+    verifyAccess();
+  }, [userId, router]);
+
 
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
@@ -44,7 +80,11 @@ const QuizPage: React.FC = () => {
     }
   }, [time, timerOn]);
 
-  const handleQuestion = (isCorrect: boolean) => {
+  const handleQuestion = async (isCorrect: boolean) => {
+    if (!isPro) {
+      await incrementQuestionLimit(); // Ensure this is awaited and accepts userId if necessary
+    }
+
     if (isCorrect) setScore(score + 10);
     const currentLesson = questionsData[currentLessonIndex];
     if (questionNo + 1 < currentLesson.questions.length) {
@@ -55,7 +95,11 @@ const QuizPage: React.FC = () => {
     }
   };
 
-  const handleNextLesson = () => {
+  const handleNextLesson = async () => {
+    if (!isPro) {
+      await incrementQuestionLimit(); // Ensure this is awaited and accepts userId if necessary
+    }
+
     if (currentLessonIndex + 1 < questionsData.length) {
       setCurrentLessonIndex(currentLessonIndex + 1);
       setQuestionNo(0); // Reset question number for the new lesson
