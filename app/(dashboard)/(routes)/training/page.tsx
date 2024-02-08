@@ -152,7 +152,7 @@ const QuizPage: React.FC = () => {
             {state === "quiz" && isViewingLesson && (
               <div className="p-4 max-w-4xl mx-auto">
               <h2 className="text-2xl font-bold mb-4">{questionsData[currentLessonIndex].title}</h2>
-              <div dangerouslySetInnerHTML={{ __html: lessonContent }} /> // Render the HTML content
+              <div dangerouslySetInnerHTML={{ __html: lessonContent }} /> 
               <Button 
                 className="col-span-12 lg:col-span-2 w-full" 
                 type="submit" 
