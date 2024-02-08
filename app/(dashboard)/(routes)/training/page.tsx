@@ -25,33 +25,30 @@ const QuizPage: React.FC = () => {
   const [timerOn, setTimerOn] = useState<boolean>(false);
   const [highScore, setHighScore] = useState<number[]>([]);
   const [deduct, setDeduct] = useState<boolean>(false);
-  const [currentLessonSection, setCurrentLessonSection] = useState<number>(0);
-  const [lessonSectionsContent, setLessonSectionsContent] = useState<string[]>([]);
-
+  const [lessonContent, setLessonContent] = useState("");
 
   
   useEffect(() => {
     if (state === "quiz" && isViewingLesson) {
-      const loadLessonSectionsContent = async () => {
-        // Assuming you know the number of sections or can determine dynamically
-        const sectionFiles = [`lesson${currentLessonIndex + 1}-1.md`, `lesson${currentLessonIndex + 1}-2.md`]; // Example
+      const loadLessonContent = async () => {
+        const lessonFileName = `lesson${currentLessonIndex + 1}.md`; // Ensure this matches your file naming
         try {
-          const sections = await Promise.all(sectionFiles.map(async (fileName) => {
-            const response = await fetch(`/lessons/${fileName}`);
-            if (!response.ok) throw new Error('Failed to fetch lesson content');
-            return response.text();
-          }));
-          setLessonSectionsContent(sections);
+          const response = await fetch(`/lessons/${lessonFileName}`);
+          if (response.ok) {
+            const text = await response.text();
+            setLessonContent(text);
+          } else {
+            throw new Error('Failed to fetch lesson content');
+          }
         } catch (error) {
           console.error("Failed to load lesson content", error);
           toast.error("Failed to load lesson content.");
         }
       };
-  
-      loadLessonSectionsContent();
+
+      loadLessonContent();
     }
   }, [currentLessonIndex, state, isViewingLesson]);
-  
 
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
@@ -133,16 +130,6 @@ const QuizPage: React.FC = () => {
     setScore(UserScore);
   };
 
-  const handleNextSection = () => {
-    const nextSectionIndex = currentLessonSection + 1;
-    if (nextSectionIndex < lessonSectionsContent.length) {
-      setCurrentLessonSection(nextSectionIndex);
-    } else {
-      // Finished all sections, move to questions
-      setIsViewingLesson(false);
-    }
-  };
-
   return (
     <div>
       <Heading
@@ -168,22 +155,16 @@ const QuizPage: React.FC = () => {
               <div className="p-4 max-w-4xl mx-auto">
                 <h2 className="text-2xl font-bold mb-4">{questionsData[currentLessonIndex].title}</h2>
                 <div className="rounded-lg border w-full p-4 px-3 md:px-6 focus-within:shadow-sm mb-6 prose">
-                  <ReactMarkdown>{lessonSectionsContent[currentLessonSection]}</ReactMarkdown>
+                  <ReactMarkdown >{lessonContent}</ReactMarkdown>
                 </div>
-                {currentLessonSection < lessonSectionsContent.length - 1 ? (
-                    <Button 
-                      className="w-full mt-4" 
-                      onClick={handleNextSection}>
-                        Next Section
-                    </Button>
-                  ) : (
-                    <Button 
-                      className="w-full mt-4" 
-                      onClick={handleStartQuestions}>
-                        Start Questions
-                    </Button>
-                  )}
-                </div>
+                <Button 
+                  className="col-span-12 lg:col-span-2 w-full" 
+                  type="submit" 
+                  size="icon" 
+                  onClick={handleStartQuestions}>
+                    Start Questions
+                </Button>
+              </div>
             )}
             {state === "quiz" && !isViewingLesson && (
               <Question
