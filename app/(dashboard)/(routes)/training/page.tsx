@@ -11,7 +11,7 @@ import AllDone from "@/components/training/AllDone";
 import TimeUp from "@/components/training/TimeUp";
 import { Heading } from "@/components/heading";
 import { BookOpenCheck } from "lucide-react";
-import questionsData from '@/components/training/questions'; // Updated structure with lessons
+import questionsData from '@/components/training/questions'; // Assuming this import works correctly
 import ReactMarkdown from 'react-markdown';
 
 const QuizPage: React.FC = () => {
@@ -26,27 +26,27 @@ const QuizPage: React.FC = () => {
   const [deduct, setDeduct] = useState<boolean>(false);
   const [lessonContent, setLessonContent] = useState("");
 
-
   useEffect(() => {
-    const loadLessonContent = async () => {
-      const lessonFileName = `lesson${currentLessonIndex + 1}.md`; // Ensure this matches your file naming
-      try {
-        // Assuming your markdown files are in the public directory under /markdowns
-        const response = await fetch(`/markdowns/${lessonFileName}`);
-        if(response.ok) {
-          const text = await response.text();
-          setLessonContent(text);
-        } else {
-          throw new Error('Failed to fetch lesson content');
+    if (state === "quiz" && isViewingLesson) {
+      const loadLessonContent = async () => {
+        const lessonFileName = `lesson${currentLessonIndex + 1}.md`; // Ensure this matches your file naming
+        try {
+          const response = await fetch(`/markdowns/${lessonFileName}`);
+          if (response.ok) {
+            const text = await response.text();
+            setLessonContent(text);
+          } else {
+            throw new Error('Failed to fetch lesson content');
+          }
+        } catch (error) {
+          console.error("Failed to load lesson content", error);
+          toast.error("Failed to load lesson content.");
         }
-      } catch (error) {
-        console.error("Failed to load lesson content", error);
-        toast.error("Failed to load lesson content.");
-      }
-    };
-  
-    loadLessonContent();
-  }, [currentLessonIndex]);
+      };
+
+      loadLessonContent();
+    }
+  }, [currentLessonIndex, state, isViewingLesson]);
 
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
@@ -67,24 +67,31 @@ const QuizPage: React.FC = () => {
   }, [time, timerOn]);
 
   const handleQuestion = (isCorrect: boolean) => {
-    if (isCorrect) setScore(score + 10);
-    const currentLesson = questionsData[currentLessonIndex];
-    if (questionNo + 1 < currentLesson.questions.length) {
+    if (isCorrect) {
+      setScore(score + 10);
+    }
+    if (questionNo + 1 < questionsData[currentLessonIndex].questions.length) {
       setQuestionNo(questionNo + 1);
     } else {
-      setIsViewingLesson(true); // After the last question, show the lesson completion screen or move to the next lesson
+      setIsViewingLesson(false); // Ensures we move to the next lesson or completion screen correctly
       handleNextLesson();
     }
   };
 
   const handleNextLesson = () => {
-    if (currentLessonIndex + 1 < questionsData.length) {
-      setCurrentLessonIndex(currentLessonIndex + 1);
-      setQuestionNo(0); // Reset question number for the new lesson
+    const nextIndex = currentLessonIndex + 1;
+    if (nextIndex < questionsData.length) {
+      setCurrentLessonIndex(nextIndex);
+      setQuestionNo(0);
+      setIsViewingLesson(true); // Ensure we view the lesson content first
     } else {
-      setState("done"); // If there are no more lessons
+      setState("done");
       setTimerOn(false);
     }
+  };
+
+  const handleStartQuestions = () => {
+    setIsViewingLesson(false); // This was missing to ensure we move from lesson content to questions
   };
 
   const handleReset = () => {
@@ -93,7 +100,7 @@ const QuizPage: React.FC = () => {
     setIsViewingLesson(true);
     setQuestionNo(0);
     setScore(0);
-    setTime(3600000); // Reset the timer as well
+    setTime(3600000);
     setTimerOn(false);
   };
 
@@ -102,7 +109,7 @@ const QuizPage: React.FC = () => {
   };
 
   const handleWrongAnswer = () => {
-    setDeduct(true); // Implement deduction logic if required
+    setDeduct(true);
   };
 
   const handleHighScore = (newScore: number) => {
@@ -125,8 +132,7 @@ const QuizPage: React.FC = () => {
     <div>
       <Heading
         title="Training Course"
-        description="
-        As mandated by California law, all aspiring notaries are required to undertake a comprehensive training course—3 hours for renewing notaries and 6 hours for new applicants."
+        description="As mandated by California law, all aspiring notaries are required to undertake a comprehensive training course—3 hours for renewing notaries and 6 hours for new applicants."
         icon={BookOpenCheck}
         iconColor="text-green-700"
         bgColor="text-green-700/10"
@@ -143,25 +149,31 @@ const QuizPage: React.FC = () => {
                 handleTimerStart={handleTimerStart}
               />
             )}
-           {state === "quiz" && isViewingLesson && (
-            <div className="p-4 max-w-4xl mx-auto">
-              <h2 className="text-2xl font-bold mb-4">{questionsData[currentLessonIndex].title}</h2>
-              {lessonContent && (
+            {state === "quiz" && isViewingLesson && (
+              <div className="p-4 max-w-4xl mx-auto">
+                <h2 className="text-2xl font-bold mb-4">{questionsData[currentLessonIndex].title}</h2>
                 <div className="rounded-lg border w-full p-4 px-3 md:px-6 focus-within:shadow-sm mb-6 prose">
                   <ReactMarkdown>{lessonContent}</ReactMarkdown>
                 </div>
-              )}
-              <Button 
-                className="col-span-12 lg:col-span-2 w-full" 
-                type="submit" 
-                size="icon" 
-                onClick={() => setIsViewingLesson(false)}>
-                  Start Questions
-              </Button>
-            </div>
+                <Button 
+                  className="col-span-12 lg:col-span-2 w-full" 
+                  type="submit" 
+                  size="icon" 
+                  onClick={handleStartQuestions}>
+                    Start Questions
+                </Button>
+              </div>
             )}
-
-
+            {state === "quiz" && !isViewingLesson && (
+              <Question
+                questionText={questionsData[currentLessonIndex].questions[questionNo].questionText}
+                options={questionsData[currentLessonIndex].questions[questionNo].options}
+                answer={questionsData[currentLessonIndex].questions[questionNo].answer}
+                handleQuestion={handleQuestion}
+                handleScore={handleScore}
+                handleWrongAnswer={handleWrongAnswer}
+              />
+            )}
             {state === "highscore" && (
               <HighScores
                 handleState={handleState}
