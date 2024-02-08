@@ -1,7 +1,7 @@
 const questions = [
   {
     "lessonId": "lesson1",
-    "title": "LESSON 1: NOTARY PUBLIC DEFINED",
+    "title": "Chapter I. Obtaining and Managing a Commission",
     "content": "",
     "questions": [
       {
