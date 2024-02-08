@@ -1,3 +1,5 @@
+# Chapter I. Obtaining and Managing a Commission
+
 ## Part A. Eligibility for Appointment
 
 The California Secretary of State appoints notaries public in California. (California Government Code section 8200.) The California Secretary of State may appoint as many notaries public as necessary for the public convenience. (California Government Code section 8200.)

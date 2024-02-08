@@ -63,3 +63,17 @@ The first part of the certificate of acknowledgment indicating in what county th
 The day, month and year must be completed with the date the signer personally appeared before the notary public and acknowledged signing the document. The notary public must insert his or her name and title "notary public" where indicated, and the name of the person who acknowledges their signature on the document after "personally appeared." Then the notary
 
 public must sign and stamp the certificate with the notarial seal. (California Civil Code section 1193.)
+
+#### e. Penalties
+
+A notary public who completes a certificate of acknowledgment that contains statements the notary public knows to be false may be liable for civil penalties and administrative action.
+
+(California Government Code section 8214.15.) Additionally, the notary public will be guilty of forgery if he or she issues an acknowledgment knowing it to be false. (California Penal Code section 470(d).) A person who falsifies the acknowledgment of a notary public may also be guilty of forgery. (California Penal Code section 470(d).) Forgery is punishable by imprisonment in the state prison, or by imprisonment in the county jail for not more than one year. (California Penal Code section 473.) False certification by a notary public also may be a misdemeanor. (California Government Code section 6203.)
+
+Additional penalties for failing to enter required information in the journal or falsely modifying journal entries are discussed later in this course.
+
+### EXAMPLE
+
+On January 5, 2016, Abe Signer signs a document for his corporation at Abe's corporate office in San Joaquin County. On that same day, Abe then takes the document to Nancy Notary to have Abe's signature notarized. Nancy first must establish Abe's identity. Nancy establishes Abe's identity by checking Abe's driver's license issued by the California Department of Motor Vehicles. In front of Nancy, Abe acknowledges that it is Abe's signature on the document. Nancy then needs to fill out the journal. Nancy's journal must include the date, time and type of act. Nancy needs to have Abe sign the journal. Nancy also needs to make an affirmative statement in the journal that Abe's identity was based on satisfactory evidence and that the evidence Abe presented Nancy with was Abe's driver's license, issued by the California Department of Motor Vehicles, Abe's driver's license number and the date of issue or expiration of the driver's license. Nancy enters the fee charged for the notarial act. Last, Nancy fills out the certificate of acknowledgment (as shown below). Nancy enters the name of the county where Nancy and Abe are physically located, the date of the notarial act (January 5, 2016), Nancy's name and title, and Abe's name as it appears on Abe's identification. Nancy then signs the certificate, stamps it with Nancy's seal and attaches the certificate of acknowledgment to the document.
+
+![](https://cdn.mathpix.com/snip/images/kzZLfU1d6M_axjvZTvdTeYi9Sszgaw2bHSpFES-IeoA.original.fullsize.png)

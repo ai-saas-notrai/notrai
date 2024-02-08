@@ -1,16 +1,3 @@
-### Section 3. When Fees Cannot Be Charged
-
-There are very specific times when a notary public is prohibited from charging a fee:
-
-- Notaries public appointed to military or naval reservations cannot charge a fee for any notarial service or act. (California Government Code section 8203.6.)
-
-- A notary public acting in his or her official capacity on behalf of the State, city, or county or any public body cannot charge for notarization of an affidavit, application, or voucher in relation to securing a pension. (California Government Code section 6106.)
-
-- A notary public cannot charge for notarization of a signature on an application by a United States military veteran for a claim for a pension, allotment, allowance, compensation, insurance or any other veteran's benefit. (California Government Code sections 6107 and $8211(i)$.
-- A notary public cannot charge to notarize signatures on vote by mail ballot identification envelopes or other voting materials. (California Government Code section 8211(g).)
-
-- A notary public cannot charge for notarizing any nomination document or circulator's affidavit. (California Elections Code section 8080.)
-
 # Chapter III. Misconduct by Notaries Public or Others Relating to Notarial Acts
 
 Misconduct by notaries public or others in connection with notarial acts may be addressed through criminal, civil or administrative laws and proceedings.

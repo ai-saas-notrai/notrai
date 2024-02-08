@@ -1,17 +1,3 @@
-#### e. Penalties
-
-A notary public who completes a certificate of acknowledgment that contains statements the notary public knows to be false may be liable for civil penalties and administrative action.
-
-(California Government Code section 8214.15.) Additionally, the notary public will be guilty of forgery if he or she issues an acknowledgment knowing it to be false. (California Penal Code section 470(d).) A person who falsifies the acknowledgment of a notary public may also be guilty of forgery. (California Penal Code section 470(d).) Forgery is punishable by imprisonment in the state prison, or by imprisonment in the county jail for not more than one year. (California Penal Code section 473.) False certification by a notary public also may be a misdemeanor. (California Government Code section 6203.)
-
-Additional penalties for failing to enter required information in the journal or falsely modifying journal entries are discussed later in this course.
-
-### EXAMPLE
-
-On January 5, 2016, Abe Signer signs a document for his corporation at Abe's corporate office in San Joaquin County. On that same day, Abe then takes the document to Nancy Notary to have Abe's signature notarized. Nancy first must establish Abe's identity. Nancy establishes Abe's identity by checking Abe's driver's license issued by the California Department of Motor Vehicles. In front of Nancy, Abe acknowledges that it is Abe's signature on the document. Nancy then needs to fill out the journal. Nancy's journal must include the date, time and type of act. Nancy needs to have Abe sign the journal. Nancy also needs to make an affirmative statement in the journal that Abe's identity was based on satisfactory evidence and that the evidence Abe presented Nancy with was Abe's driver's license, issued by the California Department of Motor Vehicles, Abe's driver's license number and the date of issue or expiration of the driver's license. Nancy enters the fee charged for the notarial act. Last, Nancy fills out the certificate of acknowledgment (as shown below). Nancy enters the name of the county where Nancy and Abe are physically located, the date of the notarial act (January 5, 2016), Nancy's name and title, and Abe's name as it appears on Abe's identification. Nancy then signs the certificate, stamps it with Nancy's seal and attaches the certificate of acknowledgment to the document.
-
-![](https://cdn.mathpix.com/snip/images/kzZLfU1d6M_axjvZTvdTeYi9Sszgaw2bHSpFES-IeoA.original.fullsize.png)
-
 ### Section 3. Jurats
 
 The second most frequently performed notarial act is administering an oath or affirmation and completing a jurat. A jurat is the notarial certificate attached to a document when a person signs a document and swears under oath or affirms that the contents of the document are true and correct. The notarial certificate for a jurat is identified by the wording "Subscribed and sworn to (or affirmed)." The jurat also typically will be found at the end of the document.
@@ -99,15 +85,28 @@ Note: Effective January 1, 2017, fees which may be charged for certain notarial 
 
 ![](https://cdn.mathpix.com/cropped/2024_02_06_e520354383442785ca8ag-05.jpg?height=490&width=1705&top_left_y=1495&top_left_x=210)
 
-#### e. $\quad$ Notarial Certificate for a Jurat
+#### e. Notarial Certificate for a Jurat
 
 A completed jurat must be attached to the affidavit or the notary public must complete the jurat included with the affidavit. The jurat must be filled out completely at the time the notary public signs the jurat and affixes the seal. (California Government Code section 8202(b).) Jurats must be in the following statutory form. If the language differs on a document with a preprinted notarial certificate for a jurat, it cannot be used and a separate jurat complying with the statutory language must be attached to the document. (California Government Code
 section 8202(b).) A notary public seal and signature cannot be affixed to a jurat without the correct notarial wording.
 
-The following specific disclaimer must appear at the top of the jurat: "A notary public or other officer completing this certificate verifies only the identity of the individual who signed the document to which this certificate is attached, and not the truthfulness, accuracy, or validity of that document." It must be in an enclosed box, appear at the top of the certificate and be legible, i.e. in a font or typeface that is readable and does not impair its readability. (California
+The following specific disclaimer must appear at the top of the jurat: "A notary public or other officer completing this certificate verifies only the identity of the individual who signed the document to which this certificate is attached, and not the truthfulness, accuracy, or validity of that document." It must be in an enclosed box, appear at the top of the certificate and be legible, i.e. in a font or typeface that is readable and does not impair its readability. (California Government Code section 8202.)
 
 ![](https://cdn.mathpix.com/snip/images/oG5gI4QEW9CecUk669C1WkiFrtbF1CCTjq6j6A2g_rk.original.fullsize.png)
 
 The first part of the jurat certificate indicating in what county the notary public and person taking the oath (or affirming) are located is the "venue" statement. The venue statement establishes where the notary public administered the oath or affirmation and where the signer personally appeared before the notary public. The "State" is always California, since the notary public has jurisdiction only within California. The "County" should be completed with the county where the oath or affirmation was administered and jurat completed, that is, where the signer personally appeared before the notary public, took an oath or affirmation, and signed the document. Since a notary public can provide services anywhere within California, the "County" in the venue statement may not necessarily be the county where the notary public maintains his or her principal place of business, or the county where his or her oath and bond are filed, but must be completed with the name of the county in which the notarial act took place.
 
 The notary public must complete the jurat with the day, month and year that the signer personally appeared before the notary public, took the oath or affirmation and signed the document, and the notary public must enter the name of the person signing and swearing to the truth of the document where indicated after the word "by," then the notary public must sign and stamp the jurat with their notarial seal.
+
+#### f. Jurats for Documents with Birthdates and Age
+
+A notary public cannot certify copies of vital records, such as birth, marriage or death certificates. However, a notary public can administer an oath or affirmation and give a jurat for
+an affidavit that states the birthdate or age of the affiant, and/or includes a photograph of the affiant and/or fingerprints or thumbprints of the affiant. In effect, a signer can certify their own vital information by swearing to the contents of a document containing that information.
+
+If the notary public gives a jurat for a document that includes the signer's birthdate or age and a photograph or their finger or thumb print, the notary public must require the signer to verify their birthdate or age by showing a certified copy of the signer's birth certificate or an identification card or driver's license issued by the California Department of Motor Vehicles. (California Government Code section 8230.)
+
+#### EXAMPLE
+
+Paul Jones and his children formed a small family company to distribute the products they made at home. On July 1, 2016, Paul wanted to get a bank loan, so he went to Nancy Notary who was located in Monterey County. Paul brought a copy of a family document that showed Paul's age and a thumbprint. This document would be part of Paul's loan application. Nancy administered the oath or affirmation to Paul and examined a photocopy of Paul's birth certificate. Nancy could not complete the jurat, though, until Paul returned on August 3, 2016 with a certified copy of the birth certificate. Nancy re-administered the oath or affirmation and completed the jurat. Nancy also entered Paul's information in her sequential journal, including the fact that Paul presented Nancy with a certified copy of Paul's birth certificate for review.
+
+![](https://cdn.mathpix.com/snip/images/wsRVNaUMdNz_kktlYnEfY_irR9afKBfJigajUjSBZtE.original.fullsize.png)

@@ -1,7 +1,7 @@
 const questions = [
   {
     "lessonId": "lesson1",
-    "title": "Chapter I. Obtaining and Managing a Commission",
+    "title": "Lesson 1",
     "content": "",
     "questions": [
       {
@@ -28,7 +28,7 @@ const questions = [
   },
   {
     "lessonId": "lesson2",
-    "title": "Advanced Notary Practices",
+    "title": "Lesson 2",
     "content": "This lesson delves into more advanced topics, such as the handling of complex documents, notarization in digital environments, and the ethical considerations a notary must navigate.",
     "questions": [
       {
@@ -55,7 +55,7 @@ const questions = [
   },
   {
     "lessonId": "lesson3",
-    "title": "Advanced Notary Practices",
+    "title": "Lesson 3",
     "content": "This lesson delves into more advanced topics, such as the handling of complex documents, notarization in digital environments, and the ethical considerations a notary must navigate.",
     "questions": [
       {
@@ -82,7 +82,7 @@ const questions = [
   },
   {
     "lessonId": "lesson4",
-    "title": "Advanced Notary Practices",
+    "title": "Lesson 4",
     "content": "This lesson delves into more advanced topics, such as the handling of complex documents, notarization in digital environments, and the ethical considerations a notary must navigate.",
     "questions": [
       {
@@ -109,7 +109,7 @@ const questions = [
   },
   {
     "lessonId": "lesson5",
-    "title": "Advanced Notary Practices",
+    "title": "Lesson 5",
     "content": "This lesson delves into more advanced topics, such as the handling of complex documents, notarization in digital environments, and the ethical considerations a notary must navigate.",
     "questions": [
       {
@@ -136,7 +136,7 @@ const questions = [
   },
   {
     "lessonId": "lesson6",
-    "title": "Advanced Notary Practices",
+    "title": "Lesson 6",
     "content": "This lesson delves into more advanced topics, such as the handling of complex documents, notarization in digital environments, and the ethical considerations a notary must navigate.",
     "questions": [
       {
@@ -163,7 +163,7 @@ const questions = [
   },
   {
     "lessonId": "lesson7",
-    "title": "Advanced Notary Practices",
+    "title": "Lesson 7",
     "content": "This lesson delves into more advanced topics, such as the handling of complex documents, notarization in digital environments, and the ethical considerations a notary must navigate.",
     "questions": [
       {
@@ -190,7 +190,7 @@ const questions = [
   },
   {
     "lessonId": "lesson8",
-    "title": "Advanced Notary Practices",
+    "title": "Lesson 8",
     "content": "This lesson delves into more advanced topics, such as the handling of complex documents, notarization in digital environments, and the ethical considerations a notary must navigate.",
     "questions": [
       {
@@ -217,7 +217,7 @@ const questions = [
   },
   {
     "lessonId": "lesson9",
-    "title": "Advanced Notary Practices",
+    "title": "Lesson 9",
     "content": "This lesson delves into more advanced topics, such as the handling of complex documents, notarization in digital environments, and the ethical considerations a notary must navigate.",
     "questions": [
       {
@@ -244,7 +244,7 @@ const questions = [
   },
   {
     "lessonId": "lesson10",
-    "title": "Advanced Notary Practices",
+    "title": "Lesson 10",
     "content": "This lesson delves into more advanced topics, such as the handling of complex documents, notarization in digital environments, and the ethical considerations a notary must navigate.",
     "questions": [
       {
@@ -271,7 +271,7 @@ const questions = [
   },
   {
     "lessonId": "lesson11",
-    "title": "Advanced Notary Practices",
+    "title": "Lesson 11",
     "content": "This lesson delves into more advanced topics, such as the handling of complex documents, notarization in digital environments, and the ethical considerations a notary must navigate.",
     "questions": [
       {
@@ -298,7 +298,7 @@ const questions = [
   },
   {
     "lessonId": "lesson12",
-    "title": "Advanced Notary Practices",
+    "title": "Lesson 12",
     "content": "This lesson delves into more advanced topics, such as the handling of complex documents, notarization in digital environments, and the ethical considerations a notary must navigate.",
     "questions": [
       {
@@ -325,7 +325,7 @@ const questions = [
   },
   {
     "lessonId": "lesson13",
-    "title": "Advanced Notary Practices",
+    "title": "Lesson 13",
     "content": "This lesson delves into more advanced topics, such as the handling of complex documents, notarization in digital environments, and the ethical considerations a notary must navigate.",
     "questions": [
       {
@@ -352,7 +352,34 @@ const questions = [
   },
   {
     "lessonId": "lesson14",
-    "title": "Advanced Notary Practices",
+    "title": "Lesson 14",
+    "content": "This lesson delves into more advanced topics, such as the handling of complex documents, notarization in digital environments, and the ethical considerations a notary must navigate.",
+    "questions": [
+      {
+        "questionText": "What is electronic notarization?",
+        "options": [
+          "Notarizing documents using electronic signatures",
+          "Emailing documents to the signatory",
+          "Scanning physical documents for digital storage",
+          "Using digital stamps on paper documents"
+        ],
+        "answer": "Notarizing documents using electronic signatures"
+      },
+      {
+        "questionText": "Which ethical principle is paramount for notaries?",
+        "options": [
+          "Timeliness",
+          "Confidentiality",
+          "Neutrality",
+          "Friendliness"
+        ],
+        "answer": "Neutrality"
+      }
+    ]
+  },
+  {
+    "lessonId": "lesson15",
+    "title": "Lesson 15",
     "content": "This lesson delves into more advanced topics, such as the handling of complex documents, notarization in digital environments, and the ethical considerations a notary must navigate.",
     "questions": [
       {

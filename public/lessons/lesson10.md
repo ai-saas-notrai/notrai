@@ -1,123 +1,31 @@
-#### e. Proof of Execution Certificate
+### Section 7. Immigration Documents
 
-Any certificate for a proof of execution by a subscribing witness taken in California must be in the following form. Other formats with similar wording no longer are acceptable.
+A notary public can notarize the signature on a document affecting the immigration or citizenship status of any person. (California Government Code sections 8205 and 8223.) The notary public cannot assist a person in completing any immigration document, except for the signature and date. Only an attorney, a representative accredited by the U.S. Department of Justice, or a person who is registered by the California Secretary of State and bonded as an immigration consultant under the California Business and Professions Code may assist a client in completing immigration forms. (California Business and Professions Code section 22440.) Only an attorney can advise a person regarding which immigration document or form the person should complete, or advise how the person should answer questions posed by an immigration document or form.
+
+If a notary public is also a California registered immigration consultant, that notary public may assist a client by inserting the answers given to the consultant by a client. (California Business and Professions Code section 22441(a)(1); California Government Code section 8223.) A notary public who is also a registered and bonded immigration consultant may charge \$15 per person for completing a set of immigration forms. A notary public also can charge an additional fee for each notarial act performed in relation to a set of immigration forms.
 
 
-The following specific disclaimer must appear at the top of the proof of execution: "A notary public or other officer completing this certificate verifies only the identity of the individual who signed the document to which this certificate is attached, and not the truthfulness, accuracy, or validity of that document." It must be in an enclosed box, appear at the top of the certificate and be legible, i.e. in a font or typeface that is readable and does not impair its readability. (California Civil Code section 1195.)
+Please note that special rules apply to notaries public who are also immigration consultants, or advertise their services in a language other than English. A notary public is barred from advertising in any manner whatsoever that he or she is a notary public if the notary public also promotes himself or herself as an immigration specialist or consultant. (California Government Code section 8223.)
 
-![](https://cdn.mathpix.com/snip/images/OVIDgNprn4tj9QYMX06oGzS8W8tUCkPSHJCh46tRhVY.original.fullsize.png)
-
-The first part of the certificate, indicating in what county the notary public, subscribing witness and the credible witness appeared before the notary public is the "venue" statement. The venue statement establishes where the notary public performed the proof of execution, which is where the subscribing and credible witnesses appeared before the notary public. The "State" is always California for notaries public, since California notaries public have jurisdiction only within California. The "County" is the county where the proof of execution was performed, that is where the subscribing and credible witnesses personally appeared before the notary public, swore an oath or affirmed, and provided proof of execution. Since a notary public may provide services anywhere within California, the "County" in the venue statement may not necessarily be the county where the notary public maintains his or her principal place of business, or the county where his or her oath and bond are filed, but must be completed with the name of the county in which the notarial act took place.
-
-The day, month and year must be completed with the date the subscribing and credible witnesses personally appeared before the notary public. Next to or in place of "name and title of officer" write the name of the notary public and "notary public." The name of the subscribing witness must be completed where indicated after the words "personally appeared" and also where indicated in the first blank line of the second paragraph. The name of the credible witness must be inserted where indicated after the words "on the oath of." The name of the principal, the person signing the document who has not appeared before the notary public but told the subscribing witness that he or she signed the document, must be inserted where indicated after
-the words "saw/heard" and also where indicated after the words "at the request of." Then the notary public must sign and stamp the certificate with their notarial seal.
+A notary public who is not a licensed California attorney and advertises notarial services in a language other than English must post with the advertisement both in English and the other language, that the notary public is not an attorney and cannot give legal advice about immigration or any other legal matters. The notary public also must list the statutory fees that a notary public may charge for notarial services. (California Government Code section 8219.5.) In many countries outside the United States, an individual must be a duly licensed attorney before he or she may obtain a notary public commission. In Latin American countries, the phrase "notario publico" implies that the person is a practicing attorney in that country, which is not the law in the State of California. Under California law, a person may be appointed and commissioned as a notary public without being a licensed attorney. Therefore, a notary public
+cannot translate the term "notary public," as "notario publico" or "notario," into Spanish, even if the prescribed notice is posted. (California Government Code section 8219.5.) A first offense for a violation of this law is grounds for the suspension of the notary public's commission for not less than one year, or revocation of a notary public's commission. A second offense is grounds for the permanent revocation of a notary public's commission. (California Government Code section 8219.5.)
 
 #### EXAMPLE
 
-The principal, Paul, wants to have his signature on a document notarized. Paul is in the hospital and cannot appear before a notary public. So Paul asks a long time friend, Sue, to visit the hospital and act as a subscribing witness. When Sue comes to the hospital, Sue must watch Paul sign the document. If Paul has signed the document prior to Sue's arrival, Paul must say (acknowledge) to Sue that Paul signed the document. Then Paul should ask Sue to sign the document as a subscribing witness, and Sue must do so.
+Catherine Consultant is a notary public and has been registered and bonded as a California immigration consultant. Mikhail and Irina visit Catherine to obtain assistance in completing citizenship forms. Catherine's business cards say she is a notary public and an immigration specialist. Catherine enters information into the citizenship forms that Mikhail and Irina provide and enters information she knows from her own experience and education as an immigration consultant. For these combined services Catherine charges Mikhail and Irina \$100.
 
-Next, Sue must take the document to a notary public. Sue chooses Nancy Notary as the notary public. Sue must bring a credible witness with her to see Nancy Notary, the notary public. Sue chooses Carl, a long time friend, as a credible witness because Carl has worked with Nancy Notary for several years. Therefore, Carl can act as Sue's credible witness.
+Catherine has broken a number of laws. She cannot hold herself out as a notary public in her advertising because she is an immigration specialist. Catherine cannot enter information into immigration forms on her own and Catherine cannot charge more than \$15 per person for completing the forms on behalf of her clients. Catherine can charge an additional notary fee for any notarial services, if she limits herself to completing the citizenship forms with only information provided by Mikhail and Irina, but can charge no more than the statutory $\$ 15$ for each signature notarized. The permitted statutory fees are less than the total Catherine charged Mikhail and Irina.
 
-Sue and Carl appear together before Nancy. Nancy determines Nancy personally knows Carl and also examines Carl's California Drivers License to establish Carl's identity. Then Nancy puts Carl under oath. Under oath or affirmation, Carl swears or affirms that Carl personally knows Sue, that Sue is the person who signed the document as a subscribing witness, and Carl does not have a financial interest in the document signed by Paul and subscribed by Sue, and is not named in the document signed by Paul and subscribed by Sue. Then Nancy puts Sue under oath. Under oath, Sue swears or affirms Sue personally knows Paul, that Paul is the person described as a party in the document, that Sue watched Paul sign the document or heard Paul acknowledge that Paul signed the document, that Paul requested Sue sign the document as subscribing witness and that Sue did so.
+### Section 8. Protests
 
-Sue signs Nancy's notary public journal as a subscribing witness. Carl must sign Nancy's notary public journal as a credible witness, or Nancy must record in the journal that Carl presented a California Department of Motor Vehicles driver's license, the license number, and the date the license expires.
+The duty of a notary public on demand to protest the nonacceptance and nonpayment of foreign or inland bills of exchange, or promissory notes is a nearly obsolete mechanism developed before modern regulation of financial transactions. Only those notaries public employed by a financial institution and in the course and scope of that employment are permitted to perform protests with regard to the specific financial documents described by California law. Because only notaries public employed by a financial institution can perform a protest in the course and scope of their employment, no fee is prescribed for the notarial service since it is part of the notary public's service to the financial institution. (California Government Code sections 8205 and 8208; California Commercial Code section 3505.)
 
-Nancy completes Nancy's notary public journal entry. Nancy then completes a proof of execution certificate and attaches the proof of execution certificate to the document. Sue takes the notarized document back to Paul.
+### Section 9. Depositions
 
-![](https://cdn.mathpix.com/snip/images/uUKHSMDMr9zvYFpk4spBm7ZGhi3GVAGEQa-2vdhQvZU.original.fullsize.png)
+When requested, it is a duty of a notary public to take depositions. However, a notary public cannot record and transcribe an oral deposition in shorthand unless the notary public is also a certified shorthand reporter and licensed by the Court Reporters Board of California. A notary public may take an oral deposition by writing it out in longhand or typing it out longhand on an electronic device. This may be awkward and cause confusion or misunderstanding. If a notary public is asked to take a deposition and the notary public is not a certified shorthand reporter, the notary public should inform the person asking the notary public to take the deposition that the notary public can take the deposition by hand in longhand or by typing the deposition in longhand, or the person may wish to contact a certified shorthand reporter to take the deposition.
 
-Page 1
+Generally, a deposition is a method of providing oral or written testimony under oath outside of a court proceeding. (California Civil Code section 14; California Code of Civil Procedure sections 17, 2025.010 et seq., and 2028.010 et seq.) During an oral deposition, a witness, who has been put under oath, answers questions from a judge, attorney, or other officer of a court. In a civil proceeding, a deposition officer, who also is a certified shorthand reporter, can put a witness under oath, and record the oral deposition in shorthand for transcribing the shorthand record into a standard English language verbatim written transcript of the questions, answers and other statements made during the deposition. (California Code of Civil Procedure section 2025.330.) Consequently, although it is a duty of a notary public to take depositions, a notary public is not necessary when a deposition is conducted.
 
-| Date \& Time 1 | Type of <br> Notarization | Character <br> or Type of <br> Instrument | Name of Signer | Identity <br> Established <br> by: | Fee |  |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|  | 4/9/2016 <br> $11: 00 \mathrm{am}$ | Proof of <br> Execution by <br> Subscribing <br> Witness | Interspousal <br> Agreement | Sue Smith <br> (Subscribing <br> Witness) (It is <br> recommended <br> that the name of <br> the signer be <br> printed in this <br> space because <br> the signature is <br> not always <br> legible.) | Carl Creed <br> (Credible <br> Witness) | $\$ 10.00$ |
-|  |  |  |  |  |  |  |
+### Section 10. Confidential Marriages
 
-Note: Effective January 1, 2017, fees which may be charged for certain notarial acts have increased.
-
-| Additional Information | Identification Details | Signature | Thumbprint |  |
-| :---: | :---: | :---: | :---: | :---: |
-| Paul Prince (Principal) (It is <br> recommended that the name of the <br> principal be included) | California Department <br> of Motor Vehicles <br> Drivers License for | X Sue Smith <br> (Subscribing |  |  |
-| $\mathrm{X}$ Carl Creed (Credible Witness <br> signature) | Carl Creed C#####; <br> Expires 3/8/2017 |  |  |  |
-
-### Section 5. Signature by Mark
-
-A person who cannot write his or her name still can acknowledge his or her signature on a document, or subscribe and swear to an affidavit, by making a mark. (California Civil Code section 14.) To perform a notarization with a signature by mark, the notary public still performs the steps required for the appropriate notarial act, such as an acknowledgment or jurat. The notary public must use the appropriate form as well. The notary public must confirm the identity of the person making the mark, by satisfactory evidence. (California Civil Code section 1185.) The notary public also must perform the following additional steps:
-
-- If the signer must acknowledge his or her signature on a document, the signer can make a mark where his or her signature should be in the presence of the notary public or can acknowledge that the mark in the place for a signature is his or her mark. Note that the "mark" does not need to be an "X."
-
-- If the signer is subscribing and swearing to an affidavit, the signer must make a mark where his or her signature should be in the presence of the notary public. Note that the "mark" does not need to be an "X."
-
-- Two witnesses must observe the signer making their mark and must sign their names next to the signer's mark on the document. One of the witnesses must write the name of the signer making the mark next to the signer's mark.
-
-- The signer also must make his or her mark as the required signature in the notary public's journal. The making of the mark in the notary public's journal must be witnessed by a person. The witness must sign his or her name next to the mark and write the name of the signer next to the mark. The notary public can serve as the witness for the signer's journal signature.
-
-The witnesses only are verifying that they witnessed the individual make his or her mark. A notary public is not required to identify the two persons who witnessed the signing by mark or to have the two witnesses sign the notary public's journal. Exception: If the witnesses were acting in the capacity of credible witnesses in establishing the identity of the person signing by mark, then the witnesses' signatures must be entered in the notary public public's journal.
-
-Following are examples of a jurat and journal entry for a signature by mark.
-
-![](https://cdn.mathpix.com/snip/images/zYcMkPbRsQUyUs1WlGXG_MYkkvde90UoQ9geabqmHLE.original.fullsize.png)
-
-Page 1
-
-| Date \& Time | Type of <br> Notarization | Character <br> or Type of <br> Instrument | Name of Signer | Identity <br> Established <br> by: | Fee |  |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| $\mathbf{1}$ | $11 / 11 / 2016$ <br> $11: 30 \mathrm{am}$ | Jurat | Affidavit | Bob Smith (It is <br> recommended <br> that the name of <br> the signer be <br> printed in this <br> space.) | Satisfactory <br> Evidence | $\$ 10.00$ |
-| $\mathbf{2}$ |  |  |  |  |  |  |
-| $\mathbf{3}$ |  |  |  |  |  |  |
-
-Note: Effective January 1, 2017, fees which may be charged for certain notarial acts have increased.
-
-| Additional <br> Information | Identification Details | Signature | Thumbprint |  |
-| :---: | :---: | :---: | :---: | :---: |
-| Signature by mark | California Dept. of Motor <br> Vehicles Drivers License <br> C\#\#\#\#\#\# Expires <br> 10/31/2018 | X $\underline{\text { XBo } 6 \text { Smith }}$ <br> Wendy DeWit, Witness |  | 1 |
-|  |  |  |  | 2 |
-|  |  |  |  |  |
-
-### Section 6. Certifying Copies
-
-A notary public can certify the copies of only a few types of documents. The notary public only can certify copies of:
-
-- Powers of attorney (California Probate Code section 4307; California Government Code section 8205(a)(4)); and
-
-- Copies of his or her sequential journal, or portions of the journal, in response to a written request of the California Secretary of State or a subpoena or court order. (California Government Code sections 8205(b)(1) and 8206(e).)
-
-Certified copies of birth, fetal, death, and marriage records can be made only by the State Registrar, by a duly appointed and acting local registrar during their term of office, and a county recorder.
-
-To certify a copy of a power of attorney, a notary public must:
-
-- Compare the original power of attorney document and the copy to make sure the copy is exactly true and correct, or make a copy of the original of the original power of attorney document;
-
-- Attach a notarial certificate to the copy, stating that the copy is a true and correct copy; and
-
-- Complete a journal entry.
-
-#### a. Certificate
-
-A suggested form of notarial certificate for certifying a copy of a power of attorney is shown below.
-
-![](https://cdn.mathpix.com/snip/images/ivTVWpqxWiLYQKEAAu92CdTk3PyFVCgZdvkAtzDDu5Y.original.fullsize.png)
-
-The first part of the certificate indicating in what county the notary public and person requesting the certified copy are located is the "venue" statement. The venue statement establishes where the notary public performed the certification and where the person requesting the copy appeared before the notary public. The "State" is always California, since the notary public has jurisdiction only within California. The "County" is the county where the certification was performed, that is where the person requesting the certified copy personally appeared before the notary public and presented the original power of attorney for a certified copy. Since a notary public may provide services anywhere within California, the "County" in the venue statement may not necessarily be the county where the notary public maintains his or her principal place of business, or the county where his or her oath and bond are filed, but must be completed with the actual county in which the notarial act took place.
-
-The notary public must insert his or her name and the day, month and year the person requesting the certified copy personally appeared before the notary public and the notary public compared and certified the copy of the power of attorney. Then the notary public must sign and stamp the certificate with their notarial seal.
-
-#### b. Journal Entry
-
-A notary public must record the following details in their sequential journal each time the notary public certifies a copy of a power of attorney. (California Government Code section 8206(a).) Best practices tip: To ensure completeness for a later request for information related to this type of transaction, the notary public should also record the name of the person who is requesting the certified copy, the name of the agent appointed by the power of attorney and the person who signed the power of attorney (the principal).
-
-- Time and date of the act.
-
-- The type of notarial act performed was certifying a copy of a power of attorney.
-
-- The fee charged for the notarial act.
-
-Page 1
-
-| Date & Time | Type of <br> Notarization | Character <br> or Type of <br> Instrument | Name of Signer | Identity <br> Established <br> by: | Fee |  |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| 1 | $5 / 29 / 2016$ <br> $12: 00 \mathrm{pm}$ | Certify Copy of <br> Power of <br> Attorney | Power of <br> Attorney | Peter Price, <br> Principal; Andrew <br> Assister, Agent (It <br> is recommended <br> that this <br> information be <br> captured) |  | $\$ 10.00$ |
-
-Note: Effective January 1, 2017, fees which may be charged for certain notarial acts have increased.
-
-![](https://cdn.mathpix.com/snip/images/bXaOX6uDrn5HXpwwnWV4oEjiq6GeepNX6VdNznihCMQ.original.fullsize.png)
+A notary public who is interested in obtaining authorization to issue confidential marriage licenses may apply to the county clerk for approval in the county in which the notary public resides. A notary public must not issue a confidential marriage license unless he or she is approved by the county clerk having jurisdiction. The county clerk offers a course of instruction, which a notary public must complete before authorization will be granted. Additionally, in order for a notary public to perform the marriage, he/she must be one of the persons authorized under California law, e.g., priest, minister, or rabbi. (California Family Code sections 400 - 402.) The county clerk in the county where the notary public resides may or may not approve the authorization to issue confidential marriage licenses. The county clerk should be consulted if the notary public is interested in obtaining approval. (California Family Code section 530 et seq.)
