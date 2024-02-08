@@ -24,7 +24,29 @@ const QuizPage: React.FC = () => {
   const [timerOn, setTimerOn] = useState<boolean>(false);
   const [highScore, setHighScore] = useState<number[]>([]);
   const [deduct, setDeduct] = useState<boolean>(false);
+  const [lessonContent, setLessonContent] = useState("");
 
+
+  useEffect(() => {
+    const loadLessonContent = async () => {
+      const lessonFileName = `lesson${currentLessonIndex + 1}.md`; // Ensure this matches your file naming
+      try {
+        // Assuming your markdown files are in the public directory under /markdowns
+        const response = await fetch(`/markdowns/${lessonFileName}`);
+        if(response.ok) {
+          const text = await response.text();
+          setLessonContent(text);
+        } else {
+          throw new Error('Failed to fetch lesson content');
+        }
+      } catch (error) {
+        console.error("Failed to load lesson content", error);
+        toast.error("Failed to load lesson content.");
+      }
+    };
+  
+    loadLessonContent();
+  }, [currentLessonIndex]);
 
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
@@ -138,16 +160,22 @@ const QuizPage: React.FC = () => {
             )}
 
 
-            {state === "quiz" && !isViewingLesson && (
-              <Question
-                questionText={questionsData[currentLessonIndex].questions[questionNo].questionText}
-                options={questionsData[currentLessonIndex].questions[questionNo].options}
-                answer={questionsData[currentLessonIndex].questions[questionNo].answer}
-                handleQuestion={handleQuestion}
-                handleScore={handleScore}
-                handleWrongAnswer={handleWrongAnswer}
-              />
-            )}
+            {state === "quiz" && isViewingLesson && (
+                <div className="p-4 max-w-4xl mx-auto">
+                  <h2 className="text-2xl font-bold mb-4">{questionsData[currentLessonIndex].title}</h2>
+                  <div className="rounded-lg border w-full p-4 px-3 md:px-6 focus-within:shadow-sm mb-6 prose">
+                    <ReactMarkdown>{lessonContent}</ReactMarkdown>
+                  </div>
+                  <Button 
+                  className="col-span-12 lg:col-span-2 w-full" 
+                  type="submit" 
+                  size="icon" 
+                  onClick={() => setIsViewingLesson(false)} >
+                    Start Questions
+                  </Button>
+                </div>
+              )}
+
             {state === "highscore" && (
               <HighScores
                 handleState={handleState}
