@@ -13,6 +13,7 @@ import { Heading } from "@/components/heading";
 import { BookOpenCheck } from "lucide-react";
 import questionsData from '@/components/training/questions'; // Assuming this import works correctly
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from "remark-gfm";
 
 const QuizPage: React.FC = () => {
   const [state, setState] = useState<string>("start");
@@ -154,7 +155,7 @@ const QuizPage: React.FC = () => {
               <div className="p-4 max-w-4xl mx-auto">
                 <h2 className="text-2xl font-bold mb-4">{questionsData[currentLessonIndex].title}</h2>
                 <div className="rounded-lg border w-full p-4 px-3 md:px-6 focus-within:shadow-sm mb-6 prose">
-                  <ReactMarkdown className="white-space:pre-wrap">{lessonContent}</ReactMarkdown>
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>{lessonContent}</ReactMarkdown>
                 </div>
                 <Button 
                   className="col-span-12 lg:col-span-2 w-full" 
