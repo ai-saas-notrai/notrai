@@ -144,21 +144,21 @@ const QuizPage: React.FC = () => {
               />
             )}
            {state === "quiz" && isViewingLesson && (
-              <div className="p-4 max-w-4xl mx-auto">
-                <h2 className="text-2xl font-bold mb-4">{questionsData[currentLessonIndex].title}</h2>
-                {lessonContent && (
-                  <div className="rounded-lg border w-full p-4 px-3 md:px-6 focus-within:shadow-sm mb-6 prose">
-                    <ReactMarkdown>{lessonContent}</ReactMarkdown>
-                  </div>
-                )}
-                <Button 
-                  className="col-span-12 lg:col-span-2 w-full" 
-                  type="submit" 
-                  size="icon" 
-                  onClick={() => setIsViewingLesson(false)}>
-                    Start Questions
-                </Button>
-              </div>
+            <div className="p-4 max-w-4xl mx-auto">
+              <h2 className="text-2xl font-bold mb-4">{questionsData[currentLessonIndex].title}</h2>
+              {lessonContent && (
+                <div className="rounded-lg border w-full p-4 px-3 md:px-6 focus-within:shadow-sm mb-6 prose">
+                  <ReactMarkdown>{lessonContent}</ReactMarkdown>
+                </div>
+              )}
+              <Button 
+                className="col-span-12 lg:col-span-2 w-full" 
+                type="submit" 
+                size="icon" 
+                onClick={() => setIsViewingLesson(false)}>
+                  Start Questions
+              </Button>
+            </div>
             )}
 
 
