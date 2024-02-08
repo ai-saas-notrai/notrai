@@ -26,15 +26,16 @@ const QuizPage: React.FC = () => {
   const [deduct, setDeduct] = useState<boolean>(false);
   const [lessonContent, setLessonContent] = useState("");
 
+  
   useEffect(() => {
     if (state === "quiz" && isViewingLesson) {
       const loadLessonContent = async () => {
-        const lessonFileName = `lesson${currentLessonIndex + 1}.html`; // Update the file extension to .html
+        const lessonFileName = `lesson${currentLessonIndex + 1}.md`; // Ensure this matches your file naming
         try {
-          const response = await fetch(`/lessons/${lessonFileName}`); // Assuming your HTML files are in the public directory under /lessons
+          const response = await fetch(`/lessons/${lessonFileName}`);
           if (response.ok) {
-            const htmlContent = await response.text();
-            setLessonContent(htmlContent);
+            const text = await response.text();
+            setLessonContent(text);
           } else {
             throw new Error('Failed to fetch lesson content');
           }
@@ -151,16 +152,18 @@ const QuizPage: React.FC = () => {
             )}
             {state === "quiz" && isViewingLesson && (
               <div className="p-4 max-w-4xl mx-auto">
-              <h2 className="text-2xl font-bold mb-4">{questionsData[currentLessonIndex].title}</h2>
-              <div dangerouslySetInnerHTML={{ __html: lessonContent }} /> 
-              <Button 
-                className="col-span-12 lg:col-span-2 w-full" 
-                type="submit" 
-                size="icon" 
-                onClick={handleStartQuestions}>
-                  Start Questions
-              </Button>
-            </div>
+                <h2 className="text-2xl font-bold mb-4">{questionsData[currentLessonIndex].title}</h2>
+                <div className="rounded-lg border w-full p-4 px-3 md:px-6 focus-within:shadow-sm mb-6 prose">
+                  <ReactMarkdown className="white-space:pre-wrap">{lessonContent}</ReactMarkdown>
+                </div>
+                <Button 
+                  className="col-span-12 lg:col-span-2 w-full" 
+                  type="submit" 
+                  size="icon" 
+                  onClick={handleStartQuestions}>
+                    Start Questions
+                </Button>
+              </div>
             )}
             {state === "quiz" && !isViewingLesson && (
               <Question
