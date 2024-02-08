@@ -1,11 +1,11 @@
 # Chapter I. Obtaining and Managing a Commission
-
+&nbsp;
 ## Part A. Eligibility for Appointment
-
+&nbsp;
 The California Secretary of State appoints notaries public in California. (California Government Code section 8200.) The California Secretary of State may appoint as many notaries public as necessary for the public convenience. (California Government Code section 8200.)
-
+&nbsp;
 To be eligible for appointment, a person must:
-
+&nbsp;
 + Be a California resident at the time of appointment (unless appointed to serve on a military or naval reservation);
 
 + B Be at least 18 years of age;
@@ -15,11 +15,11 @@ To be eligible for appointment, a person must:
 + Pass a written, proctored, closed-book examination; and
 
 + Pass a background check.
-
+&nbsp;
 (California Government Code sections 8201, 8201.1 and 8203.1.)
-
+&nbsp;
 ### Section 1. Residence/Citizenship Requirement
-
+&nbsp;
 Except for notaries public appointed to serve on military and naval reservations, a notary public appointed in California must be a resident of California at the time of appointment. (California Government Code sections 8201(a)(1) and 8203.1.) Similarly, a notary public does not need to be a United States citizen; however, California law requires that a notary public appointed to serve on a military or naval reservation must be a United States citizen. (California Government Code section 8203.1.)
 
 ### Section 2. Age Requirement
