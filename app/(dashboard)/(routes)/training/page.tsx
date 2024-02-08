@@ -26,9 +26,7 @@ const QuizPage: React.FC = () => {
   const [highScore, setHighScore] = useState<number[]>([]);
   const [deduct, setDeduct] = useState<boolean>(false);
   const [lessonContent, setLessonContent] = useState("");
-  const CustomH1 = ({ children }) => (
-    <h1 className="text-3xl font-bold mb-4">{children}</h1>
-  );
+
   
   useEffect(() => {
     if (state === "quiz" && isViewingLesson) {
@@ -157,7 +155,7 @@ const QuizPage: React.FC = () => {
               <div className="p-4 max-w-4xl mx-auto">
                 <h2 className="text-2xl font-bold mb-4">{questionsData[currentLessonIndex].title}</h2>
                 <div className="rounded-lg border w-full p-4 px-3 md:px-6 focus-within:shadow-sm mb-6 prose">
-                  <ReactMarkdown components={{h1:CustomH1,}}>{lessonContent}</ReactMarkdown>
+                  <ReactMarkdown >{lessonContent}</ReactMarkdown>
                 </div>
                 <Button 
                   className="col-span-12 lg:col-span-2 w-full" 
