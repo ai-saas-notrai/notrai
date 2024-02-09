@@ -8,6 +8,8 @@ import { notaryPrompt } from './lib/prompts';
 import { BufferMemory, ChatMessageHistory, BufferWindowMemory } from "langchain/memory";
 import { auth } from "@clerk/nextjs";
 import { HumanMessage, AIMessage } from "langchain/schema";
+import { promises as fs } from 'fs';
+import path from 'path'
 
 // Initialize or load existing chat history
 let memory = new BufferWindowMemory({
@@ -16,6 +18,23 @@ let memory = new BufferWindowMemory({
   returnMessages:true,
   k:5
 });
+
+async function searchLocalMarkdownFiles(query:string, directory:string) {
+  // This function reads Markdown files, processes them, and returns relevant results.
+  // For simplicity, this is a placeholder. Implement according to your needs.
+  const files = await fs.readdir(directory);
+  const markdownFiles = files.filter(file => file.endsWith('.md'));
+  let results = [];
+
+  for (let file of markdownFiles) {
+    const content = await fs.readFile(path.join(directory, file), 'utf8');
+    // Simple example: check if file content contains the query
+    if (content.toLowerCase().includes(query.toLowerCase())) {
+      results.push({ file, snippet: content.substring(0, 100) }); // Example result structure
+    }
+  }
+  return results;
+}
 
 export const queryPineconeVectorStoreAndQueryLLM = async (
   apiKey: string,
@@ -45,7 +64,7 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
   const userState = await fetchUserState();
   const promptTemplate = new PromptTemplate({
     template: notaryPrompt,
-    inputVariables: ['context', 'userState', 'chat_history']
+    inputVariables: ['context', 'userState', 'chat_history', 'knowledge']
   });
 
   const llm = new OpenAI({ temperature: 0.5 });
@@ -74,9 +93,14 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
   
   console.log(`Concatenated Results: ${concatenatedPageContent}...`);
 
+  // Search local Markdown files
+  const lessonDirectory = path.join(process.cwd(), 'public', 'lessons');
+  const knowledge = await searchLocalMarkdownFiles(question, lessonDirectory);
+
   // Format the query using the custom prompt template, including memory content
   const formattedQuestion = await promptTemplate.format({
     context: concatenatedPageContent,
+    knowledge: knowledge,
     userState: userState,
     chat_history: pastMessages,
   });
@@ -103,3 +127,4 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
   console.log(`Answer: ${result.text}`);
   return result.text;
 };
+
