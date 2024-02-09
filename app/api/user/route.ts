@@ -55,6 +55,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         res.status(200).json(userData);
     } catch (error) {
         console.error('[USER_SETTINGS]:', error);
-        return new NextResponse("Internal Error", { status: 500 });
+        // Correctly handle the error using the res object
+        res.status(500).json({ error: "Internal Server Error" });
     }
 }
