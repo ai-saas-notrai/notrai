@@ -47,14 +47,13 @@ const Question = ({
         </div>
         <br />
         <hr />
-        <br />
         {isCorrect === null && (
-          <p className="font-medium text-gray-700">
+          <p style={{ marginBottom: '16px' }} className="font-medium text-gray-700">
             Choose the best answer from the multiple choices.
           </p>
         )}
         {isCorrect !== null && (
-          <p className={`mt-4 font-medium ${isCorrect ? 'text-green-500' : 'text-red-500'}`}>
+          <p style={{ marginBottom: '16px' }} className={`mt-4 font-medium ${isCorrect ? 'text-green-500' : 'text-red-500'}`}>
             {isCorrect ? "Correct!" : `Incorrect! The correct answer is: ${answer}.`}
           </p>
         )}
