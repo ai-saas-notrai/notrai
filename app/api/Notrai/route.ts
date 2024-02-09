@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Search local Markdown files
-    const lessonDirectory = path.join(process.cwd(), 'public', 'lesson');
+    const lessonDirectory = path.join(process.cwd(), 'public', 'lessons');
     const localResults = await searchLocalMarkdownFiles(body.question, lessonDirectory);
 
     // Enhance Pinecone query with local results or perform query as is
