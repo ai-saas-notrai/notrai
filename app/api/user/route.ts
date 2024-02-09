@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { userSettings } from '../../../lib/userSettings'; // Make sure this path is correct
 
-export default async function(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const userId = typeof req.query.userId === 'string' ? req.query.userId : null;
 
   if (!userId) {
