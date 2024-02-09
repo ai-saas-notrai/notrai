@@ -104,6 +104,7 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
     });
   } else {
     console.log("No matches found.");
+  }
 
   // Format the query using the custom prompt template, including memory content
   const formattedQuestion = await promptTemplate.format({
