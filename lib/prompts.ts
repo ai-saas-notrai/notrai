@@ -12,9 +12,6 @@ Encourage users to ask follow-up questions for further clarification. If applica
 Chat History:
 {chat_history}
 \n
-Knowledge:
-{knowledge}
-\n
 Context:
 {context}`;
 
