@@ -74,13 +74,7 @@ identification document, the serial or identifying number on each identification
 
 The following is an example of a completed journal entry for a jurat.
 
-Page 1
-
-|  | Date \& Time | Type of <br> Notarization | Character <br> or Type of <br> Instrument | Name of Signer | Identity <br> Established <br> by: | Fee |
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| $\mathbf{1}$ | 2/12/2015 <br> $10: 30 \mathrm{am}$ | Jurat | Permission <br> to Travel | Jerry Swear (It is <br> recommended <br> that the name of <br> the signer be <br> printed in this <br> space because the <br> signature is not <br> always legible.) | Satisfactory <br> Evidence | $\$ 10.00$ |
-| 2 |  |  |  |  |  |  |
-
+![](https://cdn.mathpix.com/snip/images/LrdI4W9Vakr5IxfH99Zp6kK1gXSmk3l0OE3qwDXdWoU.original.fullsize.png)
 Note: Effective January 1, 2017, fees which may be charged for certain notarial acts have increased.
 
 ![](https://cdn.mathpix.com/cropped/2024_02_06_e520354383442785ca8ag-05.jpg?height=490&width=1705&top_left_y=1495&top_left_x=210)
