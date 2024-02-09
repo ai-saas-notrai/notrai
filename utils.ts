@@ -64,7 +64,7 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
   const userState = await fetchUserState();
   const promptTemplate = new PromptTemplate({
     template: notaryPrompt,
-    inputVariables: ['context', 'userState', 'chat_history']
+    inputVariables: ['context', 'userState', 'chat_history', 'knowledge']
   });
 
   const llm = new OpenAI({ temperature: 0.5 });
