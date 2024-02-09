@@ -60,7 +60,7 @@ const Question = ({
         )}
         {showNextButton && (
           <Button
-            className="col-span-12 lg:col-span-2 w-full" 
+            className="col-span-12 lg:col-span-2 w-full p-4" 
             type="submit" 
             size="icon" 
             onClick={() => {
