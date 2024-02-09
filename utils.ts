@@ -97,15 +97,6 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
   const lessonDirectory = path.join(process.cwd(), 'public', 'lessons');
   const knowledge = await searchLocalMarkdownFiles(question, lessonDirectory);
 
-  if (knowledge.length > 0) {
-    console.log("Search results found:");
-    knowledge.forEach(knowledge => {
-      console.log(`File: ${knowledge.file}, Snippet: ${knowledge.snippet}`);
-    });
-  } else {
-    console.log("No matches found.");
-  }
-
   // Format the query using the custom prompt template, including memory content
   const formattedQuestion = await promptTemplate.format({
     context: concatenatedPageContent,
