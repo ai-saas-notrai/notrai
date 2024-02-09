@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
+import {fire} from "react-canvas-confetti/dist/presets/fireworks";
 
 const AllDone = ({ score, handleHighScore, handleState }) => {
   const [name, setName] = useState("");
   const totalQuestions = 45; // Total questions limited in the quiz
   const maxScore = totalQuestions * 10; // Maximum possible score
   const scorePercentage = (score / maxScore) * 100;
+  const handleFireworks = () => {
+    fire(); // Trigger fireworks effect
+  };
   
 
   return (
@@ -37,6 +41,7 @@ const AllDone = ({ score, handleHighScore, handleState }) => {
             
             handleHighScore({ name: name, score: scorePercentage.toFixed(2) });
             handleState("highscore");
+            handleFireworks();
             
           }}
           disabled={!name} // Disable button if name is not entered
