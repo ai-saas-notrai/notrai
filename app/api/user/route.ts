@@ -1,35 +1,30 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import { userSettings } from '../../../lib/userSettings'; // Make sure this path is correct
+import { withAuth } from "@clerk/nextjs/api";
+import prisma from "@/lib/prismadb"; // Ensure this path matches your project structure
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    const userId = typeof req.query.userId === 'string' ? req.query.userId : null;
-
-  if (!userId) {
-    return res.status(400).json({ error: 'A valid userId is required' });
+export default withAuth(async (req, res) => {
+  if (req.method !== 'GET') {
+    return res.status(405).json({ error: "Method Not Allowed" });
   }
 
   try {
-    if (req.method === 'GET') {
-      // Fetch user settings
-      const result = await userSettings('fetch', userId);
-      res.status(200).json(result);
-    } else if (req.method === 'POST') {
-      // Ensure body exists and is correctly structured for an update
-      const data = req.body;
-      if (!data) {
-        return res.status(400).json({ error: 'Data for update is required' });
-      }
-      // Update user settings
-      const result = await userSettings('update', userId, data);
-      res.status(200).json(result);
-    } else {
-      // If the method is neither GET nor POST
-      res.setHeader('Allow', ['GET', 'POST']);
-      res.status(405).end('Method Not Allowed');
+    // Assuming req.auth.userId could be string | undefined
+    const userId = req.auth.userId || undefined; // Convert null to undefined
+
+    if (!userId) {
+      return res.status(401).json({ error: "Unauthorized: No user ID" });
     }
+
+    const userDetails = await prisma.user.findUnique({
+      where: { userId }, // Now userId is string | undefined, matching Prisma's expectation
+    });
+
+    if (!userDetails) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.status(200).json(userDetails);
   } catch (error) {
-    console.error(error);
-    const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
-    res.status(500).json({ error: 'Internal Server Error', details: errorMessage });
+    console.error("[ERROR]", error);
+    res.status(500).json({ error: "Internal server error", details: error instanceof Error ? error.message : "Unknown error" });
   }
-}
+});
