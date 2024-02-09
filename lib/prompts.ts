@@ -11,6 +11,10 @@ Encourage users to ask follow-up questions for further clarification. If applica
 \n\n
 Chat History:
 {chat_history}
+\n
+Kowledge:
+{knowledge}
+\n
 Context:
 {context}`;
 
