@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { Button } from "../ui/button";
 
 const Question = ({
   questionText,
@@ -10,16 +10,21 @@ const Question = ({
   handleWrongAnswer,
 }) => {
   const [isCorrect, setIsCorrect] = useState(null);
+  const [showNextButton, setShowNextButton] = useState(false); // State to control "Next Question" button display
 
   const handleAnswer = (option) => {
     if (answer === option) {
       setIsCorrect(true);
-      handleScore(prevScore => prevScore + 10);
+      handleScore((prevScore) => prevScore + 10);
+      // If the answer is correct, proceed to the next question without showing the next button
+      handleQuestion(true);
     } else {
       setIsCorrect(false);
       handleWrongAnswer();
+      // If the answer is wrong, show the correct answer and the "Next Question" button
+      setShowNextButton(true);
     }
-    handleQuestion();
+    // Do not immediately move to the next question if the answer is wrong
   };
 
   return (
@@ -50,8 +55,22 @@ const Question = ({
         )}
         {isCorrect !== null && (
           <p className={`mt-4 font-medium ${isCorrect ? 'text-green-500' : 'text-red-500'}`}>
-            {isCorrect ? "Correct!" : "Incorrect!"}
+            {isCorrect ? "Correct!" : `Incorrect! The correct answer is: ${answer}.`}
           </p>
+        )}
+        {showNextButton && (
+          <Button
+            className="col-span-12 lg:col-span-2 w-full" 
+            type="submit" 
+            size="icon" 
+            onClick={() => {
+              setShowNextButton(false); // Hide the button
+              setIsCorrect(null); // Reset the answer correctness state
+              handleQuestion(false); // Move to the next question
+            }}
+          >
+            Next Question
+          </Button>
         )}
       </div>
     </div>
