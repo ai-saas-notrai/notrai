@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import {fire} from "react-canvas-confetti/dist/presets/fireworks";
+import Fireworks from "react-canvas-confetti/dist/presets/fireworks";
+
+
+
 
 const AllDone = ({ score, handleHighScore, handleState }) => {
   const [name, setName] = useState("");
@@ -8,7 +11,7 @@ const AllDone = ({ score, handleHighScore, handleState }) => {
   const maxScore = totalQuestions * 10; // Maximum possible score
   const scorePercentage = (score / maxScore) * 100;
   const handleFireworks = () => {
-    fire(); // Trigger fireworks effect
+    Fireworks(); // Trigger fireworks effect
   };
   
 
