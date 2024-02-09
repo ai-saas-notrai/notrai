@@ -1,7 +1,7 @@
 ### Section 4. Proof of Execution by a Subscribing Witness
 
 If a person, (the "principal"), has signed a document but cannot personally appear before a notary public, another person, (the "subscribing witness"), can appear on the principal's behalf to prove the principal signed (or "executed") the document. (California Code of Civil Procedure section 1935.) This method of proving the person who signed a document is the person described as the signer in it is called a "proof of execution by a subscribing witness," or simply "proof of execution." A proof of execution proves the identity of the principal, i.e., the person who has signed a document. A principal cannot swear to the truth of the contents of a
-document by means of a proof of execution. A proof of execution by a subscribing witness cannot be used in conjunction with any power of attorney, quitclaim deed, grant deed (other than a trustee's deed or deed of reconveyance), mortgage, deed of trust, security agreement, or any instrument affecting real property. Also, a proof of execution by a subscribing witness cannot be used on any document requiring a notary public to obtain a thumbprint from the party signing the document in the notary public’s journal. (California Government Code section 27287;
+document by means of a proof of execution. A proof of execution by a subscribing witness cannot be used in conjunction with any power of attorney, quitclaim deed, grant deed (other than a trustee's deed or deed of reconveyance), mortgage, deed of trust, security agreement, or any instrument affecting real property. Also, a proof of execution by a subscribing witness cannot be used on any document requiring a notary public to obtain a thumbprint from the party signing the document in the notary public’s journal. (California Government Code section 27287;California Civil Code section 1195(b)(1) and (2).)
 
 
 
@@ -82,15 +82,8 @@ A notary public must record in their sequential journal the following details ab
 
 - Fee charged for the notarial act.
 
-Page 1
-
-| Date & Time | Type of <br> Notarization | Character or <br> Type of <br> Instrument | Name of <br> Signer | Identity <br> Established <br> by: | Fee |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| $\mathbf{1}$ | Proof of <br> Execution by <br> Subscribing <br> Witness | Articles of <br> Incorporation | Sam Sub <br> (Subscribing <br> Witness) (It is <br> recommended <br> that the name <br> of the signer <br> be printed in <br> this space <br> because the <br> signature is <br> not always <br> legible.) | Chris Credo <br> (Credible <br> witness) | $\$ 10.00$ |
+![](https://cdn.mathpix.com/snip/images/pLjey1ql_2L0kRnyi05X0Wc13PZBmG_2ff_i7IX5_V8.original.fullsize.png)
 
 Note: Effective January 1, 2017, fees which may be charged for certain notarial acts have increased.
 
-|  |  |  | Page 2 |  |
-| :---: | :---: | :---: | :---: | :---: |
-| Additional <br> Information | Identification Details | Signature | Thumbprint |  |
-| Belinda Busy <br> (Principal) (It is <br> recommended that the <br> name of the principal <br> be included) <br> X Chris Credo <br> (Credible Witness <br> signature) | California Dept. of Motor <br> Vehicles Driver's License <br> for Chris Credo C\#\#\#\#\#\#; <br> Expires 8/8/2019 | X Sam Sub <br> Sam Sub (Subscribing <br> Witness) |  |  |
+![](https://cdn.mathpix.com/snip/images/3ZJj7DRCuoCtijuaV8EYVqjDURLpQoEdwvg1t86Dv6E.original.fullsize.png)

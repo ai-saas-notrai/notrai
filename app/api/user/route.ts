@@ -1,61 +1,31 @@
-// pages/api/users/[userId].js
-
 import { NextApiRequest, NextApiResponse } from 'next';
-import { PrismaClient } from '@prisma/client';
-import { NextResponse } from "next/server";
-
-const prisma = new PrismaClient();
+import { userSettings } from '../../../lib/userSettings';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    if (req.method !== 'GET') {
-        return res.status(405).end('Method Not Allowed');
+    const userId = req.query.userId;
+  
+    // Check if userId is a string; respond with an error if not
+    if (typeof userId !== 'string') {
+      return res.status(400).json({ error: "Invalid userId" });
     }
-
-    const { userId } = req.query;
-
-    if (!userId || typeof userId !== 'string') {
-        return res.status(400).json({ error: 'A valid userId is required' });
-    }
-
+  
     try {
-        // Fetch user basic information
-        const userInfo = await prisma.user.findUnique({
-            where: { userId },
-        });
-
-        // Fetch user subscription details
-        const userSubscription = await prisma.userSubscription.findUnique({
-            where: { userId },
-        });
-
-        // Fetch user API limit
-        const userApiLimit = await prisma.userApiLimit.findUnique({
-            where: { userId },
-        });
-
-        // Fetch user question limit
-        const userQuestionLimit = await prisma.userQuestionLimit.findUnique({
-            where: { userId },
-        });
-
-        // Check if user information is found
-        if (!userInfo) {
-            return res.status(404).json({ error: 'User not found' });
-        }
-
-        // Combine all fetched data into a single object
-        const userData = {
-            userInfo,
-            userSubscription,
-            userApiLimit,
-            userQuestionLimit,
-        };
-
-        // Return the combined user data as JSON
+      if (req.method === 'GET') {
+        const userData = await userSettings('fetch', userId);
         res.status(200).json(userData);
+      } else if (req.method === 'POST') {
+        const data = req.body;
+        const updatedUserData = await userSettings('update', userId, data);
+        res.status(200).json(updatedUserData);
+      } else {
+        res.setHeader('Allow', ['GET', 'POST']);
+        res.status(405).end('Method Not Allowed');
+      }
     } catch (error) {
-        console.error('[USER_SETTINGS]:', error);
-        // Correctly handle the error using the res object
-        res.status(500).json({ error: "Internal Server Error" });
-    }
-}
+        console.error("Error fetching user state:", error);
+        // Asserting error as an instance of the Error class to access its message property
+        res.status(500).json({ error: "Internal server error", details: (error as Error).message });
+      }
+      
+  }
+  

@@ -26,19 +26,11 @@ Nancy completes Nancy's notary public journal entry. Nancy then completes a proo
 
 ![](https://cdn.mathpix.com/snip/images/uUKHSMDMr9zvYFpk4spBm7ZGhi3GVAGEQa-2vdhQvZU.original.fullsize.png)
 
-Page 1
-
-| Date \& Time 1 | Type of <br> Notarization | Character <br> or Type of <br> Instrument | Name of Signer | Identity <br> Established <br> by: | Fee |  |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-|  | 4/9/2016 <br> $11: 00 \mathrm{am}$ | Proof of <br> Execution by <br> Subscribing <br> Witness | Interspousal <br> Agreement | Sue Smith <br> (Subscribing <br> Witness) (It is <br> recommended <br> that the name of <br> the signer be <br> printed in this <br> space because <br> the signature is <br> not always <br> legible.) | Carl Creed <br> (Credible <br> Witness) | $\$ 10.00$ |
-|  |  |  |  |  |  |  |
+![](https://cdn.mathpix.com/snip/images/8nYJtcdBOfkiEWK5F1bd8vNeZyaLf2C-hZ3Gv5WZbKM.original.fullsize.png)
 
 Note: Effective January 1, 2017, fees which may be charged for certain notarial acts have increased.
 
-| Additional Information | Identification Details | Signature | Thumbprint |  |
-| :---: | :---: | :---: | :---: | :---: |
-| Paul Prince (Principal) (It is <br> recommended that the name of the <br> principal be included) | California Department <br> of Motor Vehicles <br> Drivers License for | X Sue Smith <br> (Subscribing |  |  |
-| $\mathrm{X}$ Carl Creed (Credible Witness <br> signature) | Carl Creed C#####; <br> Expires 3/8/2017 |  |  |  |
+![](https://cdn.mathpix.com/snip/images/0zGkIZeI2OD-p5oXkS09eq14Ci8lNMwlTcOpj-YFObE.original.fullsize.png)
 
 ### Section 5. Signature by Mark
 
@@ -58,21 +50,12 @@ Following are examples of a jurat and journal entry for a signature by mark.
 
 ![](https://cdn.mathpix.com/snip/images/zYcMkPbRsQUyUs1WlGXG_MYkkvde90UoQ9geabqmHLE.original.fullsize.png)
 
-Page 1
 
-| Date \& Time | Type of <br> Notarization | Character <br> or Type of <br> Instrument | Name of Signer | Identity <br> Established <br> by: | Fee |  |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| $\mathbf{1}$ | $11 / 11 / 2016$ <br> $11: 30 \mathrm{am}$ | Jurat | Affidavit | Bob Smith (It is <br> recommended <br> that the name of <br> the signer be <br> printed in this <br> space.) | Satisfactory <br> Evidence | $\$ 10.00$ |
-| $\mathbf{2}$ |  |  |  |  |  |  |
-| $\mathbf{3}$ |  |  |  |  |  |  |
+![](https://cdn.mathpix.com/snip/images/N5hBQvH_WoCW_BL2_fJ9lxCbJ_GTyGkUavg3jsrh3qw.original.fullsize.png)
 
 Note: Effective January 1, 2017, fees which may be charged for certain notarial acts have increased.
 
-| Additional <br> Information | Identification Details | Signature | Thumbprint |  |
-| :---: | :---: | :---: | :---: | :---: |
-| Signature by mark | California Dept. of Motor <br> Vehicles Drivers License <br> C\#\#\#\#\#\# Expires <br> 10/31/2018 | X $\underline{\text { XBo } 6 \text { Smith }}$ <br> Wendy DeWit, Witness |  | 1 |
-|  |  |  |  | 2 |
-|  |  |  |  |  |
+![](https://cdn.mathpix.com/snip/images/atgp2gsAxvT6JKKxYV7l57CMm-xo3cRSJzKtDJiY_sA.original.fullsize.png)
 
 ### Section 6. Certifying Copies
 
@@ -112,11 +95,7 @@ A notary public must record the following details in their sequential journal ea
 
 - The fee charged for the notarial act.
 
-Page 1
-
-| Date & Time | Type of <br> Notarization | Character <br> or Type of <br> Instrument | Name of Signer | Identity <br> Established <br> by: | Fee |  |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| 1 | $5 / 29 / 2016$ <br> $12: 00 \mathrm{pm}$ | Certify Copy of <br> Power of <br> Attorney | Power of <br> Attorney | Peter Price, <br> Principal; Andrew <br> Assister, Agent (It <br> is recommended <br> that this <br> information be <br> captured) |  | $\$ 10.00$ |
+![](https://cdn.mathpix.com/snip/images/xvk6CSlKkStSn7Sm0n_pO6WLghzClFK96Z70m3EK3qU.original.fullsize.png)
 
 Note: Effective January 1, 2017, fees which may be charged for certain notarial acts have increased.
 

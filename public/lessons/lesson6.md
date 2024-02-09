@@ -28,19 +28,11 @@ The California Secretary of State does not endorse or recommend any particular c
 
 Most notarial journals provide for recording the details of a transaction across two pages; the record begins on the left and is completed on the facing page. Each page has corresponding numbered lines and the transaction details to be recorded on line 1 of the left page for instance, correspond with transaction details to be recorded on line 1 of the facing page. The following example demonstrates recording the details of a transaction across two pages.
 
-Page 1
-
-|  | Date \& Time | Type of <br> Notarization | Character <br> or Type of <br> Instrument | Name of Signer | Identity <br> Established <br> by: | Fee |
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| 1 | 10/7/2016 <br> 10:00 am | Acknowledgment | Grant Deed | Grant Grantor (It <br> is recommended <br> that the name of <br> the signer be <br> printed in this <br> space because the <br> signature is not <br> always legible.) | Satisfactory <br> Evidence | $\$ 10.00$ |
-| 2 |  |  |  |  |  |  |
+![](https://cdn.mathpix.com/snip/images/7Nx_wEHgipU-Y28CyL5DBuFx9X7Ifq_B_NDnr8yUr5k.original.fullsize.png)
 
 Note: Effective January 1, 2017, fees which may be charged for certain notarial acts have increased.
 
-| Additional <br> Information | Identification Details | Signature | Thumbprint |  |
-| :--- | :--- | :--- | :--- | :--- |
-| Doc dated 10/6 but <br> acknowledged signing <br> on 10/7 | California Dept of Motor <br> Vehicles California <br> Driver's License N\#\#\#\#\#\#, <br> exp. 1-12-2018 | X Grant Grantor |  |  |
-|  |  |  | $\mathbf{1}$ |  |
+![](https://cdn.mathpix.com/snip/images/_hryhhwQcG2k9cCiHL1jGe4JMJ2JfAR9dPeuc2Sm9l0.original.fullsize.png)
 
 #### d. Certificate of Acknowledgment
 
