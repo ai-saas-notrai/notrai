@@ -6,7 +6,6 @@ import Fireworks from "react-canvas-confetti/dist/presets/fireworks";
 
 const AllDone = ({ score, handleHighScore, handleState }) => {
   const [name, setName] = useState(""); // This will also serve as the fileID
-  const [selectedState, setSelectedState] = useState('');
   const totalQuestions = 45; // Total questions limited in the quiz
   const maxScore = totalQuestions * 10; // Maximum possible score
   const scorePercentage = (score / maxScore) * 100;
@@ -17,11 +16,11 @@ const AllDone = ({ score, handleHighScore, handleState }) => {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post('/api/updateUser', {
-        state: selectedState,
+      await axios.post('/api/updateUser', {
+        state: 'California', // Assuming 'California' is a fixed value for all submissions
         fileID: name, // Using name as fileID
-        six_hour_course: true,
-        three_hour_course:false
+        six_hour_course: true, // Assuming the user has completed a 6-hour course
+        three_hour_course: false // Assuming the user has not completed a 3-hour course
       });
       toast.success("Information updated successfully!");
       handleFireworks();
@@ -53,7 +52,7 @@ const AllDone = ({ score, handleHighScore, handleState }) => {
           type="submit" 
           size="icon"
           onClick={handleSubmit}
-          disabled={!name || !selectedState} // Disable button if name or state is not entered
+          disabled={!name} // Updated: Disable button if name is not entered
         >
           Submit
         </Button>
