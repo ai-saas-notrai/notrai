@@ -23,8 +23,8 @@ model UserSubscription {
   stripeSubscriptionId   String?   @unique @map(name: "stripe_subscription_id")
   stripePriceId          String?   @map(name: "stripe_price_id")
   stripeCurrentPeriodEnd DateTime? @map(name: "stripe_current_period_end")
-  6hexam_complete        Boolean?  @default(false) 
-  3hexam_complete        Boolean?  @default(false)  
+  six_hour_exam          Boolean?  @default(false) 
+  three_hour_exam        Boolean?  @default(false)  
 }
 
 model user {
