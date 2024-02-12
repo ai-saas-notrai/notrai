@@ -21,7 +21,7 @@ const QuizPage: React.FC = () => {
   const [isViewingLesson, setIsViewingLesson] = useState<boolean>(true);
   const [questionNo, setQuestionNo] = useState<number>(0);
   const [score, setScore] = useState<number>(0);
-  const [time, setTime] = useState<number>(3600000); // Example: 1 hour for the quiz
+  const [time, setTime] = useState<number>(5000); // Example: 1 hour for the quiz
   const [timerOn, setTimerOn] = useState<boolean>(false);
   const [highScore, setHighScore] = useState<number[]>([]);
   const [deduct, setDeduct] = useState<boolean>(false);
@@ -102,7 +102,7 @@ const QuizPage: React.FC = () => {
     setIsViewingLesson(true);
     setQuestionNo(0);
     setScore(0);
-    setTime(50000);
+    setTime(3600000);
     setTimerOn(false);
   };
 
