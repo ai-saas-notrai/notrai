@@ -38,7 +38,7 @@ const QuizPage: React.FC = () => {
   const [state, setState] = useState<string>("start");
   const [questionNo, setQuestionNo] = useState<number>(0);
   const [score, setScore] = useState<number>(0);
-  const [time, setTime] = useState<number>(3600000);
+  const [time, setTime] = useState<number>(50000);
   const [timerOn, setTimerOn] = useState<boolean>(false);
   const [highScore, setHighScore] = useState<number[]>([]);
   const [deduct, setDeduct] = useState(false);
