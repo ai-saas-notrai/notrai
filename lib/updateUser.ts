@@ -1,7 +1,7 @@
 import { auth } from "@clerk/nextjs";
 import prismadb from "@/lib/prismadb";
 
-export const updateUserInfo = async (newState:string, fileID:string) => {
+export const updateUserInfo = async (newState:string, fileID:string, six_hour_exam:boolean, three_hour_exam:boolean) => {
   const { userId } = auth();
 
   if (!userId) {
@@ -18,12 +18,12 @@ export const updateUserInfo = async (newState:string, fileID:string) => {
       // Update the existing user record with the new state and fileID
       await prismadb.user.update({
         where: { userId: userId },
-        data: { state: newState, fileID: fileID },
+        data: { state: newState, fileID: fileID, six_hour_exam:six_hour_exam, three_hour_exam:three_hour_exam },
       });
     } else {
       // Create a new user record with the state and fileID
       await prismadb.user.create({
-        data: { userId: userId, state: newState, fileID: fileID },
+        data: { userId: userId, state: newState, fileID: fileID, six_hour_exam:six_hour_exam, three_hour_exam:three_hour_exam },
       });
     }
   } catch (error) {
