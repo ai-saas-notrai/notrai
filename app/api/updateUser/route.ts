@@ -5,10 +5,10 @@ export async function POST(req: Request) {
   try {
     // Parsing the request body
     const body = await req.json();
-    const { state, fileID } = body;
+    const { state, fileID, six_hour_exam, three_hour_exam } = body;
 
     // Call the updateUserInfo function
-    await updateUserInfo(state, fileID);
+    await updateUserInfo(state, fileID,six_hour_exam,three_hour_exam);
 
     // Return a successful response
     return new NextResponse(JSON.stringify({ message: 'User updated successfully' }), {
