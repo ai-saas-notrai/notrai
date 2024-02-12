@@ -102,7 +102,7 @@ const QuizPage: React.FC = () => {
     setIsViewingLesson(true);
     setQuestionNo(0);
     setScore(0);
-    setTime(3600000);
+    setTime(50000);
     setTimerOn(false);
   };
 
