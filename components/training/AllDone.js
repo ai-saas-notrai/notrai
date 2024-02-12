@@ -17,8 +17,8 @@ const AllDone = ({ score, handleHighScore, handleState }) => {
       await axios.post('/api/updateUser', {
         state: 'California', // Assuming 'California' is a fixed value for all submissions
         fileID: name, // Using name as fileID
-        six_hour_course: true, // Assuming the user has completed a 6-hour course
-        three_hour_course: false // Assuming the user has not completed a 3-hour course
+        six_hour_exam: true, // Assuming the user has completed a 6-hour course
+        three_hour_exam: false // Assuming the user has not completed a 3-hour course
       });
       toast.success("Information updated successfully!");
       handleFireworks();
