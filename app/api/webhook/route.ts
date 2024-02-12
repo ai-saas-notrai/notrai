@@ -4,6 +4,7 @@ import { NextResponse } from "next/server"
 
 import prismadb from "@/lib/prismadb"
 import { stripe } from "@/lib/stripe"
+import { Email } from "@clerk/nextjs/dist/types/server"
 
 export async function POST(req: Request) {
   const body = await req.text()
@@ -40,6 +41,7 @@ export async function POST(req: Request) {
         stripePriceId: subscription.items.data[0].price.id,
         stripeCurrentPeriodEnd: new Date(
           subscription.current_period_end * 1000
+        
         ),
       },
     })

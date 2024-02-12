@@ -4,28 +4,28 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const testimonials = [
   {
-    name: "Joel",
-    avatar: "J",
-    title: "Software Engineer",
-    description: "This is the best application I've ever used!",
+    "name": "Joel",
+    "avatar": "J",
+    "title": "Aspiring Notary",
+    "description": "This notary app was instrumental in helping me pass the notary exam! Its user-friendly interface and comprehensive study materials made studying a breeze."
   },
   {
-    name: "Antonio",
-    avatar: "A",
-    title: "Designer",
-    description: "I use this daily for generating new photos!",
+    "name": "Antonio",
+    "avatar": "A",
+    "title": "Notary Exam Candidate",
+    "description": "I've been using this notary app daily to prepare for the notary exam, and I can honestly say it played a crucial role in my success. The practice quizzes were especially helpful!"
   },
   {
-    name: "Mark",
-    avatar: "M",
-    title: "CEO",
-    description: "This app has changed my life, cannot imagine working without it!",
+    "name": "Mark",
+    "avatar": "M",
+    "title": "Newly Certified Notary",
+    "description": "This app has changed my approach to studying and ultimately helped me pass the notary exam. I can't imagine having achieved this without it!"
   },
   {
-    name: "Mary",
-    avatar: "M",
-    title: "CFO",
-    description: "The best in class, definitely worth the premium subscription!",
+    "name": "Mary",
+    "avatar": "M",
+    "title": "Professional Notary",
+    "description": "The best notary preparation app available, hands down. The premium subscription was definitely worth it for the extra features and content that helped me ace the exam."
   },
 ];
 
