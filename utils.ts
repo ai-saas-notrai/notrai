@@ -3,7 +3,7 @@ import { loadQAStuffChain } from 'langchain/chains';
 import { Document } from '@langchain/core/documents';
 import { Pinecone } from '@pinecone-database/pinecone';
 import { PromptTemplate } from '@langchain/core/prompts';
-import { fetchUserState } from '@/lib/fetchUserState';
+//import { fetchUserState } from '@/lib/fetchUserState';
 import { notaryPrompt } from './lib/prompts';
 import { BufferMemory, ChatMessageHistory, BufferWindowMemory } from "langchain/memory";
 import { auth } from "@clerk/nextjs";
@@ -42,7 +42,7 @@ export const queryPineconeVectorStoreAndQueryLLM = async (
   console.log(`Found ${queryResponse.matches.length} matches...`);
   console.log(`Asking question: ${question}...`);
 
-  const userState = await fetchUserState();
+  const userState = 'California';
   const promptTemplate = new PromptTemplate({
     template: notaryPrompt,
     inputVariables: ['context', 'userState', 'chat_history']

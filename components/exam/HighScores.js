@@ -8,7 +8,7 @@ const HighScores = ({ handleState, highScore, handleClearHighScore, handleReset 
     <div className="flex flex-col justify-center items-center h-screen bg-gray-50">
       <div className="mx-auto px-8 py-16 md:px-12 md:py-20 bg-white shadow-lg rounded-xl border border-gray-200" style={{ borderRadius: '30px', paddingTop: "20px", paddingBottom: "20px", paddingRight: "100px", paddingLeft: "100px" }}>
         <h1 className="text-2xl md:text-3xl font-bold text-gray-900 text-center mb-6" style={{paddingBottom: "20px"}}>
-          Highscores
+          Exam Preparation Scores
         </h1>
         {sortedList.map((entry, index) => (
           <p key={index} className="text-md text-gray-700 font-medium mb-4 text-center">
@@ -36,7 +36,7 @@ const HighScores = ({ handleState, highScore, handleClearHighScore, handleReset 
             size="icon"
             onClick={handleClearHighScore}
           >
-            Clear Highscores
+            Clear Scores
           </Button>
         </div>
       </div>
