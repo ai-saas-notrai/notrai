@@ -154,7 +154,7 @@ const QuizPage: React.FC = () => {
             {state === "quiz" && isViewingLesson && (
               <div className="p-4 max-w-4xl mx-auto">
                 <h2 className="text-2xl font-bold mb-4">{questionsData[currentLessonIndex].title}</h2>
-                <div className="mx-auto px-8 py-16 md:px-12 md:py-20 bg-white shadow-lg rounded-xl border border-gray-200"
+                <div className="rounded-lg border w-full p-4 px-3 md:px-6 focus-within:shadow-sm mb-6 prose"
                 style={{ maxHeight: '500px', overflowY: 'auto' }}>
                   <ReactMarkdown >{lessonContent}</ReactMarkdown>
                 </div>
